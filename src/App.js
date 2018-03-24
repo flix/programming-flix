@@ -103,6 +103,12 @@ class Section3 extends React.Component {
             <Paper className="section" elevation={4}>
                 <h3>Section III: Data Types</h3>
 
+                <h4>Enumerated Types</h4>
+
+                <h4>Recursive Types</h4>
+
+                <h4>Polymorphic Types</h4>
+
             </Paper>
         )
     }

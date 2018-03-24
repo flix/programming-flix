@@ -15,17 +15,28 @@ import 'brace/theme/xcode'
 
 const SocketAddress = 'ws://localhost:8085';
 
-let websocket;
-
 class App extends React.Component {
+
+    state = {
+        websocket: new window.WebSocket(SocketAddress)
+    };
+
+    runProgram = (src, f) => {
+        this.state.websocket.onmessage = event => {
+            const data = JSON.parse(event.data);
+            f(data);
+        };
+
+        this.state.websocket.send(src);
+    };
 
     render() {
         return (
             <div id="page">
                 <h1>Programming Flix</h1>
-                <Section1/>
-                <Section2/>
-                <Section3/>
+                <Section1 runProgram={this.runProgram}/>
+                <Section2 runProgram={this.runProgram}/>
+                <Section3 runProgram={this.runProgram}/>
             </div>
         );
     }
@@ -42,10 +53,9 @@ class Section1 extends React.Component {
 
                 <p> Here is an example of how to add two numbers: </p>
 
-                <Editor>
+                <Editor runProgram={this.props.runProgram}>
                     def f(): Int = 42 + 21
                 </Editor>
-
 
             </Paper>
         )
@@ -70,13 +80,13 @@ class Section2 extends React.Component {
 
                 <p> We can construct the empty list of integer as follows: </p>
 
-                <Editor>
+                <Editor runProgram={this.props.runProgram}>
                     def f(): List[Int] = Nil
                 </Editor>
 
                 <p> And we can construct a list with the integers 1, 2, and 3 as follows: </p>
 
-                <Editor>
+                <Editor runProgram={this.props.runProgram}>
                     def f(): List[Int] = 1 :: 2 :: 3 :: Nil
                 </Editor>
 
@@ -85,7 +95,7 @@ class Section2 extends React.Component {
                     strings <Code>"Hello"</Code> and <Code>"World"</Code>:
                 </p>
 
-                <Editor>
+                <Editor runProgram={this.props.runProgram}>
                     def f(): List[Str] = "Hello" :: "World" :: Nil
                 </Editor>
 
@@ -126,23 +136,29 @@ class Code extends React.Component {
 
 class Editor extends React.Component {
     state = {
-        input: this.props.src || this.props.children,
+        input: this.props.children,
         output: undefined,
         waiting: false
     };
 
-    componentDidMount() {
-        websocket = new window.WebSocket(SocketAddress);
-        websocket.onmessage = event => {
-            this.setState({waiting: false, output: JSON.parse(event.data)})
-        }
-    }
-
-    handleSendMessage = _.debounce(1000, () => {
+    run = () => {
         this.setState({waiting: true}, () => {
-            websocket.send(this.state.input)
+            const src = this.state.input;
+            this.props.runProgram(src, data =>
+                this.setState({waiting: false, output: data})
+            );
         })
-    });
+    };
+
+    onChange = input => {
+        this.setState({input}, () =>
+            _.debounce(1000, () => this.run())
+        );
+    };
+
+    onClick = () => {
+        this.run();
+    };
 
     resultBox = () => {
         if (!this.state.output) {
@@ -169,7 +185,7 @@ class Editor extends React.Component {
                                     showGutter={false}
                                     showPrintMargin={false}
                                     highlightActiveLine={false}
-                                    onChange={input => this.setState({input}, this.handleSendMessage)}
+                                    onChange={this.onChange}
                                     value={this.state.input}
                                     editorProps={{$blockScrolling: true}}/>
                                 {this.state.waiting && <LinearProgress/>}
@@ -177,7 +193,7 @@ class Editor extends React.Component {
                             </Grid>
 
                             <Grid item xs={2}>
-                                <Button onClick={this.handleSendMessage}>Run</Button>
+                                <Button onClick={this.onClick}>Run</Button>
                             </Grid>
                         </Grid>
                         {this.resultBox()}

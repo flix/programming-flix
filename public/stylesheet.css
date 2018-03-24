@@ -1,0 +1,30 @@
+#page {
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
+.section {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    margin-bottom: 60px;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto", sans-serif;
+}
+
+#brace-editor.ace_editor {
+    font: 14px/normal "Roboto Mono", monospace;
+}
+
+.ace_cursor {
+    /*display: none;*/
+}

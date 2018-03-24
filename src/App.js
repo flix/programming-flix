@@ -128,6 +128,15 @@ class Section3 extends React.Component {
 
                 <h4>Enumerated Types</h4>
 
+                <Editor runProgram={this.props.runProgram} lines={5}>
+                    {`enum Color {
+    case Red,
+    case Blue
+}
+
+def f(): Color = Red`}
+                </Editor>
+
                 <h4>Recursive Types</h4>
 
                 <h4>Polymorphic Types</h4>
@@ -183,6 +192,8 @@ class Editor extends React.Component {
         }
     };
 
+    getHeight = () => (this.props.lines || 1) * 23;
+
     render() {
         return (
             <div>
@@ -192,7 +203,7 @@ class Editor extends React.Component {
                             <Grid item xs={10}>
 
                                 <AceEditor
-                                    style={{width: '100%', height: '30px'}}
+                                    style={{width: '100%', height: this.getHeight() + 'px'}}
                                     mode='scala'
                                     theme='xcode'
                                     showGutter={false}

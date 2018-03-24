@@ -99,6 +99,19 @@ class Section2 extends React.Component {
                     def f(): List[Str] = "Hello" :: "World" :: Nil
                 </Editor>
 
+                <p>Given a list there are many useful operations we can perform on it.</p>
+
+                <p>For example, we can compute the length of the list as follows:</p>
+
+                <Editor runProgram={this.props.runProgram}>
+                    def f(): Int = List.length(1 :: 2 :: 3 :: Nil)
+                </Editor>
+
+                <p>We can also reverse the order of elements in the list:</p>
+
+                <Editor runProgram={this.props.runProgram}>
+                    def f(): List[Int] = List.reverse(1 :: 2 :: 3 :: Nil)
+                </Editor>
 
             </Paper>
         )
@@ -150,10 +163,10 @@ class Editor extends React.Component {
         })
     };
 
+    debounced = _.debounce(1000, this.run);
+
     onChange = input => {
-        this.setState({input}, () =>
-            _.debounce(1000, () => this.run())
-        );
+        this.setState({input}, this.debounced);
     };
 
     onClick = () => {

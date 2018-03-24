@@ -116,6 +116,24 @@ class Section2 extends React.Component {
                     def f(): List[Int] = List.reverse(1 :: 2 :: 3 :: Nil)
                 </Editor>
 
+                <p>We can append to lists using the <Code>List.append</Code> function as follows:</p>
+
+                <Editor runProgram={this.props.runProgram} lines={4}>
+                    {`def f(): List[Int] =
+    let xs = (1 :: 2 :: 3 :: Nil);
+    let ys = (4 :: 5 :: 6 :: Nil);
+        List.append(xs, ys)`}
+                </Editor>
+
+                <p>Or, alternatively, we can use the built-in append operator <Code>:::</Code> as follows:</p>
+
+                <Editor runProgram={this.props.runProgram} lines={4}>
+                    {`def f(): List[Int] =
+    let xs = (1 :: 2 :: 3 :: Nil);
+    let ys = (4 :: 5 :: 6 :: Nil);
+        xs ::: ys`}
+                </Editor>
+
             </div>
         )
     }

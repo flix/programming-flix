@@ -5,8 +5,11 @@ import AceEditor from 'react-ace'
 import Card, {CardContent} from 'material-ui/Card'
 import Grid from 'material-ui/Grid';
 import {LinearProgress} from 'material-ui/Progress'
-import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
+import PlayArrowIcon from 'material-ui-icons/PlayArrow';
+import SubdirectoryArrowRight from 'material-ui-icons/SubdirectoryArrowRight';
+import Collapse from 'material-ui/transitions/Collapse';
+import Fade from 'material-ui/transitions/Fade';
 
 
 import 'brace/mode/scala'
@@ -46,8 +49,8 @@ class Section1 extends React.Component {
 
     render() {
         return (
-            <Paper className="section" elevation={4}>
-                <h3>Section I: Introduction to Flix</h3>
+            <div className="section">
+                <h3>I. Introduction to Flix</h3>
 
                 Flix is a functional programming language inspired by Scala, OCaml, and Haskell.
 
@@ -57,7 +60,7 @@ class Section1 extends React.Component {
                     def f(): Int = 42 + 21
                 </Editor>
 
-            </Paper>
+            </div>
         )
     }
 
@@ -67,8 +70,8 @@ class Section2 extends React.Component {
 
     render() {
         return (
-            <Paper className="section" elevation={4}>
-                <h3>Section II: Programming with Lists</h3>
+            <div className="section">
+                <h3>II. Programming with Lists</h3>
 
                 <p>
                     The bread and butter of functional programming is list processing. A list is either the empty list,
@@ -113,7 +116,7 @@ class Section2 extends React.Component {
                     def f(): List[Int] = List.reverse(1 :: 2 :: 3 :: Nil)
                 </Editor>
 
-            </Paper>
+            </div>
         )
     }
 
@@ -123,8 +126,8 @@ class Section3 extends React.Component {
 
     render() {
         return (
-            <Paper className="section" elevation={4}>
-                <h3>Section III: Data Types</h3>
+            <div className="section">
+                <h3>III. Data Types</h3>
 
                 <h4>Enumerated Types</h4>
 
@@ -141,7 +144,7 @@ def f(): Color = Red`}
 
                 <h4>Polymorphic Types</h4>
 
-            </Paper>
+            </div>
         )
     }
 
@@ -184,11 +187,14 @@ class Editor extends React.Component {
 
     resultBox = () => {
         if (!this.state.output) {
-            return <div/>
+            return undefined;
         } else {
-            return <div>
-                {this.state.output.status}, {this.state.output.result}, {this.state.output.message}
-            </div>
+            // {this.state.output.status}, {this.state.output.result}, {this.state.output.message}
+            return (
+                <Collapse in={true}>
+                    <SubdirectoryArrowRight />
+                    {this.state.output.result}
+                </Collapse>);
         }
     };
 
@@ -217,7 +223,10 @@ class Editor extends React.Component {
                             </Grid>
 
                             <Grid item xs={2}>
-                                <Button onClick={this.onClick}>Run</Button>
+                                <Button onClick={this.onClick}>
+                                    Run
+                                    <PlayArrowIcon/>
+                                </Button>
                             </Grid>
                         </Grid>
                         {this.resultBox()}

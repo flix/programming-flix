@@ -13,8 +13,14 @@
     margin-bottom: 60px;
 }
 
+.code {
+    font-family: "Roboto Mono", monospace;
+    color: #1178d4;
+}
+
 body {
     font-family: "Roboto", sans-serif;
+    line-height: 1.5em;
 }
 
 h1, h2, h3, h4, h5, h6 {

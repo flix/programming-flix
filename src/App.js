@@ -57,14 +57,37 @@ class Section2 extends React.Component {
 
     render() {
         return (
-            <Paper className="section"  elevation={4}>
+            <Paper className="section" elevation={4}>
                 <h3>Section II: Programming with Lists</h3>
 
+                <p>
+                    The bread and butter of functional programming is list processing. A list is either the empty list,
+                    written as <Code>Nil</Code>, or a cons cell, written as <Code>x :: xs</Code> where <Code>x</Code> is
+                    the head element and <Code>xs</Code> is the tail of the list. List is a polymorphic type so that you
+                    can have a list of integers, written as <Code>List[Int]</Code>, or a list of strings written
+                    as <Code>List[Str]</Code>.
+                </p>
 
+                <p> We can construct the empty list of integer as follows: </p>
 
-                <p> And here is how to construct a list of integers: </p>
+                <Editor>
+                    def f(): List[Int] = Nil
+                </Editor>
 
-                <Editor src="def f(): List[Int] = 1 :: 2 :: Nil"/>
+                <p> And we can construct a list with the integers 1, 2, and 3 as follows: </p>
+
+                <Editor>
+                    def f(): List[Int] = 1 :: 2 :: 3 :: Nil
+                </Editor>
+
+                <p>
+                    We can also construct a list of strings with the
+                    strings <Code>"Hello"</Code> and <Code>"World"</Code>:
+                </p>
+
+                <Editor>
+                    def f(): List[Str] = "Hello" :: "World" :: Nil
+                </Editor>
 
 
             </Paper>
@@ -84,6 +107,15 @@ class Section3 extends React.Component {
         )
     }
 
+}
+
+
+class Code extends React.Component {
+    render() {
+        return (
+            <span className="code">{this.props.children}</span>
+        )
+    }
 }
 
 class Editor extends React.Component {
@@ -122,7 +154,7 @@ class Editor extends React.Component {
                 <Card>
                     <CardContent>
                         <Grid container>
-                            <Grid item xs={6}>
+                            <Grid item xs={10}>
 
                                 <AceEditor
                                     style={{width: '100%', height: '30px'}}
@@ -138,7 +170,7 @@ class Editor extends React.Component {
 
                             </Grid>
 
-                            <Grid item xs={6}>
+                            <Grid item xs={2}>
                                 <Button onClick={this.handleSendMessage}>Run</Button>
                             </Grid>
                         </Grid>

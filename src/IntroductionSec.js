@@ -97,13 +97,13 @@ class IntroductionSec extends React.Component {
                     </TableBody>
                 </Table>
 
-                <p>Note: <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is shorthand for
+                <p><i>Note:</i> <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is shorthand for
                     <Code>Int32</Code>. <Code>Float64</Code> and <Code>Int32</Code> values can be written without
                     suffix, i.e. <Code>123.0f64</Code> can simply be written as <Code>123.0</Code> and
                     <Code>123i32</Code> can be written as <Code>123</Code>.
                 </p>
 
-                <p>Note: There is on-going debate whether to remove <Code>Int8</Code> and <Code>Int16</Code> as these
+                <p><i>Design Note:</i> There is on-going debate whether to remove <Code>Int8</Code> and <Code>Int16</Code> as these
                     are not currently supported by WebAssembly (which we may hope one day to have as a backend).</p>
 
                 <h4>The Unit Value</h4>
@@ -114,6 +114,11 @@ class IntroductionSec extends React.Component {
                 <Editor runProgram={this.props.runProgram}>
                     def f(): Unit = ()
                 </Editor>
+
+                <h4>Primitive Operations</h4>
+
+
+
 
                 <h3>Control-Structures</h3>
 

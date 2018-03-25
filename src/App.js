@@ -5,6 +5,7 @@ import Code from './Code';
 import Editor from './Editor';
 
 import IntroductionSec from './IntroductionSec';
+import DataTypes from './DataTypes';
 
 
 const SocketAddress = 'ws://localhost:8085';
@@ -31,7 +32,7 @@ class App extends React.Component {
                 <WelcomeSec runProgram={this.runProgram}/>
                 <IntroductionSec runProgram={this.runProgram}/>
                 <Section2 runProgram={this.runProgram}/>
-                <Section3 runProgram={this.runProgram}/>
+                <DataTypes runProgram={this.runProgram}/>
             </div>
         );
     }
@@ -116,34 +117,6 @@ class Section2 extends React.Component {
     let ys = (4 :: 5 :: 6 :: Nil);
         xs ::: ys`}
                 </Editor>
-
-            </div>
-        )
-    }
-
-}
-
-class Section3 extends React.Component {
-
-    render() {
-        return (
-            <div className="section">
-                <h3>III. Data Types</h3>
-
-                <h4>Enumerated Types</h4>
-
-                <Editor runProgram={this.props.runProgram} lines={5}>
-                    {`enum Color {
-    case Red,
-    case Blue
-}
-
-def f(): Color = Red`}
-                </Editor>
-
-                <h4>Recursive Types</h4>
-
-                <h4>Polymorphic Types</h4>
 
             </div>
         )

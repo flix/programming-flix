@@ -10,15 +10,7 @@ import PlayArrowIcon from 'material-ui-icons/PlayArrow';
 import SubdirectoryArrowRight from 'material-ui-icons/SubdirectoryArrowRight';
 import Collapse from 'material-ui/transitions/Collapse';
 
-import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-} from 'material-ui/Table';
-
+import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
 
 import 'brace/mode/scala'
 import 'brace/theme/crimson_editor'
@@ -44,8 +36,9 @@ class App extends React.Component {
     render() {
         return (
             <div id="page">
-                <h1>Programming Flix</h1>
-                <Section1 runProgram={this.runProgram}/>
+                <div className="title">Programming Flix</div>
+                <WelcomeSec runProgram={this.runProgram}/>
+                <IntroductionSec runProgram={this.runProgram}/>
                 <Section2 runProgram={this.runProgram}/>
                 <Section3 runProgram={this.runProgram}/>
             </div>
@@ -53,22 +46,72 @@ class App extends React.Component {
     }
 }
 
-class Section1 extends React.Component {
+class WelcomeSec extends React.Component {
+    render() {
+        return (
+            <div className="section">
+                Welcome to this interactive tutorial for the <a href="http://flix.github.io/">Flix</a> programming
+                language!
+            </div>)
+    }
+}
+
+class IntroductionSec extends React.Component {
 
     render() {
         return (
             <div className="section">
-                <h2>I. Introduction to Flix</h2>
+                <h2>Introduction to Flix</h2>
 
-                Flix is a functional programming language inspired by Scala, OCaml, and Haskell.
+                Flix is a functional programming language inspired by Scala, OCaml and Haskell. The syntax of Flix will
+                be familiar to Scala programmers, whereas the type system is more similar to OCaml or Haskell. Flix
+                also adopts features from other languages: From Rust, Eff, and Koka, Flix takes ideas for dealing with
+                resources and effects. From Go, Flix takes ideas for Go routines and channels.
 
-                <p> Here is an example of how to add two numbers: </p>
+                <p> Here is a small taste of Flix: </p>
 
-                <Editor runProgram={this.props.runProgram}>
-                    def f(): Int = 42 + 21
+                <Editor runProgram={this.props.runProgram} lines={3}>
+                    {`def f(): Bool = List.range(1, 100) |>
+    List.map(x -> x * 2) |>
+    List.exists(x -> x == 88)`}
                 </Editor>
 
                 <h3>Primitive Types</h3>
+
+                Flix comes with a range of built-in primitive types mostly adapted from those already available on the
+                Java Virtual Machine. The table below lists the currently implemented primitive types and their syntax:
+
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Primitive Type</TableCell>
+                            <TableCell>Syntax</TableCell>
+                            <TableCell>Description</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>Unit</TableCell>
+                            <TableCell><Code>()</Code></TableCell>
+                            <TableCell>The unit value.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Bool</TableCell>
+                            <TableCell><Code>true</Code>, <Code>false</Code></TableCell>
+                            <TableCell>A boolean value.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Char</TableCell>
+                            <TableCell><Code>'a'</Code>, <Code>'b'</Code>, <Code>'c'</Code></TableCell>
+                            <TableCell>A character value.</TableCell>
+                        </TableRow>
+
+                    </TableBody>
+                </Table>
+
+
+                <h3>Control-Structures</h3>
+
 
             </div>
         )
@@ -220,7 +263,7 @@ class Editor extends React.Component {
             // {this.state.output.status}, {this.state.output.result}, {this.state.output.message}
             return (
                 <Collapse in={true}>
-                    <SubdirectoryArrowRight />
+                    <SubdirectoryArrowRight/>
                     {this.state.output.result}
                 </Collapse>);
         }

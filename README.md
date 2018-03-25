@@ -1,2 +1,3 @@
-# programming-flix
-A tutorial for programming in Flix
+# Programming Flix
+
+An interactive tutorial for writing Flix programs.

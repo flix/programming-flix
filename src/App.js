@@ -9,7 +9,15 @@ import Button from 'material-ui/Button';
 import PlayArrowIcon from 'material-ui-icons/PlayArrow';
 import SubdirectoryArrowRight from 'material-ui-icons/SubdirectoryArrowRight';
 import Collapse from 'material-ui/transitions/Collapse';
-import Fade from 'material-ui/transitions/Fade';
+
+import {
+    Table,
+    TableBody,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
+    TableRowColumn,
+} from 'material-ui/Table';
 
 
 import 'brace/mode/scala'
@@ -50,7 +58,7 @@ class Section1 extends React.Component {
     render() {
         return (
             <div className="section">
-                <h3>I. Introduction to Flix</h3>
+                <h2>I. Introduction to Flix</h2>
 
                 Flix is a functional programming language inspired by Scala, OCaml, and Haskell.
 
@@ -59,6 +67,8 @@ class Section1 extends React.Component {
                 <Editor runProgram={this.props.runProgram}>
                     def f(): Int = 42 + 21
                 </Editor>
+
+                <h3>Primitive Types</h3>
 
             </div>
         )

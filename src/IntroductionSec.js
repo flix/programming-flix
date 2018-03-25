@@ -55,16 +55,56 @@ class IntroductionSec extends React.Component {
                             <TableCell>A character value.</TableCell>
                         </TableRow>
                         <TableRow>
+                            <TableCell>Float32</TableCell>
+                            <TableCell><Code>0.0f32</Code>, <Code>21.42f32</Code>, <Code>-21.42f32</Code></TableCell>
+                            <TableCell>A 32-bit floating point integer.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Float64</TableCell>
+                            <TableCell><Code>0.0f64</Code>, <Code>21.42f64</Code>, <Code>-21.42f64</Code></TableCell>
+                            <TableCell>A 64-bit floating point integer.</TableCell>
+                        </TableRow>
+                        <TableRow>
                             <TableCell>Int8</TableCell>
                             <TableCell><Code>0i8</Code>, <Code>1i8</Code>, <Code>-1i8</Code>, <Code>127i8</Code>, <Code>-128i8</Code></TableCell>
                             <TableCell>A signed 8-bit integer.</TableCell>
                         </TableRow>
-
+                        <TableRow>
+                            <TableCell>Int16</TableCell>
+                            <TableCell><Code>0i16</Code>, <Code>123i16</Code>, <Code>-123i16</Code></TableCell>
+                            <TableCell>A signed 16-bit integer.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Int32</TableCell>
+                            <TableCell><Code>0i32</Code>, <Code>123i32</Code>, <Code>-123i32</Code></TableCell>
+                            <TableCell>A signed 32-bit integer.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Int64</TableCell>
+                            <TableCell><Code>0i64</Code>, <Code>123i64</Code>, <Code>-123i64</Code></TableCell>
+                            <TableCell>A signed 64-bit integer.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>Str</TableCell>
+                            <TableCell><Code>"hello"</Code>, <Code>"world"</Code></TableCell>
+                            <TableCell>A string value.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>BigInt</TableCell>
+                            <TableCell><Code>0ii</Code>, <Code>123ii</Code>, <Code>-123ii</Code></TableCell>
+                            <TableCell>An arbitrary precision integer.</TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
 
-                NB: There is on-going debate whether to remove <Code>Int8</Code> and <Code>Int16</Code> as these are not
-                currently supported by WebAssembly (which we may hope one day to have as a backend).
+                <p>Note: <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is shorthand for
+                    <Code>Int32</Code>. <Code>Float64</Code> and <Code>Int32</Code> values can be written without
+                    suffix, i.e. <Code>123.0f64</Code> can simply be written as <Code>123.0</Code> and
+                    <Code>123i32</Code> can be written as <Code>123</Code>.
+                </p>
+
+                <p>Note: There is on-going debate whether to remove <Code>Int8</Code> and <Code>Int16</Code> as these
+                    are not currently supported by WebAssembly (which we may hope one day to have as a backend).</p>
 
                 <h4>The Unit Value</h4>
 

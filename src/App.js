@@ -105,10 +105,26 @@ class IntroductionSec extends React.Component {
                             <TableCell><Code>'a'</Code>, <Code>'b'</Code>, <Code>'c'</Code></TableCell>
                             <TableCell>A character value.</TableCell>
                         </TableRow>
+                        <TableRow>
+                            <TableCell>Int8</TableCell>
+                            <TableCell><Code>0i8</Code>, <Code>1i8</Code>, <Code>-1i8</Code>, <Code>127i8</Code>, <Code>-128i8</Code></TableCell>
+                            <TableCell>A signed 8-bit integer.</TableCell>
+                        </TableRow>
 
                     </TableBody>
                 </Table>
 
+                NB: There is on-going debate whether to remove <Code>Int8</Code> and <Code>Int16</Code> as these are not
+                currently supported by WebAssembly (which we may hope one day to have as a backend).
+
+                <h4>The Unit Value</h4>
+
+                The Unit value, written as <Code>()</Code>, is typically whenever no value of interested is needed.
+                For example, here is a function that returns the unit value:
+
+                <Editor runProgram={this.props.runProgram}>
+                    def f(): Unit = ()
+                </Editor>
 
                 <h3>Control-Structures</h3>
 

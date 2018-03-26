@@ -176,7 +176,7 @@ class IntroductionSec extends React.Component {
                     <Code>Int16</Code> as these
                     are not currently supported by WebAssembly (which we may hope one day to have as a backend).</p>
 
-                <h4>The Unit Value</h4>
+                <h4>Unit</h4>
 
                 The Unit value, written as <Code>()</Code>, is typically whenever no value of interested is needed.
                 For example, here is a function that returns the unit value:
@@ -185,7 +185,29 @@ class IntroductionSec extends React.Component {
                     def f(): Unit = ()
                 </Editor>
 
-                <h4>Primitive Operations</h4>
+                <h4>Booleans</h4>
+
+                The <Code>Bool</Code> type has the two values <Code>true</Code> and <Code>false</Code>:
+
+                <Editor runProgram={this.props.runProgram} lines={2}>
+                    {`def t(): Bool = true
+def f(): Bool = false`}
+                </Editor>
+
+                Booleans supports the usual operators:
+
+                <Editor runProgram={this.props.runProgram} lines={3}>
+                    {`def not(x: Bool): Bool = !x
+def and(x: Bool, y: Bool): Bool = x && y
+def or(x: Bool, y: Bool): Bool = x || y`}
+                </Editor>
+
+                <h4>Characters</h4>
+
+                <h4>The Floats: Float32 and Float64</h4>
+
+                <h4>The Integers: Int8, Int16, Int32, and Int64</h4>
+
 
 
                 <h3>Control-Structures</h3>

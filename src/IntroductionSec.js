@@ -12,18 +12,86 @@ class IntroductionSec extends React.Component {
             <div className="section">
                 <h2>Introduction to Flix</h2>
 
-                Flix is a functional programming language inspired by Scala, OCaml and Haskell. The syntax of Flix will
-                be familiar to Scala programmers, whereas the type system is more similar to OCaml or Haskell. Flix
-                also adopts features from other languages: From Rust, Eff, and Koka, Flix takes ideas for dealing with
-                resources and effects. From Go, Flix takes ideas for Go routines and channels.
+                <p>
+                    Flix is a functional programming language inspired by Scala, OCaml and Haskell. The syntax of Flix
+                    will
+                    be familiar to Scala programmers, whereas the type system is more similar to OCaml or Haskell. Flix
+                    also adopts features from other languages: From Rust, Eff, and Koka, Flix takes ideas for dealing
+                    with
+                    resources and effects. From Go, Flix takes ideas for Go routines and channels.
+                </p>
 
-                <p> Here is a small taste of Flix: </p>
+                <p>
+                    Flix includes an experimental Datalog engine extended with user-defined lattices and monotone
+                    functions.
+                    This Datalog extension is the subject of on-going research. This tutorial only concerns the
+                    functional
+                    language of Flix. For the logic language, the reader is referred to recent research papers.
+                </p>
+
+                <p> Here is an example Flix program to show the flavour: </p>
 
                 <Editor runProgram={this.props.runProgram} lines={3}>
                     {`def f(): Bool = List.range(1, 100) |>
     List.map(x -> x * 2) |>
     List.exists(x -> x == 88)`}
                 </Editor>
+
+
+                <h3>Flix in Five Minutes</h3>
+
+                <p>
+                    Flix is a statically-typed functional programming language. The type system is based on
+                    Hindley-Milner
+                    which supports full type inference. Flix, as a design choices, forces the programmer to specify
+                    types of
+                    top-level definitions. Flix is a strict call-by-value language. Flix currently targets the JVM, but
+                    support for other targets are planned. Scope in Flix is lexical.
+                </p>
+
+
+                <p>Flix comes with a small standard library. The standard library is inspired by Scala and Haskell and
+                    mostly concerns collections.</p>
+
+                <p>Flix is currently under heavy development, but early adopters are encouraged to try out the language
+                    and contribute their experiences.</p>
+
+                <p>Flix is open source and freely available under the Apache 2.0 license</p>
+
+
+                <h3>Language Design</h3>
+
+                <p>
+                    Flix, by design, omits certain features considered to be undesirable by the language designers.
+                    Specifically, Flix does not, and likely will not support:
+                </p>
+
+
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell width={"25%"}>Feature</TableCell>
+                            <TableCell>Rationale for Omission</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell><b>Null Values</b></TableCell>
+                            <TableCell>Widely considered a design mistake by other contemporary languages. Easily leads
+                                to <Code>NullPointerExceptions</Code> all over the code. Use <Code>Option</Code>
+                                instead.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell><b>Sub-Typing</b></TableCell>
+                            <TableCell>Interferes with Hindley-Milner type inference.</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell><b>Implicit Coercions</b></TableCell>
+                            <TableCell>Automatic coercions between primitive types easily leads to subtle
+                                bugs.</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
 
                 <h3>Primitive Types</h3>
 
@@ -97,13 +165,15 @@ class IntroductionSec extends React.Component {
                     </TableBody>
                 </Table>
 
-                <p><i>Note:</i> <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is shorthand for
+                <p><i>Note:</i> <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is
+                    shorthand for
                     <Code>Int32</Code>. <Code>Float64</Code> and <Code>Int32</Code> values can be written without
                     suffix, i.e. <Code>123.0f64</Code> can simply be written as <Code>123.0</Code> and
                     <Code>123i32</Code> can be written as <Code>123</Code>.
                 </p>
 
-                <p><i>Design Note:</i> There is on-going debate whether to remove <Code>Int8</Code> and <Code>Int16</Code> as these
+                <p><i>Design Note:</i> There is on-going debate whether to remove <Code>Int8</Code> and
+                    <Code>Int16</Code> as these
                     are not currently supported by WebAssembly (which we may hope one day to have as a backend).</p>
 
                 <h4>The Unit Value</h4>
@@ -116,8 +186,6 @@ class IntroductionSec extends React.Component {
                 </Editor>
 
                 <h4>Primitive Operations</h4>
-
-
 
 
                 <h3>Control-Structures</h3>

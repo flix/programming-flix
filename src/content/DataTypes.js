@@ -26,16 +26,58 @@ class DataTypes extends React.Component {
                     and so forth.
                 </p>
 
-                <p>For example, here is how to define an enum for the three colors: red, green, and blue:</p>
+                <p>For example, here we can define an enumeration type for the weekdays:</p>
 
-                <Editor runProgram={this.props.runProgram} main={false} lines={5}>
-                    {`enum Color {
-    case Red,
-    case Green,
-    case Blue
+                <Editor runProgram={this.props.runProgram} main={false} lines={9}>
+                    {`enum Weekday {
+    case Monday,
+    case Tuesday,
+    case Wednesday,
+    case Thursday,
+    case Friday,
+    case Saturday,
+    case Sunday
 }`}
                 </Editor>
 
+                <p>
+                    Here <Code>Monday</Code>, <Code>Tuesday</Code> and so on are referred to as
+                    the <i>constructors</i> of the enum.
+                </p>
+
+                <p>
+                    We can now refer to a weekday either as <Code>Monday</Code> or <Code>Weekday.Monday</Code> if we
+                    want to specific about what enum we are referring to or if we have multiple enums with same
+                    constructor.
+                </p>
+
+                <p>We can use pattern matching to inspect an enum. For example:</p>
+
+                <Editor runProgram={this.props.runProgram} main={false} lines={13}>
+                    {`enum Animal {
+    case Cat,
+    case Dog,
+    case Giraffe
+}
+
+def isTall(a: Animal): Bool = match a with {
+    case Cat        => false
+    case Dog        => false
+    case Giraffe    => true
+}
+
+def f(): Bool = isTall(Giraffe)`}
+                </Editor>
+
+                <p>
+                    The function <Code>isTall</Code> takes a value of type <Code>Animal</Code> and performs a pattern
+                    match on it. If the value is <Code>Giraffe</Code> the function returns <Code>true</Code>. Otherwise
+                    it returns <Code>false</Code>.
+                </p>
+
+                <p>
+                    Flix guarantees that such pattern matches are exhaustive, i.e. that all cases have been covered.
+                </p>
 
 
                 <h2>Recursive Types</h2>

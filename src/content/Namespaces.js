@@ -1,6 +1,8 @@
 import React from 'react'
 import Code from "../components/Code";
 import Editor from "../components/Editor";
+import PlannedFeature from "../components/PlannedFeature";
+import DesignNote from "../components/DesignNote";
 
 class Namespaces extends React.Component {
 
@@ -11,7 +13,8 @@ class Namespaces extends React.Component {
 
                 <p>
                     Flix supports a simple namespace mechanism similar to packages allowing definitions and types to
-                    share the same names provided that they belong to different namespaces. By default, every
+                    share the same names provided that they belong to different namespaces. Namespaces are not modules,
+                    classes, or modules. By default, every
                     declaration is the root namespace. We can use the <Code>namespace</Code> keyword to organize
                     definitions and types. Namespaces must be uppercase. For example <Code>List</Code> is a valid
                     namespace. To access a member of a namespace, we use the dot, e.g. <Code>List.map</Code> refers to
@@ -42,10 +45,14 @@ def f(): Int = A.one() + B.two()`}
                     the <Code>pub</Code> access modifier.
                 </p>
 
-                <p>
-                    <i>Design Note:</i>
-                </p>
+                <DesignNote>
+                    ...
+                </DesignNote>
 
+                <PlannedFeature>
+                    Flix currently has no way to import names from a namespace into a more local
+                    scope, but that feature is planned.
+                </PlannedFeature>
 
             </section>
         )

@@ -26,6 +26,16 @@
     padding-left: 1.5em;
 }
 
+.planned-feature {
+  /*  background-color: #f6fcff;
+    padding: 0.2em 0.5em; */
+}
+
+.design-note {
+  /*  background-color: #f9f6ff;
+    padding: 0.2em 0.5em; */
+}
+
 body {
     font-family: "Roboto", sans-serif;
 }

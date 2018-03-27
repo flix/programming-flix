@@ -9,7 +9,7 @@ class Introduction extends React.Component {
 
     render() {
         return (
-            <div className="section">
+            <section>
                 <h1>Introduction to Flix</h1>
 
                 <p>
@@ -218,7 +218,7 @@ def or(x: Bool, y: Bool): Bool = x || y`}
                 <h3>Control-Structures</h3>
 
 
-            </div>
+            </section>
         )
     }
 

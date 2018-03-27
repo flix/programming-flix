@@ -30,7 +30,6 @@ namespace B {
     pub def two(): Int = 2
 }
 
-
 def f(): Int = A.one() + B.two()`}
                 </Editor>
 
@@ -43,7 +42,9 @@ def f(): Int = A.one() + B.two()`}
                     the <Code>pub</Code> access modifier.
                 </p>
 
-
+                <p>
+                    <i>Design Note:</i>
+                </p>
 
 
             </section>

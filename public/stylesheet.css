@@ -2,18 +2,28 @@
     margin-left: auto;
     margin-right: auto;
     width: 50em;
+    margin-top: 2em;
 }
 
 .title {
     font-size: 5em;
     text-align: center;
     font-family: "Playfair", serif;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.4em;
 }
 
 .code {
     font-family: "Roboto Mono", monospace;
     color: #1178d4;
+}
+
+.editor {
+    background-color: #fff9f2;
+
+    margin-top: 1.3em;
+    margin-bottom: 1.3em;
+
+    padding-left: 1.5em;
 }
 
 body {
@@ -31,11 +41,17 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
     font-size: 2em;
-    border-bottom: 0.05em solid gainsboro;
+    font-weight: normal;
+    border-bottom: 0.02em solid gainsboro;
 }
 
 h2 {
+    font-weight: normal;
     margin-top: 1.5em;
+}
+
+h3 {
+    margin-top: 1.2em;
 }
 
 p {
@@ -44,6 +60,7 @@ p {
 
 #brace-editor.ace_editor {
     font: 14px/normal "Roboto Mono", monospace;
+    background-color: inherit;
 }
 
 .ace_cursor {

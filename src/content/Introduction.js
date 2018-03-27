@@ -10,7 +10,7 @@ class Introduction extends React.Component {
     render() {
         return (
             <div className="section">
-                <h2>Introduction to Flix</h2>
+                <h1>Introduction to Flix</h1>
 
                 <p>
                     Flix is a functional programming language inspired by Scala, OCaml and Haskell. The syntax of Flix
@@ -38,7 +38,7 @@ class Introduction extends React.Component {
                 </Editor>
 
 
-                <h3>Flix in Five Minutes</h3>
+                <h2>Flix in Five Minutes</h2>
 
                 <p>
                     Flix is a statically-typed functional programming language. The type system is based on
@@ -93,7 +93,7 @@ class Introduction extends React.Component {
                     </TableBody>
                 </Table>
 
-                <h3>Primitive Types</h3>
+                <h2>Primitive Types</h2>
 
                 Flix comes with a range of built-in primitive types mostly adapted from those already available on the
                 Java Virtual Machine. The table below lists the currently implemented primitive types and their syntax:
@@ -176,25 +176,31 @@ class Introduction extends React.Component {
                     <Code>Int16</Code> as these
                     are not currently supported by WebAssembly (which we may hope one day to have as a backend).</p>
 
-                <h4>Unit</h4>
+                <h3>Unit</h3>
 
-                The Unit value, written as <Code>()</Code>, is typically whenever no value of interested is needed.
-                For example, here is a function that returns the unit value:
+                <p>
+                    The Unit value, written as <Code>()</Code>, is typically whenever no value of interested is needed.
+                    For example, here is a function that returns the unit value:
+                </p>
 
                 <Editor runProgram={this.props.runProgram}>
                     def f(): Unit = ()
                 </Editor>
 
-                <h4>Booleans</h4>
+                <h3>Booleans</h3>
 
-                The <Code>Bool</Code> type has the two values <Code>true</Code> and <Code>false</Code>:
+                <p>
+                    The <Code>Bool</Code> type has the two values <Code>true</Code> and <Code>false</Code>:
+                </p>
 
                 <Editor runProgram={this.props.runProgram} lines={2}>
                     {`def t(): Bool = true
 def f(): Bool = false`}
                 </Editor>
 
-                Booleans supports the usual operators:
+                <p>
+                    Booleans supports the usual operators:
+                </p>
 
                 <Editor runProgram={this.props.runProgram} lines={3}>
                     {`def not(x: Bool): Bool = !x
@@ -202,12 +208,11 @@ def and(x: Bool, y: Bool): Bool = x && y
 def or(x: Bool, y: Bool): Bool = x || y`}
                 </Editor>
 
-                <h4>Characters</h4>
+                <h3>Characters</h3>
 
-                <h4>The Floats: Float32 and Float64</h4>
+                <h3>The Floats: Float32 and Float64</h3>
 
-                <h4>The Integers: Int8, Int16, Int32, and Int64</h4>
-
+                <h3>The Integers: Int8, Int16, Int32, and Int64</h3>
 
 
                 <h3>Control-Structures</h3>

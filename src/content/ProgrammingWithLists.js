@@ -7,8 +7,8 @@ class ProgrammingWithLists extends React.Component {
 
     render() {
         return (
-            <div className="section">
-                <h3>II. Programming with Lists</h3>
+            <section>
+                <h1>Programming with Lists</h1>
 
                 <p>
                     The bread and butter of functional programming is list processing. A list is either the empty list,
@@ -71,7 +71,7 @@ class ProgrammingWithLists extends React.Component {
         xs ::: ys`}
                 </Editor>
 
-            </div>
+            </section>
         )
     }
 

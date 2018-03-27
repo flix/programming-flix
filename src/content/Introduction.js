@@ -2,10 +2,10 @@ import React from 'react'
 
 import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
 
-import Code from './Code';
-import Editor from './Editor';
+import Code from '../components/Code';
+import Editor from '../components/Editor';
 
-class IntroductionSec extends React.Component {
+class Introduction extends React.Component {
 
     render() {
         return (
@@ -219,4 +219,4 @@ def or(x: Bool, y: Bool): Bool = x || y`}
 
 }
 
-export default IntroductionSec
+export default Introduction

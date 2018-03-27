@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Code from './Code';
-import Editor from './Editor';
+import Code from '../components/Code';
+import Editor from '../components/Editor';
 
 class DataTypes extends React.Component {
 

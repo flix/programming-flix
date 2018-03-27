@@ -28,7 +28,7 @@ class DataTypes extends React.Component {
 
                 <p>For example, here is how to define an enum for the three colors: red, green, and blue:</p>
 
-                <Editor runProgram={this.props.runProgram} lines={5}>
+                <Editor runProgram={this.props.runProgram} main={false} lines={5}>
                     {`enum Color {
     case Red,
     case Green,

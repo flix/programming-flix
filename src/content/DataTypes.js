@@ -82,7 +82,55 @@ def f(): Bool = isTall(Giraffe)`}
 
                 <h2>Recursive Types</h2>
 
+                <p>
+                    Recursive types are used to define types that are self-referential. For example, we can define a
+                    a binary tree of integers as follows:
+                </p>
+
+                <Editor runProgram={this.props.runProgram} main={false} lines={4}>
+                    {`enum Tree {
+    case Leaf(Int),
+    case Node(Tree, Tree)
+}`}
+                </Editor>
+
+                <p>
+                    A tree is either a <Code>Leaf</Code> carrying an integer value or an
+                    internal <Code>Node</Code> carrying the left and right sub-tree. Notice that the definition
+                    of <Code>Tree</Code> refers to itself.
+                </p>
+
+                <p>
+                    We can write a function, using pattern matching, to compute the sum of all integers in such as tree:
+                </p>
+
+                <Editor runProgram={this.props.runProgram} main={false} lines={11}>
+                    {`enum Tree {
+    case Leaf(Int),
+    case Node(Tree, Tree)
+}
+
+def sum(t: Tree): Int = match t with {
+    case Leaf(x)    => x
+    case Node(l, r) => sum(l) + sum(r)
+}
+
+def f(): Int = sum(Node(Leaf(1), Node(Leaf(2), Leaf(3))))`}
+                </Editor>
+
+                <p>
+                    The function <Code>sum</Code> pattern matches on a tree an either returns the integer value (if it
+                    is a leaf) or recurse on the two sub-trees adding their results.
+                </p>
+
+                <p>
+                    Note: This function is not tail recursive, but it can be rewritten to be.
+                </p>
+
                 <h2>Polymorphic Types</h2>
+
+
+
 
             </section>
         )

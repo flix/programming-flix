@@ -37,7 +37,6 @@ class Introduction extends React.Component {
     List.exists(x -> x == 88)`}
                 </Editor>
 
-
                 <h2>Flix in Five Minutes</h2>
 
                 <p>
@@ -210,13 +209,26 @@ def or(x: Bool, y: Bool): Bool = x || y`}
 
                 <h3>Characters</h3>
 
+                <p>
+                    The <Code>Char</Code> type has values such as <Code>'a'</Code>, <Code>'b'</Code>, and so on:
+                </p>
+
+                <Editor runProgram={this.props.runProgram} lines={2}>
+                    {`def a(): Char = 'a'
+def b(): Char = 'b'`}
+                </Editor>
+
                 <h3>The Floats: Float32 and Float64</h3>
 
+                The floating point numbers come in 32-bit and 64-bit variants.
+
+                <Editor runProgram={this.props.runProgram} lines={3}>
+                    {`def f(): Float32 = 123.0f32
+def g(): Float64 = 123.0f64
+def h(): Float = 123.0`}
+                </Editor>
+
                 <h3>The Integers: Int8, Int16, Int32, and Int64</h3>
-
-
-                <h3>Control-Structures</h3>
-
 
             </section>
         )

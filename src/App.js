@@ -5,6 +5,7 @@ import Introduction from './content/Introduction';
 import ProgrammingWithLists from './content/ProgrammingWithLists';
 import DataTypes from './content/DataTypes';
 import Namespaces from './content/Namespaces';
+import Functions from "./content/Functions";
 
 
 const SocketAddress = 'ws://localhost:8085';
@@ -38,6 +39,7 @@ class App extends React.Component {
                 <div className="title">Programming Flix</div>
                 <Welcome runProgram={this.runProgram}/>
                 <Introduction runProgram={this.runProgram}/>
+                <Functions runProgram={this.runProgram}/>
                 <ProgrammingWithLists runProgram={this.runProgram}/>
                 <DataTypes runProgram={this.runProgram}/>
                 <Namespaces runProgram={this.runProgram}/>

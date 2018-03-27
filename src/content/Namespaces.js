@@ -45,13 +45,46 @@ def f(): Int = A.one() + B.two()`}
                     the <Code>pub</Code> access modifier.
                 </p>
 
+                <p>
+                    We can nest namespaces as follows:
+                </p>
+
+                <Editor runProgram={this.props.runProgram} lines={9}>
+                    {`namespace A {
+    namespace B {
+        namespace C {
+            pub def one(): Int = 1
+        }
+    }
+}
+
+def f(): Int = A/B/C.one()`}
+                </Editor>
+
+                <p>
+                    This is equivalent to the simpler and preferred style:
+                </p>
+
+                <Editor runProgram={this.props.runProgram} lines={5}>
+                    {`namespace A/B/C {
+    pub def one(): Int = 1
+}
+
+def f(): Int = A/B/C.one()`}
+                </Editor>
+
+                <p>
+                    It is considered good style to have source files followed the same structure as the namespace
+                    structure.
+                </p>
+
                 <DesignNote>
-                    ...
+                    We made declarations non-public by default to help programmers make conscious decisions about what
+                    declarations should be part of the public API of a namespace.
                 </DesignNote>
 
                 <PlannedFeature>
-                    Flix currently has no way to import names from a namespace into a more local
-                    scope, but that feature is planned.
+                    Flix does not currently support any import mechanism. This feature is planned.
                 </PlannedFeature>
 
             </section>

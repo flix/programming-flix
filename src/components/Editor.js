@@ -43,12 +43,18 @@ class Editor extends React.Component {
         if (!this.state.output) {
             return undefined;
         } else {
-            // {this.state.output.status}, {this.state.output.result}, {this.state.output.message}
-            return (
-                <Collapse in={true}>
-                    <SubdirectoryArrowRight/>
-                    {this.state.output.result}
-                </Collapse>);
+            if (this.state.output.status === "success") {
+                return (
+                    <Collapse in={true}>
+                        <SubdirectoryArrowRight/>
+                        {this.state.output.result}
+                    </Collapse>);
+            } else {
+                return (
+                    <Collapse in={true}>
+                        {this.state.output.message}
+                    </Collapse>);
+            }
         }
     };
 

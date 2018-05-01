@@ -10,10 +10,12 @@
     "react": "16.2.0",
     "react-ace": "5.9.0",
     "react-dom": "16.2.0",
+    "react-newline-to-break": "^1.0.6",
     "react-scripts": "1.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
-  }
+  },
+  "homepage": "http://flix.github.io/programming-flix"
 }

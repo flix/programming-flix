@@ -1,6 +1,8 @@
 import React from 'react'
 import _ from 'lodash/fp'
 
+import nl2br from 'react-newline-to-break';
+
 import AceEditor from 'react-ace'
 import Grid from 'material-ui/Grid';
 import {LinearProgress} from 'material-ui/Progress'
@@ -22,7 +24,12 @@ class Editor extends React.Component {
 
     run = () => {
         this.setState({waiting: true}, () => {
-            const src = this.state.input;
+            var src = this.state.input;
+
+            if (this.props.main === "none") {
+                src += "\ndef f(): Unit = ()"
+            }
+
             this.props.runProgram(src, data =>
                 this.setState({waiting: false, output: data})
             );
@@ -52,7 +59,7 @@ class Editor extends React.Component {
             } else {
                 return (
                     <Collapse in={true}>
-                        {this.state.output.message}
+                        {nl2br(this.state.output.message)}
                     </Collapse>);
             }
         }

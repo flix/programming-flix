@@ -56,7 +56,7 @@ class Editor extends Component {
                 return (
                     <Card body outline color="success" className="mt-2">
                         <CardText>
-                            Main returned: <code>{this.state.output.result}</code>
+                            <div className="editor-result">{this.state.output.result}</div>
                         </CardText>
                     </Card>);
             } else {
@@ -94,8 +94,8 @@ class Editor extends Component {
                     </div>
 
                     <ButtonGroup>
-                        <Button color="primary" outline className="btn-xs" onClick={this.onRunClick}>Run Main</Button>
-                        <Button color="secondary" outline className="btn-xs" onClick={this.onResetClick}>Reset</Button>
+                        <Button color="secondary" size="sm" outline className="btn-xs" onClick={this.onRunClick}>Run Main</Button>
+                        <Button color="secondary" size="sm" outline className="btn-xs" onClick={this.onResetClick}>Reset</Button>
                     </ButtonGroup>
                 </div>
                 {this.resultBox()}

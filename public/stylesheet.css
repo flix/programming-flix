@@ -17,23 +17,34 @@
     color: #1178d4;
 }
 
+.editor-frame {
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
 .editor {
     background-color: #fff9f2;
 
     margin-top: 1.3em;
     margin-bottom: 1.3em;
 
-    padding: 1.5em 1em;
+    padding: 1em 1.5em;
+}
+
+.editor-result {
+    font-family: monospace;
+    padding: 1em 1.5em;
+    border: 1px solid #cccccc;
 }
 
 .planned-feature {
-  /*  background-color: #f6fcff;
-    padding: 0.2em 0.5em; */
+    /*  background-color: #f6fcff;
+      padding: 0.2em 0.5em; */
 }
 
 .design-note {
-  /*  background-color: #f9f6ff;
-    padding: 0.2em 0.5em; */
+    /*  background-color: #f9f6ff;
+      padding: 0.2em 0.5em; */
 }
 
 body {

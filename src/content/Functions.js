@@ -16,7 +16,7 @@ class Functions extends React.Component {
 
                 <Editor flix={this.props.flix}>
                     {`def inc(x: Int): Int = x + 1
-def f(): Int = inc(42)`}
+def main(): Int = inc(42)`}
                 </Editor>
 
                 <p>
@@ -40,7 +40,7 @@ def f(): Int = inc(42)`}
 
                 <Editor flix={this.props.flix}>
                     {`def sum(x: Int, y: Int): Int = x + y
-def f(): Int =
+def main(): Int =
     let inc = sum(1);
         inc(42)`}
                 </Editor>
@@ -61,7 +61,7 @@ def f(): Int =
                 </p>
 
                 <Editor flix={this.props.flix}>
-                    def f(): List[Int] = List.range(1, 10) |> List.map(x -> x + 1)
+                    def main(): List[Int] = List.range(1, 10) |> List.map(x -> x + 1)
                 </Editor>
 
                 <p>

@@ -32,7 +32,7 @@ class Introduction extends React.Component {
                 <p> Here is an example Flix program to show the flavour: </p>
 
                 <Editor flix={this.props.flix}>
-                    {`def f(): Bool = List.range(1, 100) |>
+                    {`def main(): Bool = List.range(1, 100) |>
     List.map(x -> x * 2) |>
     List.exists(x -> x == 88)`}
                 </Editor>
@@ -183,7 +183,7 @@ class Introduction extends React.Component {
                 </p>
 
                 <Editor flix={this.props.flix}>
-                    def f(): Unit = ()
+                    def main(): Unit = ()
                 </Editor>
 
                 <h3>Booleans</h3>
@@ -194,7 +194,7 @@ class Introduction extends React.Component {
 
                 <Editor flix={this.props.flix}>
                     {`def t(): Bool = true
-def f(): Bool = false`}
+def main(): Bool = false`}
                 </Editor>
 
                 <p>
@@ -223,7 +223,7 @@ def b(): Char = 'b'`}
                 The floating point numbers come in 32-bit and 64-bit variants.
 
                 <Editor flix={this.props.flix}>
-                    {`def f(): Float32 = 123.0f32
+                    {`def main(): Float32 = 123.0f32
 def g(): Float64 = 123.0f64
 def h(): Float = 123.0`}
                 </Editor>

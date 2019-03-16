@@ -66,7 +66,7 @@ def isTall(a: Animal): Bool = match a with {
     case Giraffe    => true
 }
 
-def f(): Bool = isTall(Giraffe)`}
+def main(): Bool = isTall(Giraffe)`}
                 </Editor>
 
                 <p>
@@ -115,7 +115,7 @@ def sum(t: Tree): Int = match t with {
     case Node(l, r) => sum(l) + sum(r)
 }
 
-def f(): Int = sum(Node(Leaf(1), Node(Leaf(2), Leaf(3))))`}
+def main(): Int = sum(Node(Leaf(1), Node(Leaf(2), Leaf(3))))`}
                 </Editor>
 
                 <p>

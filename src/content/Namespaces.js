@@ -33,7 +33,7 @@ namespace B {
     pub def two(): Int = 2
 }
 
-def f(): Int = A.one() + B.two()`}
+def main(): Int = A.one() + B.two()`}
                 </Editor>
 
                 <p>
@@ -58,7 +58,7 @@ def f(): Int = A.one() + B.two()`}
     }
 }
 
-def f(): Int = A/B/C.one()`}
+def main(): Int = A/B/C.one()`}
                 </Editor>
 
                 <p>
@@ -70,7 +70,7 @@ def f(): Int = A/B/C.one()`}
     pub def one(): Int = 1
 }
 
-def f(): Int = A/B/C.one()`}
+def main(): Int = A/B/C.one()`}
                 </Editor>
 
                 <p>

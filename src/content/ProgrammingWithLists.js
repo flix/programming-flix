@@ -2,20 +2,19 @@ import React from 'react'
 
 import Code from '../components/Code';
 import Editor from '../util/Editor';
+import Section from "../components/Section";
 
 class ProgrammingWithLists extends React.Component {
 
     render() {
         return (
-            <section>
-                <h1>Programming with Lists</h1>
-
+            <Section name="Programming with Lists">
                 <p>
                     The bread and butter of functional programming is list processing. A list is either the empty list,
                     written as <Code>Nil</Code>, or a cons cell, written as <Code>x :: xs</Code> where <Code>x</Code> is
-                    the head element and <Code>xs</Code> is the tail of the list. List is a polymorphic type so that you
-                    can have a list of integers, written as <Code>List[Int]</Code>, or a list of strings written
-                    as <Code>List[Str]</Code>.
+                    the head element and <Code>xs</Code> is the tail of the list. The <Code>List</Code> type is
+                    polymorphic so you can have a list of integers, written as <Code>List[Int]</Code>, or a list of
+                    strings written as <Code>List[Str]</Code>.
                 </p>
 
                 <p> We can construct the empty list of integer as follows: </p>
@@ -71,7 +70,7 @@ class ProgrammingWithLists extends React.Component {
         xs ::: ys`}
                 </Editor>
 
-            </section>
+            </Section>
         )
     }
 

@@ -6,6 +6,7 @@ import ProgrammingWithLists from './content/ProgrammingWithLists';
 import DataTypes from './content/DataTypes';
 import Namespaces from './content/Namespaces';
 import Functions from "./content/Functions";
+import Basics from "./content/Basics";
 
 const SocketAddress = 'wss://flix-evaluator.cs.au.dk/ws';
 
@@ -55,6 +56,7 @@ class App extends React.Component {
             <div id="page">
                 <Welcome flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
                 <Introduction flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
+                <Basics flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
                 <Functions flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
                 <ProgrammingWithLists flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
                 <DataTypes flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>

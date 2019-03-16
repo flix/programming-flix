@@ -1,11 +1,11 @@
 import React from 'react'
-import {Alert, Col, Row} from "reactstrap";
+import {Col, Row} from "reactstrap";
 import Container from "reactstrap/es/Container";
 
 class Section extends React.Component {
     render() {
         return (
-            <Container>
+            <Container className="asection">
                 <Row>
                     <Col>
                         <h1>{this.props.name}</h1>

@@ -18,5 +18,5 @@
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "homepage": "http://flix.github.io/programming-flix"
+  "homepage": "https://flix.dev/programming-flix"
 }

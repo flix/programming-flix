@@ -74,9 +74,9 @@ class Editor extends Component {
 
     render() {
         return (
-            <div>
+            <div className="editor-frame">
                 <div>
-                    <div>
+                    <div className="editor">
                         <AceEditor
                             mode='text'
                             theme='chrome'

@@ -33,41 +33,16 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-section {
-    margin-bottom: 8em;
-    line-height: 2em;
-}
-
 h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto", sans-serif;
 }
 
-h1 {
-    font-size: 2em;
-    font-weight: normal;
-    padding-bottom: 0.2em;
-    border-bottom: 0.02em solid gainsboro;
-    margin-top: 2em;
-}
-
-h2 {
-    font-weight: normal;
-    margin-top: 1.5em;
-}
-
-h3 {
-    margin-top: 1.2em;
-}
-
 p {
     text-align: justify;
+    line-height: 1.8em;
 }
 
 #brace-editor.ace_editor {
     font: 14px/normal "Roboto Mono", monospace;
     background-color: inherit;
-}
-
-.ace_cursor {
-    /*display: none;*/
 }

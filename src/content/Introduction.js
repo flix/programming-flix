@@ -11,23 +11,13 @@ class Introduction extends React.Component {
         return (
             <Section name="Introduction to Flix">
                 <p>
-                    Flix is a functional programming language inspired by Scala, OCaml and Haskell. The syntax of
-                    Flix
-                    will
-                    be familiar to Scala programmers, whereas the type system is more similar to OCaml or Haskell.
-                    Flix
-                    also adopts features from other languages: From Rust, Eff, and Koka, Flix takes ideas for
-                    dealing
-                    with
-                    resources and effects. From Go, Flix takes ideas for Go routines and channels.
+                    Flix is a principled and opinionated functional programming language that takes inspiration from F#,
+                    Go, OCaml, Haskell, Rust, and Scala.
                 </p>
 
                 <p>
-                    Flix includes an experimental Datalog engine extended with user-defined lattices and monotone
-                    functions.
-                    This Datalog extension is the subject of on-going research. This tutorial only concerns the
-                    functional
-                    language of Flix. For the logic language, the reader is referred to recent research papers.
+                    Flix visually resembles Scala, but its type system is closer to that of OCaml and Haskell. Its
+                    concurrency model is inspired by Go-style processes and channels.
                 </p>
 
                 <p> Here is an example Flix program to show the flavour: </p>

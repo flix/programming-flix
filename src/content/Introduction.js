@@ -4,12 +4,13 @@ import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Tabl
 
 import Code from '../components/Code';
 import Editor from '../util/Editor';
+import {Container} from "reactstrap";
 
 class Introduction extends React.Component {
 
     render() {
         return (
-            <section>
+            <Container>
                 <h1>Introduction to Flix</h1>
 
                 <p>
@@ -230,7 +231,7 @@ def h(): Float = 123.0`}
 
                 <h3>The Integers: Int8, Int16, Int32, and Int64</h3>
 
-            </section>
+            </Container>
         )
     }
 

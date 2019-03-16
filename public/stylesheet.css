@@ -9,7 +9,7 @@
     font-size: 5em;
     text-align: center;
     font-family: "Playfair", serif;
-    margin-bottom: 0.4em;
+    margin-bottom: 0.1em;
 }
 
 .code {
@@ -33,16 +33,6 @@
     font-family: monospace;
     padding: 1em 1.5em;
     border: 1px solid #cccccc;
-}
-
-.planned-feature {
-    /*  background-color: #f6fcff;
-      padding: 0.2em 0.5em; */
-}
-
-.design-note {
-    /*  background-color: #f9f6ff;
-      padding: 0.2em 0.5em; */
 }
 
 body {

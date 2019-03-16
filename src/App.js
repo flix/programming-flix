@@ -53,7 +53,6 @@ class App extends React.Component {
     render() {
         return (
             <div id="page">
-                <div className="title">Programming Flix</div>
                 <Welcome flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
                 <Introduction flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
                 <Functions flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Code from '../components/Code';
-import Editor from '../components/Editor';
+import Editor from '../util/Editor';
 
 class Functions extends React.Component {
     render() {
@@ -14,7 +14,7 @@ class Functions extends React.Component {
 
                 <p>In Flix, we define functions a the top-level using the <Code>def</Code> keyword. For example, </p>
 
-                <Editor runProgram={this.props.runProgram} lines={2}>
+                <Editor flix={this.props.flix}>
                     {`def inc(x: Int): Int = x + 1
 def f(): Int = inc(42)`}
                 </Editor>
@@ -38,7 +38,7 @@ def f(): Int = inc(42)`}
                     it declares returning a new function that takes the remainder of the arguments. For example:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} lines={4}>
+                <Editor flix={this.props.flix}>
                     {`def sum(x: Int, y: Int): Int = x + y
 def f(): Int =
     let inc = sum(1);
@@ -60,7 +60,7 @@ def f(): Int =
                     operator <Code>|></Code> we are able to write:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} lines={1}>
+                <Editor flix={this.props.flix}>
                     def f(): List[Int] = List.range(1, 10) |> List.map(x -> x + 1)
                 </Editor>
 

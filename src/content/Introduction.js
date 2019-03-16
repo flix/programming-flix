@@ -3,7 +3,7 @@ import React from 'react'
 import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
 
 import Code from '../components/Code';
-import Editor from '../components/Editor';
+import Editor from '../util/Editor';
 
 class Introduction extends React.Component {
 
@@ -31,7 +31,7 @@ class Introduction extends React.Component {
 
                 <p> Here is an example Flix program to show the flavour: </p>
 
-                <Editor runProgram={this.props.runProgram} lines={3}>
+                <Editor flix={this.props.flix}>
                     {`def f(): Bool = List.range(1, 100) |>
     List.map(x -> x * 2) |>
     List.exists(x -> x == 88)`}
@@ -182,7 +182,7 @@ class Introduction extends React.Component {
                     For example, here is a function that returns the unit value:
                 </p>
 
-                <Editor runProgram={this.props.runProgram}>
+                <Editor flix={this.props.flix}>
                     def f(): Unit = ()
                 </Editor>
 
@@ -192,7 +192,7 @@ class Introduction extends React.Component {
                     The <Code>Bool</Code> type has the two values <Code>true</Code> and <Code>false</Code>:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} lines={2}>
+                <Editor flix={this.props.flix}>
                     {`def t(): Bool = true
 def f(): Bool = false`}
                 </Editor>
@@ -201,7 +201,7 @@ def f(): Bool = false`}
                     Booleans supports the usual operators:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} lines={3}>
+                <Editor flix={this.props.flix}>
                     {`def not(x: Bool): Bool = !x
 def and(x: Bool, y: Bool): Bool = x && y
 def or(x: Bool, y: Bool): Bool = x || y`}
@@ -213,7 +213,7 @@ def or(x: Bool, y: Bool): Bool = x || y`}
                     The <Code>Char</Code> type has values such as <Code>'a'</Code>, <Code>'b'</Code>, and so on:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} lines={2}>
+                <Editor flix={this.props.flix}>
                     {`def a(): Char = 'a'
 def b(): Char = 'b'`}
                 </Editor>
@@ -222,7 +222,7 @@ def b(): Char = 'b'`}
 
                 The floating point numbers come in 32-bit and 64-bit variants.
 
-                <Editor runProgram={this.props.runProgram} lines={3}>
+                <Editor flix={this.props.flix}>
                     {`def f(): Float32 = 123.0f32
 def g(): Float64 = 123.0f64
 def h(): Float = 123.0`}

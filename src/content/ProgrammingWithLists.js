@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Code from '../components/Code';
-import Editor from '../components/Editor';
+import Editor from '../util/Editor';
 
 class ProgrammingWithLists extends React.Component {
 
@@ -20,13 +20,13 @@ class ProgrammingWithLists extends React.Component {
 
                 <p> We can construct the empty list of integer as follows: </p>
 
-                <Editor runProgram={this.props.runProgram}>
+                <Editor flix={this.props.flix}>
                     def f(): List[Int] = Nil
                 </Editor>
 
                 <p> And we can construct a list with the integers 1, 2, and 3 as follows: </p>
 
-                <Editor runProgram={this.props.runProgram}>
+                <Editor flix={this.props.flix}>
                     def f(): List[Int] = 1 :: 2 :: 3 :: Nil
                 </Editor>
 
@@ -35,7 +35,7 @@ class ProgrammingWithLists extends React.Component {
                     strings <Code>"Hello"</Code> and <Code>"World"</Code>:
                 </p>
 
-                <Editor runProgram={this.props.runProgram}>
+                <Editor flix={this.props.flix}>
                     def f(): List[Str] = "Hello" :: "World" :: Nil
                 </Editor>
 
@@ -43,19 +43,19 @@ class ProgrammingWithLists extends React.Component {
 
                 <p>For example, we can compute the length of the list as follows:</p>
 
-                <Editor runProgram={this.props.runProgram}>
+                <Editor flix={this.props.flix}>
                     def f(): Int = List.length(1 :: 2 :: 3 :: Nil)
                 </Editor>
 
                 <p>We can also reverse the order of elements in the list:</p>
 
-                <Editor runProgram={this.props.runProgram}>
+                <Editor flix={this.props.flix}>
                     def f(): List[Int] = List.reverse(1 :: 2 :: 3 :: Nil)
                 </Editor>
 
                 <p>We can append to lists using the <Code>List.append</Code> function as follows:</p>
 
-                <Editor runProgram={this.props.runProgram} lines={4}>
+                <Editor flix={this.props.flix}>
                     {`def f(): List[Int] =
     let xs = (1 :: 2 :: 3 :: Nil);
     let ys = (4 :: 5 :: 6 :: Nil);
@@ -64,7 +64,7 @@ class ProgrammingWithLists extends React.Component {
 
                 <p>Or, alternatively, we can use the built-in append operator <Code>:::</Code> as follows:</p>
 
-                <Editor runProgram={this.props.runProgram} lines={4}>
+                <Editor flix={this.props.flix}>
                     {`def f(): List[Int] =
     let xs = (1 :: 2 :: 3 :: Nil);
     let ys = (4 :: 5 :: 6 :: Nil);

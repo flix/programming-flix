@@ -1,6 +1,6 @@
 import React from 'react'
 import Code from "../components/Code";
-import Editor from "../components/Editor";
+import Editor from '../util/Editor';
 import PlannedFeature from "../components/PlannedFeature";
 import DesignNote from "../components/DesignNote";
 
@@ -24,7 +24,7 @@ class Namespaces extends React.Component {
 
                 <p>For example, we can create two namespaces called <Code>A</Code> and <Code>B</Code>:</p>
 
-                <Editor runProgram={this.props.runProgram} lines={9}>
+                <Editor flix={this.props.flix}>
                     {`namespace A {
     pub def one(): Int = 1
 }
@@ -49,7 +49,7 @@ def f(): Int = A.one() + B.two()`}
                     We can nest namespaces as follows:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} lines={9}>
+                <Editor flix={this.props.flix}>
                     {`namespace A {
     namespace B {
         namespace C {
@@ -65,7 +65,7 @@ def f(): Int = A/B/C.one()`}
                     This is equivalent to the simpler and preferred style:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} lines={5}>
+                <Editor flix={this.props.flix}>
                     {`namespace A/B/C {
     pub def one(): Int = 1
 }

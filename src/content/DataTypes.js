@@ -1,6 +1,6 @@
 import React from 'react'
 import Code from '../components/Code';
-import Editor from '../components/Editor';
+import Editor from '../util/Editor';
 
 class DataTypes extends React.Component {
 
@@ -28,7 +28,7 @@ class DataTypes extends React.Component {
 
                 <p>For example, here we can define an enumeration type for the weekdays:</p>
 
-                <Editor runProgram={this.props.runProgram} main={"none"} lines={9}>
+                <Editor flix={this.props.flix}>
                     {`enum Weekday {
     case Monday,
     case Tuesday,
@@ -53,7 +53,7 @@ class DataTypes extends React.Component {
 
                 <p>We can use pattern matching to inspect an enum. For example:</p>
 
-                <Editor runProgram={this.props.runProgram} main={"none"} lines={13}>
+                <Editor flix={this.props.flix}>
                     {`enum Animal {
     case Cat,
     case Dog,
@@ -87,7 +87,7 @@ def f(): Bool = isTall(Giraffe)`}
                     a binary tree of integers as follows:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} main={"none"} lines={4}>
+                <Editor flix={this.props.flix}>
                     {`enum Tree {
     case Leaf(Int),
     case Node(Tree, Tree)
@@ -104,7 +104,7 @@ def f(): Bool = isTall(Giraffe)`}
                     We can write a function, using pattern matching, to compute the sum of all integers in such as tree:
                 </p>
 
-                <Editor runProgram={this.props.runProgram} main={"none"} lines={11}>
+                <Editor flix={this.props.flix}>
                     {`enum Tree {
     case Leaf(Int),
     case Node(Tree, Tree)

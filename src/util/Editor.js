@@ -93,10 +93,10 @@ class Editor extends Component {
                         {this.state.waiting}
                     </div>
 
-                    <ButtonGroup>
-                        <Button color="secondary" size="sm" outline className="btn-xs" onClick={this.onRunClick}>Run Main</Button>
-                        <Button color="secondary" size="sm" outline className="btn-xs" onClick={this.onResetClick}>Reset</Button>
-                    </ButtonGroup>
+                    <div className="float-right">
+                        <Button color="link" className="text-muted" onClick={this.onRunClick}>Run</Button>
+                        <Button color="link" className="text-muted" onClick={this.onResetClick}>Reset</Button>
+                    </div>
                 </div>
                 {this.resultBox()}
             </div>

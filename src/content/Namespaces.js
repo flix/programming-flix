@@ -3,14 +3,13 @@ import Code from "../components/Code";
 import Editor from '../util/Editor';
 import PlannedFeature from "../components/PlannedFeature";
 import DesignNote from "../components/DesignNote";
+import Section from "../components/Section";
 
 class Namespaces extends React.Component {
 
     render() {
         return (
-            <section>
-                <h1>Namespaces and Visibility</h1>
-
+            <Section name="Namespaces and Visibility">
                 <p>
                     Flix supports a simple namespace mechanism similar to packages allowing definitions and types to
                     share the same names provided that they belong to different namespaces. Namespaces are not modules,
@@ -87,7 +86,7 @@ def main(): Int = A/B/C.one()`}
                     Flix does not currently support any import mechanism. This feature is planned.
                 </PlannedFeature>
 
-            </section>
+            </Section>
         )
     }
 

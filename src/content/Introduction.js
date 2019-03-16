@@ -3,14 +3,13 @@ import React from 'react'
 import Code from '../components/Code';
 import Editor from '../util/Editor';
 import {Table} from "reactstrap";
+import Section from "../components/Section";
 
 class Introduction extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>Introduction to Flix</h1>
-
+            <Section name="Introduction to Flix">
                 <p>
                     Flix is a functional programming language inspired by Scala, OCaml and Haskell. The syntax of
                     Flix
@@ -203,7 +202,7 @@ def h(): Float = 123.0`}
 
                 <h3>The Integers: Int8, Int16, Int32, and Int64</h3>
 
-            </div>
+            </Section>
         )
     }
 

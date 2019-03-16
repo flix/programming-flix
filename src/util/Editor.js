@@ -6,6 +6,9 @@ import {Button, ButtonGroup, Card, CardText} from "reactstrap";
 
 import FlixMode from './FlixMode'
 import 'brace/theme/chrome';
+import Row from "reactstrap/es/Row";
+import Col from "reactstrap/es/Col";
+import Container from "reactstrap/es/Container";
 
 class Editor extends Component {
     constructor(props) {
@@ -56,16 +59,14 @@ class Editor extends Component {
                 return (
                     <Card body outline color="success" className="mt-2">
                         <CardText>
-                            <div className="editor-result">{this.state.output.result}</div>
+                            {this.state.output.result}
                         </CardText>
                     </Card>);
             } else {
                 return (
                     <Card body outline color="danger" className="mt-2">
                         <CardText>
-                            <code>
-                                {nl2br(this.state.output.result)}
-                            </code>
+                            {nl2br(this.state.output.result)}
                         </CardText>
                     </Card>);
             }

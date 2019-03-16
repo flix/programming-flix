@@ -29,12 +29,6 @@
     padding: 1em 1.5em;
 }
 
-.editor-result {
-    font-family: monospace;
-    padding: 1em 1.5em;
-    border: 1px solid #cccccc;
-}
-
 body {
     font-family: "Roboto", sans-serif;
 }
@@ -53,6 +47,7 @@ h1 {
     font-weight: normal;
     padding-bottom: 0.2em;
     border-bottom: 0.02em solid gainsboro;
+    margin-top: 2em;
 }
 
 h2 {

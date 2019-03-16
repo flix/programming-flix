@@ -4,20 +4,22 @@ import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Tabl
 
 import Code from '../components/Code';
 import Editor from '../util/Editor';
-import {Container} from "reactstrap";
 
 class Introduction extends React.Component {
 
     render() {
         return (
-            <Container>
+            <div>
                 <h1>Introduction to Flix</h1>
 
                 <p>
-                    Flix is a functional programming language inspired by Scala, OCaml and Haskell. The syntax of Flix
+                    Flix is a functional programming language inspired by Scala, OCaml and Haskell. The syntax of
+                    Flix
                     will
-                    be familiar to Scala programmers, whereas the type system is more similar to OCaml or Haskell. Flix
-                    also adopts features from other languages: From Rust, Eff, and Koka, Flix takes ideas for dealing
+                    be familiar to Scala programmers, whereas the type system is more similar to OCaml or Haskell.
+                    Flix
+                    also adopts features from other languages: From Rust, Eff, and Koka, Flix takes ideas for
+                    dealing
                     with
                     resources and effects. From Go, Flix takes ideas for Go routines and channels.
                 </p>
@@ -38,6 +40,7 @@ class Introduction extends React.Component {
     List.exists(x -> x == 88)`}
                 </Editor>
 
+
                 <h2>Flix in Five Minutes</h2>
 
                 <p>
@@ -45,19 +48,21 @@ class Introduction extends React.Component {
                     Hindley-Milner
                     which supports full type inference. Flix, as a design choices, forces the programmer to specify
                     types of
-                    top-level definitions. Flix is a strict call-by-value language. Flix currently targets the JVM, but
+                    top-level definitions. Flix is a strict call-by-value language. Flix currently targets the JVM,
+                    but
                     support for other targets are planned. Scope in Flix is lexical.
                 </p>
 
 
-                <p>Flix comes with a small standard library. The standard library is inspired by Scala and Haskell and
+                <p>Flix comes with a small standard library. The standard library is inspired by Scala and Haskell
+                    and
                     mostly concerns collections.</p>
 
-                <p>Flix is currently under heavy development, but early adopters are encouraged to try out the language
+                <p>Flix is currently under heavy development, but early adopters are encouraged to try out the
+                    language
                     and contribute their experiences.</p>
 
                 <p>Flix is open source and freely available under the Apache 2.0 license</p>
-
 
                 <h3>Language Design</h3>
 
@@ -77,7 +82,8 @@ class Introduction extends React.Component {
                     <TableBody>
                         <TableRow>
                             <TableCell><b>Null Values</b></TableCell>
-                            <TableCell>Widely considered a design mistake by other contemporary languages. Easily leads
+                            <TableCell>Widely considered a design mistake by other contemporary languages. Easily
+                                leads
                                 to <Code>NullPointerExceptions</Code> all over the code. Use <Code>Option</Code>
                                 instead.</TableCell>
                         </TableRow>
@@ -231,7 +237,7 @@ def h(): Float = 123.0`}
 
                 <h3>The Integers: Int8, Int16, Int32, and Int64</h3>
 
-            </Container>
+            </div>
         )
     }
 

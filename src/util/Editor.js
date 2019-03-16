@@ -2,13 +2,10 @@ import React, {Component} from 'react';
 import nl2br from 'react-newline-to-break';
 import AceEditor from 'react-ace'
 import 'brace/mode/scala'
-import {Button, ButtonGroup, Card, CardText} from "reactstrap";
+import {Button, Card, CardText} from "reactstrap";
 
 import FlixMode from './FlixMode'
 import 'brace/theme/chrome';
-import Row from "reactstrap/es/Row";
-import Col from "reactstrap/es/Col";
-import Container from "reactstrap/es/Container";
 
 class Editor extends Component {
     constructor(props) {

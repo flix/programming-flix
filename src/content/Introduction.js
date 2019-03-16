@@ -1,9 +1,8 @@
 import React from 'react'
 
-import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
-
 import Code from '../components/Code';
 import Editor from '../util/Editor';
+import {Table} from "reactstrap";
 
 class Introduction extends React.Component {
 
@@ -64,111 +63,78 @@ class Introduction extends React.Component {
 
                 <p>Flix is open source and freely available under the Apache 2.0 license</p>
 
-                <h3>Language Design</h3>
-
-                <p>
-                    Flix, by design, omits certain features considered to be undesirable by the language designers.
-                    Specifically, Flix does not, and likely will not support:
-                </p>
-
-
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell width={"25%"}>Feature</TableCell>
-                            <TableCell>Rationale for Omission</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell><b>Null Values</b></TableCell>
-                            <TableCell>Widely considered a design mistake by other contemporary languages. Easily
-                                leads
-                                to <Code>NullPointerExceptions</Code> all over the code. Use <Code>Option</Code>
-                                instead.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>Sub-Typing</b></TableCell>
-                            <TableCell>Interferes with Hindley-Milner type inference.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell><b>Implicit Coercions</b></TableCell>
-                            <TableCell>Automatic coercions between primitive types easily leads to subtle
-                                bugs.</TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-
                 <h2>Primitive Types</h2>
 
                 Flix comes with a range of built-in primitive types mostly adapted from those already available on the
                 Java Virtual Machine. The table below lists the currently implemented primitive types and their syntax:
 
                 <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Primitive Type</TableCell>
-                            <TableCell>Syntax</TableCell>
-                            <TableCell>Description</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell>Unit</TableCell>
-                            <TableCell><Code>()</Code></TableCell>
-                            <TableCell>The unit value.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Bool</TableCell>
-                            <TableCell><Code>true</Code>, <Code>false</Code></TableCell>
-                            <TableCell>A boolean value.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Char</TableCell>
-                            <TableCell><Code>'a'</Code>, <Code>'b'</Code>, <Code>'c'</Code></TableCell>
-                            <TableCell>A character value.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Float32</TableCell>
-                            <TableCell><Code>0.0f32</Code>, <Code>21.42f32</Code>, <Code>-21.42f32</Code></TableCell>
-                            <TableCell>A 32-bit floating point integer.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Float64</TableCell>
-                            <TableCell><Code>0.0f64</Code>, <Code>21.42f64</Code>, <Code>-21.42f64</Code></TableCell>
-                            <TableCell>A 64-bit floating point integer.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Int8</TableCell>
-                            <TableCell><Code>0i8</Code>, <Code>1i8</Code>, <Code>-1i8</Code>, <Code>127i8</Code>, <Code>-128i8</Code></TableCell>
-                            <TableCell>A signed 8-bit integer.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Int16</TableCell>
-                            <TableCell><Code>0i16</Code>, <Code>123i16</Code>, <Code>-123i16</Code></TableCell>
-                            <TableCell>A signed 16-bit integer.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Int32</TableCell>
-                            <TableCell><Code>0i32</Code>, <Code>123i32</Code>, <Code>-123i32</Code></TableCell>
-                            <TableCell>A signed 32-bit integer.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Int64</TableCell>
-                            <TableCell><Code>0i64</Code>, <Code>123i64</Code>, <Code>-123i64</Code></TableCell>
-                            <TableCell>A signed 64-bit integer.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>Str</TableCell>
-                            <TableCell><Code>"hello"</Code>, <Code>"world"</Code></TableCell>
-                            <TableCell>A string value.</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell>BigInt</TableCell>
-                            <TableCell><Code>0ii</Code>, <Code>123ii</Code>, <Code>-123ii</Code></TableCell>
-                            <TableCell>An arbitrary precision integer.</TableCell>
-                        </TableRow>
-                    </TableBody>
+                    <thead>
+                    <tr>
+                        <th>Primitive Type</th>
+                        <th>Syntax</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Unit</td>
+                        <td><Code>()</Code></td>
+                        <td>The unit value.</td>
+                    </tr>
+                    <tr>
+                        <td>Bool</td>
+                        <td><Code>true</Code>, <Code>false</Code></td>
+                        <td>A boolean value.</td>
+                    </tr>
+                    <tr>
+                        <td>Char</td>
+                        <td><Code>'a'</Code>, <Code>'b'</Code>, <Code>'c'</Code></td>
+                        <td>A character value.</td>
+                    </tr>
+                    <tr>
+                        <td>Float32</td>
+                        <td><Code>0.0f32</Code>, <Code>21.42f32</Code>, <Code>-21.42f32</Code></td>
+                        <td>A 32-bit floating point integer.</td>
+                    </tr>
+                    <tr>
+                        <td>Float64</td>
+                        <td><Code>0.0f64</Code>, <Code>21.42f64</Code>, <Code>-21.42f64</Code></td>
+                        <td>A 64-bit floating point integer.</td>
+                    </tr>
+                    <tr>
+                        <td>Int8</td>
+                        <td>
+                            <Code>0i8</Code>, <Code>1i8</Code>, <Code>-1i8</Code>, <Code>127i8</Code>, <Code>-128i8</Code>
+                        </td>
+                        <td>A signed 8-bit integer.</td>
+                    </tr>
+                    <tr>
+                        <td>Int16</td>
+                        <td><Code>0i16</Code>, <Code>123i16</Code>, <Code>-123i16</Code></td>
+                        <td>A signed 16-bit integer.</td>
+                    </tr>
+                    <tr>
+                        <td>Int32</td>
+                        <td><Code>0i32</Code>, <Code>123i32</Code>, <Code>-123i32</Code></td>
+                        <td>A signed 32-bit integer.</td>
+                    </tr>
+                    <tr>
+                        <td>Int64</td>
+                        <td><Code>0i64</Code>, <Code>123i64</Code>, <Code>-123i64</Code></td>
+                        <td>A signed 64-bit integer.</td>
+                    </tr>
+                    <tr>
+                        <td>Str</td>
+                        <td><Code>"hello"</Code>, <Code>"world"</Code></td>
+                        <td>A string value.</td>
+                    </tr>
+                    <tr>
+                        <td>BigInt</td>
+                        <td><Code>0ii</Code>, <Code>123ii</Code>, <Code>-123ii</Code></td>
+                        <td>An arbitrary precision integer.</td>
+                    </tr>
+                    </tbody>
                 </Table>
 
                 <p><i>Note:</i> <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is

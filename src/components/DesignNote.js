@@ -1,11 +1,12 @@
 import React from 'react'
+import {Alert} from "reactstrap";
 
 class DesignNote extends React.Component {
     render() {
         return (
-            <p className="design-note">
+            <Alert color="info">
                 <i>Design Note:</i> {this.props.children}
-            </p>
+            </Alert>
         )
     }
 }

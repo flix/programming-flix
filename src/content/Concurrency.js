@@ -30,7 +30,7 @@ class Concurrency extends React.Component {
                     <p>
                         This spawns a process that computes <Code>1 + 2</Code> and throws the result away.
                         The <Code>spawn</Code> expression always returns <Code>Unit</Code>. We can spawn any
-                        expression, but typically we spawn functions to run in a new process:
+                        expression, but we typically spawn functions to run in a new process:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -47,18 +47,18 @@ def main(): Unit = spawn sum(1, 2)`}
                 <SubSection name="Communicating with Channels">
 
                     <p>
-                        To communicate between processes, we use channels. A <i>channel</i> allows two or more
+                        To communicate between processes we use channels. A <i>channel</i> allows two or more
                         processes to exchange data by sending immutable messages to each other.
                     </p>
 
                     <p>
-                        A channel comes in one of two variants: <i>buffered</i> and <i>unbuffered</i>. A buffered
+                        A channel comes in one of two variants: <i>buffered</i> or <i>unbuffered</i>. A buffered
                         channel has a size, set at creation time, and can hold that many messages. If a process attempts
-                        to put a message into a buffered channel that is full the process is blocked until space becomes
-                        available. If, on the other hand, a process attempts to get a message from an empty channel, the
-                        process is blocked until a message is put into the channel. An unbuffered channel works like a
-                        buffered channel of size zero; for a get and a put to happen with an unbuffered channel both
-                        processes must rendezvous for the hand-off of the message.
+                        to put a message into a buffered channel that is full, then the process is blocked until space
+                        becomes available. If, on the other hand, a process attempts to get a message from an empty
+                        channel, the process is blocked until a message is put into the channel. An unbuffered channel
+                        works like a buffered channel of size zero; for a get and a put to happen both processes must
+                        rendezvous (block) until the message is passed from sender to receiver.
                     </p>
 
                     <p>
@@ -75,13 +75,13 @@ def main(): Int =
 
                     <p>
                         Here the <Code>main</Code> function creates an unbuffered channel <Code>c</Code>, spawns
-                        the <Code>send</Code> function, and wait for a message from <Code>c</Code>.
+                        the <Code>send</Code> function, and waits for a message from <Code>c</Code>.
                         The <Code>send</Code> function simply puts the value <Code>42</Code> into the channel.
                     </p>
 
                     <PlannedFeature>
-                        Flix does not currently enforce that only immutable data that can be shared between processes,
-                        but it is something we plan to enforce in the future.
+                        Flix does not currently enforce that messages are immutable, but it is something we are planning
+                        to add in the future.
                     </PlannedFeature>
 
                 </SubSection>
@@ -109,12 +109,12 @@ def main(): Str =
 
                     <p>
                         Many important concurrency patterns such as producer-consumer and load balancers can be
-                        expressed with the <Code>select</Code> expression.
+                        expressed using the <Code>select</Code> expression.
                     </p>
 
                     <Warning>
-                        The absence of locks in Flix does not prevent deadlocks! A process can easily deadlock, e.g. by
-                        reading from a channel that is never written to!
+                        The absence of (manual) locks in Flix does not prevent deadlocks! A process can easily deadlock,
+                        e.g. by reading from a channel that is never written to!
                     </Warning>
 
                 </SubSection>
@@ -122,9 +122,9 @@ def main(): Str =
                 <SubSubSection name="Selecting with Default">
 
                     <p>
-                        In some cases we do not want to block forever until a message arrives, but instead prefer to
-                        take some alternative action if no message is readily available. We can achieve this with a
-                        default case:
+                        In some cases, we do not want to block until a message arrives, potentially waiting forever.
+                        Instead, we want to take some alternative action if no message is readily available.
+                        We can achieve this with a <i>default case</i> as shown below:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -142,7 +142,7 @@ def main(): Str =
                         Here a message is never sent to <Code>c1</Code> nor <Code>c2</Code>.
                         The <Code>select</Code> expression tries all cases in order, and if no channel is ready, it
                         immediately selects the default case. Hence using a default case prevents
-                        the <Code>select</Code> expression from (potentially) blocking.
+                        the <Code>select</Code> expression from (potentially) blocking (potentially forever).
                     </p>
 
                 </SubSubSection>
@@ -195,7 +195,7 @@ def main(): Str =
 
                     <PlannedFeature>
                         Flix does not currently support <i>put</i> operations in <Code>select</Code> expressions.
-                        This is something that might change in the future.
+                        This is something that we might support in the future.
                     </PlannedFeature>
 
                 </SubSubSection>

@@ -9,6 +9,7 @@ class Lists extends React.Component {
     render() {
         return (
             <Section name="Programming with Lists">
+
                 <p>
                     The bread and butter of functional programming is list processing. A list is either the empty list,
                     written as <Code>Nil</Code>, or a cons cell, written as <Code>x :: xs</Code> where <Code>x</Code> is

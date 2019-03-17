@@ -2,7 +2,7 @@ import React from 'react'
 
 import Welcome from './content/Welcome';
 import Introduction from './content/Introduction';
-import ProgrammingWithLists from './content/ProgrammingWithLists';
+import Lists from './content/Lists';
 import DataTypes from './content/DataTypes';
 import Namespaces from './content/Namespaces';
 import Functions from "./content/Functions";
@@ -62,8 +62,6 @@ class App extends React.Component {
         return (
             <div id="page">
 
-                <Welcome flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
-
                 <Navbar expand="md" className="menu mb-4">
                     <Nav className="mr-lg-auto" navbar>
                         <NavItem className="pl-1 pr-1">
@@ -79,11 +77,11 @@ class App extends React.Component {
                             <NavLink tag={Link} to="/functions/">Functions</NavLink></NavItem>
 
                         <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link} to="/programming-with-lists/">Programming with Lists</NavLink>
+                            <NavLink tag={Link} to="/datatypes/">Data Types</NavLink>
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link} to="/data-types/">Data Types</NavLink>
+                            <NavLink tag={Link} to="/lists/">Lists</NavLink>
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
@@ -92,11 +90,12 @@ class App extends React.Component {
                     </Nav>
                 </Navbar>
 
+                <Route path="/" exact render={() => <Welcome flix={this.getFlix()}/>}/>
                 <Route path="/introduction/" render={() => <Introduction flix={this.getFlix()}/>}/>
                 <Route path="/basics/" render={() => <Basics flix={this.getFlix()}/>}/>
                 <Route path="/functions/" render={() => <Functions flix={this.getFlix()}/>}/>
-                <Route path="/programming-with-lists/" render={() => <ProgrammingWithLists flix={this.getFlix()}/>}/>
                 <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
+                <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>
                 <Route path="/namespaces/" render={() => <Namespaces flix={this.getFlix()}/>}/>
 
             </div>

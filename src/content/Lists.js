@@ -4,7 +4,7 @@ import Code from '../components/Code';
 import Editor from '../util/Editor';
 import Section from "../components/Section";
 
-class ProgrammingWithLists extends React.Component {
+class Lists extends React.Component {
 
     render() {
         return (
@@ -14,7 +14,8 @@ class ProgrammingWithLists extends React.Component {
                     written as <Code>Nil</Code>, or a cons cell, written as <Code>x :: xs</Code> where <Code>x</Code> is
                     the head element and <Code>xs</Code> is the tail of the list. The <Code>List</Code> type is
                     polymorphic so you can have a list of integers, written as <Code>List[Int]</Code>, or a list of
-                    strings written as <Code>List[Str]</Code>.
+                    strings written as <Code>List[Str]</Code>. The <Code>List</Code> type and list operations are part
+                    of the Flix standard library.
                 </p>
 
                 <p> We can construct the empty list of integer as follows: </p>
@@ -70,10 +71,29 @@ class ProgrammingWithLists extends React.Component {
         xs ::: ys`}
                 </Editor>
 
+                <p>
+                    We can write our own recursive functions to operate on lists.
+                </p>
+
+                <p>
+                    Here, for example, is the library implementation of <Code>List.map</Code>:
+                </p>
+
+                <Editor flix={this.props.flix}>
+                    {`///
+    /// Returns the result of applying \`f\` to every element in \`xs\`.
+    /// That is, the result is of the form: \`f(x1) :: f(x2) :: ...\`.
+    ///
+    pub def map[a,b](f: a -> b, xs: List[a]): List[b] = match xs with {
+    case Nil => Nil
+    case x :: rs => f(x) :: map(f, rs)
+}`}
+                </Editor>
+
             </Section>
         )
     }
 
 }
 
-export default ProgrammingWithLists
+export default Lists

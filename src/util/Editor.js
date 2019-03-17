@@ -92,7 +92,6 @@ class Editor extends Component {
                             minLines={1}
                             maxLines={20}
                             editorProps={{$blockScrolling: true}}/>
-                        {this.state.waiting}
                     </div>
                 </div>
                 {this.resultBox()}

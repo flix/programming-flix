@@ -5,6 +5,7 @@ import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import Warning from "../components/Warning";
+import PlannedFeature from "../components/PlannedFeature";
 
 class Concurrency extends React.Component {
 
@@ -75,6 +76,11 @@ def main(): Int =
                         the <Code>send</Code> function, and wait for a message from <Code>c</Code>.
                         The <Code>send</Code> function simply puts the value <Code>42</Code> into the channel.
                     </p>
+
+                    <PlannedFeature>
+                        Flix does not currently enforce that only immutable data that can be shared between processes,
+                        but it is something we plan to enforce in the future.
+                    </PlannedFeature>
 
                 </SubSection>
 

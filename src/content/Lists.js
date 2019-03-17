@@ -99,17 +99,9 @@ class Lists extends React.Component {
                     And here are some more exotic:
                 </p>
 
-                <p>
-                    Here is <Code>List.intersperse</Code>:
-                </p>
-
                 <Editor flix={this.props.flix}>
                     {`def main(): List[Str] = List.intersperse("X", "a" :: "b" :: "c" :: Nil)`}
                 </Editor>
-
-                <p>
-                    Here is <Code>List.intercalate</Code>:
-                </p>
 
                 <Editor flix={this.props.flix}>
                     {`def main(): List[Str] =
@@ -136,6 +128,11 @@ pub def map[a,b](f: a -> b, xs: List[a]): List[b] = match xs with {
     case x :: rs => f(x) :: map(f, rs)
 }`}
                 </Editor>
+
+                <p>
+                    Before you write your own list function, be sure to check if it is already available in the
+                    library.
+                </p>
 
             </Section>
         )

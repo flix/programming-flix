@@ -188,6 +188,16 @@ def main(): Str =
                         one minute when the last process terminates (!)
                     </p>
 
+                    <p>
+                        Flix also supports <i>tickers</i> which are similar to timers, but instead of sending a message
+                        one after a pre-defined time they repeatedly send a message every tick.
+                    </p>
+
+                    <PlannedFeature>
+                        Flix does not currently support <i>put</i> operations in <Code>select</Code> expressions.
+                        This is something that might change in the future.
+                    </PlannedFeature>
+
                 </SubSubSection>
 
             </Section>

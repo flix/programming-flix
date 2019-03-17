@@ -74,6 +74,10 @@ class Editor extends Component {
         return (
             <div className="editor-frame">
                 <div>
+                    <div className="float-right">
+                        <Button color="link" className="text-muted" onClick={this.onRunClick}>Run</Button>
+                        <Button color="link" className="text-muted" onClick={this.onResetClick}>Reset</Button>
+                    </div>
                     <div className="editor">
                         <AceEditor
                             mode='text'
@@ -89,11 +93,6 @@ class Editor extends Component {
                             maxLines={20}
                             editorProps={{$blockScrolling: true}}/>
                         {this.state.waiting}
-                    </div>
-
-                    <div className="float-right">
-                        <Button color="link" className="text-muted" onClick={this.onRunClick}>Run</Button>
-                        <Button color="link" className="text-muted" onClick={this.onResetClick}>Reset</Button>
                     </div>
                 </div>
                 {this.resultBox()}

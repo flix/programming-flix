@@ -123,37 +123,51 @@ class Introduction extends React.Component {
 
                     </SubSubSection>
 
-                    <h3>Booleans</h3>
+                    <SubSubSection name="Booleans">
 
-                    <p>
-                        The <Code>Bool</Code> type has the two values <Code>true</Code> and <Code>false</Code>:
-                    </p>
+                        <p>
+                            The <Code>Bool</Code> type has the two values <Code>true</Code> and <Code>false</Code>:
+                        </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def t(): Bool = true
-def main(): Bool = false`}
-                    </Editor>
 
-                    <p>
-                        Booleans supports the usual operators:
-                    </p>
+                        <Editor flix={this.props.flix}>
+                            {`def t(): Bool = true
+def f(): Bool = false`}
+                        </Editor>
 
-                    <Editor flix={this.props.flix}>
-                        {`def not(x: Bool): Bool = !x
+                        <p>
+                            The booleans supports the usual operators:
+                        </p>
+
+                        <Editor flix={this.props.flix}>
+                            {`def not(x: Bool): Bool = !x
 def and(x: Bool, y: Bool): Bool = x && y
 def or(x: Bool, y: Bool): Bool = x || y`}
-                    </Editor>
+                        </Editor>
 
-                    <h3>Characters</h3>
+                    </SubSubSection>
 
-                    <p>
-                        The <Code>Char</Code> type has values such as <Code>'a'</Code>, <Code>'b'</Code>, and so on:
-                    </p>
+                    <SubSubSection name="Characters">
 
-                    <Editor flix={this.props.flix}>
-                        {`def a(): Char = 'a'
+                        <p>
+                            The <Code>Char</Code> type has values such as <Code>'a'</Code>, <Code>'b'</Code>, and so on:
+                        </p>
+
+                        <Editor flix={this.props.flix}>
+                            {`def a(): Char = 'a'
 def b(): Char = 'b'`}
-                    </Editor>
+                        </Editor>
+
+                        <p>
+                            We currently don't support any operations on characters, other than those supported
+                            indirectly by the Java Standard Library, but that may change in the future.
+                        </p>
+
+                        <DesignNote>
+                            A <Code>Str</Code> is <i>not</i> a list of characters.
+                        </DesignNote>
+
+                    </SubSubSection>
 
                     <h3>The Floats: Float32 and Float64</h3>
 

@@ -64,7 +64,7 @@ class App extends React.Component {
 
                 <Welcome flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
 
-                <Navbar dark color="info" expand="md" className="menu shadow-sm mb-4">
+                <Navbar expand="md" className="menu mb-4">
                     <Nav className="mr-lg-auto" navbar>
                         <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/introduction/">Introduction</NavLink>

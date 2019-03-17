@@ -72,19 +72,66 @@ class Lists extends React.Component {
                 </Editor>
 
                 <p>
+                    Flix has an extensive collection of functions to operate on lists.
+                </p>
+
+                <p>
+                    Here are some of the most common:
+                </p>
+
+                <Editor flix={this.props.flix}>
+                    {`def main(): Int = List.count(x -> x == 1, 1 :: 2 :: 3 :: Nil)`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`def main(): List[Int] = List.filter(x -> x == 1, 1 :: 2 :: 3 :: Nil)`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`def main(): List[Int] = List.map(x -> x + 1, 1 :: 2 :: 3 :: Nil)`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`def main(): Int = List.foldLeft((x, y) -> x + y, 0, 1 :: 2 :: 3 :: Nil)`}
+                </Editor>
+
+                <p>
+                    And here are some more exotic:
+                </p>
+
+                <p>
+                    Here is <Code>List.intersperse</Code>:
+                </p>
+
+                <Editor flix={this.props.flix}>
+                    {`def main(): List[Str] = List.intersperse("X", "a" :: "b" :: "c" :: Nil)`}
+                </Editor>
+
+                <p>
+                    Here is <Code>List.intercalate</Code>:
+                </p>
+
+                <Editor flix={this.props.flix}>
+                    {`def main(): List[Str] =
+    let l1 = "X" :: "Y" :: Nil;
+    let l2 = ("a" :: "b" :: Nil) :: ("c" :: "d" :: Nil) :: Nil;
+    List.intercalate(l1, l2)`}
+                </Editor>
+
+                <p>
                     We can write our own recursive functions to operate on lists.
                 </p>
 
                 <p>
-                    Here, for example, is the library implementation of <Code>List.map</Code>:
+                    For example, here is the library implementation of <Code>List.map</Code>:
                 </p>
 
                 <Editor flix={this.props.flix}>
                     {`///
-    /// Returns the result of applying \`f\` to every element in \`xs\`.
-    /// That is, the result is of the form: \`f(x1) :: f(x2) :: ...\`.
-    ///
-    pub def map[a,b](f: a -> b, xs: List[a]): List[b] = match xs with {
+/// Returns the result of applying \`f\` to every element in \`xs\`.
+/// That is, the result is of the form: \`f(x1) :: f(x2) :: ...\`.
+///
+pub def map[a,b](f: a -> b, xs: List[a]): List[b] = match xs with {
     case Nil => Nil
     case x :: rs => f(x) :: map(f, rs)
 }`}

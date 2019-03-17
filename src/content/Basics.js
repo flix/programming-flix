@@ -169,17 +169,48 @@ def b(): Char = 'b'`}
 
                     </SubSubSection>
 
-                    <h3>The Floats: Float32 and Float64</h3>
+                    <SubSubSection name="The Floats: Float32 and Float64">
 
-                    The floating point numbers come in 32-bit and 64-bit variants.
+                        <p>
+                            The floating point numbers come in 32-bit and 64-bit variants.
+                        </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Float32 = 123.0f32
+                        <p>
+                            Here is an example:
+                        </p>
+
+                        <Editor flix={this.props.flix}>
+                            {`def main(): Float32 = 123.0f32
 def g(): Float64 = 123.0f64
 def h(): Float = 123.0`}
-                    </Editor>
+                        </Editor>
 
-                    <h3>The Integers: Int8, Int16, Int32, and Int64</h3>
+                        <p>
+                            The floating point numbers support the usual operations:
+                        </p>
+
+                        <Editor flix={this.props.flix}>
+                            {`def main(): Float64 = 0.5 + (0.3 * 0.1)`}
+                        </Editor>
+
+                        <DesignNote>
+                            We have plans to support a BigDecimal or similar data type in the future.
+                        </DesignNote>
+
+                    </SubSubSection>
+
+                    <SubSubSection name="The Integers: Int8, Int16, Int32, and Int64">
+                        TBD
+                    </SubSubSection>
+
+                    <SubSubSection name="Strings">
+                        TBD
+                    </SubSubSection>
+
+                    <SubSubSection name="Big Integers">
+                        TBD
+                    </SubSubSection>
+
                 </SubSection>
             </Section>
         )

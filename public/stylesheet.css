@@ -35,7 +35,15 @@ body {
 }
 
 .asection {
-    margin-top: 3rem;
+    margin-bottom: 4rem;
+}
+
+.asubsection {
+    margin-bottom: 3rem;
+}
+
+.asubsubsection {
+    margin-bottom: 3rem;
 }
 
 .asection h1 {

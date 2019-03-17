@@ -7,6 +7,9 @@ import DataTypes from './content/DataTypes';
 import Namespaces from './content/Namespaces';
 import Functions from "./content/Functions";
 import Basics from "./content/Basics";
+import {Nav, Navbar, NavItem, NavLink} from "reactstrap";
+import {Route} from "react-router";
+import {Link} from "react-router-dom";
 
 const SocketAddress = 'wss://flix-evaluator.cs.au.dk/ws';
 
@@ -51,16 +54,51 @@ class App extends React.Component {
         this.state.websocket.send(src);
     };
 
+    getFlix() {
+        return {connected: this.state.connected, run: this.runProgram.bind(this)};
+    }
+
     render() {
         return (
             <div id="page">
+
                 <Welcome flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
-                <Introduction flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
-                <Basics flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
-                <Functions flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
-                <ProgrammingWithLists flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
-                <DataTypes flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
-                <Namespaces flix={{connected: this.state.connected, run: this.runProgram.bind(this)}}/>
+
+                <Navbar dark color="info" expand="md" className="menu shadow-sm mb-4">
+                    <Nav className="mr-lg-auto" navbar>
+                        <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/introduction/">Introduction</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link}
+                                     to="/basics/">Basics</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/functions/">Functions</NavLink></NavItem>
+
+                        <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/programming-with-lists/">Programming with Lists</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/data-types/">Data Types</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/namespaces/">Namespaces</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Navbar>
+
+                <Route path="/introduction/" render={() => <Introduction flix={this.getFlix()}/>}/>
+                <Route path="/basics/" render={() => <Basics flix={this.getFlix()}/>}/>
+                <Route path="/functions/" render={() => <Functions flix={this.getFlix()}/>}/>
+                <Route path="/programming-with-lists/" render={() => <ProgrammingWithLists flix={this.getFlix()}/>}/>
+                <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
+                <Route path="/namespaces/" render={() => <Namespaces flix={this.getFlix()}/>}/>
+
             </div>
         );
     }

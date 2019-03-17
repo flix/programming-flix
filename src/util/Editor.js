@@ -73,13 +73,13 @@ class Editor extends Component {
     render() {
         return (
             <div className="editor-frame">
+                <div className="editor-buttons">
+                    <Button color="link" className="text-muted" onClick={this.onRunClick}>Run</Button>
+                </div>
                 <div>
-                    <div className="float-right">
-                        <Button color="link" className="text-muted" onClick={this.onRunClick}>Run</Button>
-                        <Button color="link" className="text-muted" onClick={this.onResetClick}>Reset</Button>
-                    </div>
-                    <div className="editor">
+                    <div className="editor-code">
                         <AceEditor
+                            style={{"width": "48.5em"}}
                             mode='text'
                             theme='chrome'
                             ref="aceEditor"

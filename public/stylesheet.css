@@ -27,11 +27,15 @@ body {
     margin-bottom: 1.5em;
 }
 
-.editor {
-    background-color: #fffbf7;
+.editor-buttons {
+    margin-top: 0.3em;
+    float: right;
+}
 
+.editor-code {
     margin-top: 1.3em;
     padding: 1em 1.5em;
+    background-color: #fffbf7;
 }
 
 .asection {

@@ -5,6 +5,8 @@ import Editor from '../util/Editor';
 import {Table} from "reactstrap";
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
+import DesignNote from "../components/DesignNote";
+import SubSubSection from "../components/SubSubSection";
 
 class Introduction extends React.Component {
 
@@ -12,19 +14,19 @@ class Introduction extends React.Component {
         return (
             <Section name="Basics">
 
-                We begin with a discussion of primitive types.
+                <p>
+                    We now cover some of the basics of the Flix programming language.
+                </p>
 
                 <SubSection name="Primitive Types">
                     <p>
-                        Flix comes with a range of built-in primitive types mostly adapted from those already available
-                        on the Java Virtual Machine. The table below lists the currently implemented primitive types and
-                        their syntax:
+                        Fli supports the usual primitive types known from most languages:
                     </p>
 
                     <Table>
                         <thead>
                         <tr>
-                            <th>Primitive Type</th>
+                            <th>Type</th>
                             <th>Syntax</th>
                             <th>Description</th>
                         </tr>
@@ -90,28 +92,36 @@ class Introduction extends React.Component {
                         </tbody>
                     </Table>
 
-                    <p><i>Note:</i> <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is
-                        shorthand for
-                        <Code>Int32</Code>. <Code>Float64</Code> and <Code>Int32</Code> values can be written without
-                        suffix, i.e. <Code>123.0f64</Code> can simply be written as <Code>123.0</Code> and
-                        <Code>123i32</Code> can be written as <Code>123</Code>.
-                    </p>
-
-                    <p><i>Design Note:</i> There is on-going debate whether to remove <Code>Int8</Code> and
-                        <Code>Int16</Code> as these
-                        are not currently supported by WebAssembly (which we may hope one day to have as a backend).</p>
-
-                    <h3>Unit</h3>
-
                     <p>
-                        The Unit value, written as <Code>()</Code>, is typically whenever no value of interested is
-                        needed.
-                        For example, here is a function that returns the unit value:
+                        <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is
+                        shorthand for <Code>Int32</Code>. <Code>Float64</Code> and <Code>Int32</Code> values can be
+                        written without suffix, i.e. <Code>123.0f64</Code> can simply be written
+                        as <Code>123.0</Code> and <Code>123i32</Code> can be written as <Code>123</Code>.
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        def main(): Unit = ()
-                    </Editor>
+                    <SubSubSection name="Unit">
+
+                        <p>
+                            The Unit type has exactly one value written as <Code>()</Code>.
+                        </p>
+
+                        <p>
+                            Here is a function that returns <Code>()</Code>:
+                        </p>
+
+                        <Editor flix={this.props.flix}>
+                            def main(): Unit = ()
+                        </Editor>
+
+                        <p>
+                            And here is an example where Unit is used in a data type:
+                        </p>
+
+                        <Editor flix={this.props.flix}>
+                            def main(): Result[Str, Unit] = Ok("Hello World!")
+                        </Editor>
+
+                    </SubSubSection>
 
                     <h3>Booleans</h3>
 

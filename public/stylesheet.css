@@ -40,12 +40,17 @@ body {
 
 .asection h1 {
     font-family: "Roboto", sans-serif;
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 .asubsection h2 {
     font-family: "Roboto", sans-serif;
     font-size: 1.5rem;
+}
+
+.asubsubsection h3 {
+    font-family: "Roboto", sans-serif;
+    font-size: 1.4rem;
 }
 
 p {

@@ -132,8 +132,60 @@ def main(): Int = sum(Node(Leaf(1), Node(Leaf(2), Leaf(3))))`}
 
                 </SubSection>
 
-                <h2>Polymorphic Types</h2>
+                <SubSection name="Polymorphic Types">
 
+                    <p>
+                        Polymorphic types are types parameterized by other types. For example, we can write:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`enum Box[a] {
+    case Empty,
+    case Full(a)
+}
+
+def isEmpty[a](b: Box[a]): Bool = match b with {
+    case Empty   => true
+    case Full(_) => false
+}
+
+def main(): Bool = isEmpty(Full(42))`}
+                    </Editor>
+
+                    <p>
+                        Here the <Code>Box</Code> type is parameterized by the type parameter <Code>a</Code>. In Flix,
+                        type parameters, like ordinary parameters are always written in lowercase.
+                        The <Code>Box</Code> type has two cases: either the box is empty (and contains no value) or it
+                        is full (and contains one value of type <Code>a</Code>). The <Code>isEmpty</Code> function takes
+                        a box, type parameterized by <Code>a</Code>, and determines if the box is empty.
+                        Finally, the <Code>main</Code> function constructs a box of type <Code>Box[Int]</Code> and asks
+                        if it is empty.
+                    </p>
+
+                    <p>
+                        The careful reader might have noticed that <Code>Box</Code> is equivalent to the more
+                        well-known <Code>Option</Code>.
+                    </p>
+
+                    <p>
+                        In general, polymorphic types can have more than one type argument as demonstrated by the
+                        implementation of the <Code>Result[t, e]</Code> type in the standard library:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`///
+/// A result represents a successful value or an error value.
+/// The constructor \`Ok(v)\` represents the successful value \`v\`,
+/// whereas the constructor \`Err(v)\` represents the error value \`v\`.
+///
+enum Result[t, e] {
+    case Ok(t),
+    case Err(e)
+}
+`}
+                    </Editor>
+
+                </SubSection>
 
             </Section>
         )

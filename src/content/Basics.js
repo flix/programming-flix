@@ -20,7 +20,7 @@ class Introduction extends React.Component {
 
                 <SubSection name="Primitive Types">
                     <p>
-                        Fli supports the usual primitive types known from most languages:
+                        Flix supports the usual primitive types known from most languages:
                     </p>
 
                     <Table>

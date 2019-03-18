@@ -72,7 +72,52 @@ def main(): Int = twice(inc, 42)`}
 
                 </SubSection>
 
+                <SubSection name="Function Composition">
 
+                    <p>
+                        The Flix library supports several operators for function composition and pipelining:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Int =
+    let f = x -> x + 1;
+    let g = x -> x * 2;
+    let h = f >> g; // equivalent to x -> g(f(x))
+    let j = f << g; // equivalent to x -> f(g(x))
+    h(1) + j(1)`}
+                    </Editor>
+
+                    <p>
+                        Here <Code>&gt;&gt;</Code> is reverse function composition and <Code>&lt;&lt;</Code> is regular
+                        composition.
+                    </p>
+
+                    <p>
+                        We can also write function application in a pipeline-style:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Int =
+    let f = x -> x + 1;
+    1 |> f`}
+                    </Editor>
+
+                    <p>
+                        Here <Code>x |> f</Code> is equivalent to the function application <Code>f(x)</Code>.
+                    </p>
+
+                    <p>
+                        Here is why <Code>|></Code> is called the pipeline operator:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool =
+    1 |> (x -> x + 1)
+      |> (x -> x * 2)
+      |> (x -> x == 4)`}
+                    </Editor>
+
+                </SubSection>
 
                 <SubSection name="Curried by Default">
 

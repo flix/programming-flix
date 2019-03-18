@@ -4,7 +4,6 @@ import Welcome from './content/Welcome';
 import Introduction from './content/Introduction';
 import Lists from './content/Lists';
 import DataTypes from './content/DataTypes';
-import Namespaces from './content/Namespaces';
 import Functions from "./content/Functions";
 import Basics from "./content/Basics";
 import {Nav, Navbar, NavItem, NavLink} from "reactstrap";

@@ -84,33 +84,35 @@ def main(): Bool = isTall(Giraffe)`}
 
                 </SubSection>
 
+                <SubSection name="Recursive Types">
 
-                <h2>Recursive Types</h2>
+                    <p>
+                        Recursive types are used to define types that are self-referential.
+                    </p>
 
-                <p>
-                    Recursive types are used to define types that are self-referential. For example, we can define a
-                    a binary tree of integers as follows:
-                </p>
+                    <p>
+                        For example, we can define a a binary tree of integers as follows:
+                    </p>
 
-                <Editor flix={this.props.flix}>
-                    {`enum Tree {
+                    <Editor flix={this.props.flix}>
+                        {`enum Tree {
     case Leaf(Int),
     case Node(Tree, Tree)
 }`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    A tree is either a <Code>Leaf</Code> carrying an integer value or an
-                    internal <Code>Node</Code> carrying the left and right sub-tree. Notice that the definition
-                    of <Code>Tree</Code> refers to itself.
-                </p>
+                    <p>
+                        A tree is either a <Code>Leaf</Code> with an int value or an internal <Code>Node</Code> with a
+                        left and a right sub-tree. Note that the definition of <Code>Tree</Code> refers to itself.
+                    </p>
 
-                <p>
-                    We can write a function, using pattern matching, to compute the sum of all integers in such as tree:
-                </p>
+                    <p>
+                        We can write a function, using pattern matching, to compute the sum of all integers in such as
+                        tree:
+                    </p>
 
-                <Editor flix={this.props.flix}>
-                    {`enum Tree {
+                    <Editor flix={this.props.flix}>
+                        {`enum Tree {
     case Leaf(Int),
     case Node(Tree, Tree)
 }
@@ -121,16 +123,14 @@ def sum(t: Tree): Int = match t with {
 }
 
 def main(): Int = sum(Node(Leaf(1), Node(Leaf(2), Leaf(3))))`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    The function <Code>sum</Code> pattern matches on a tree an either returns the integer value (if it
-                    is a leaf) or recurse on the two sub-trees adding their results.
-                </p>
+                    <p>
+                        The <Code>sum</Code> function pattern matches on a tree value. If the tree is a leaf the value
+                        is simply returned. Otherwise the function recurses on both subtrees and adds the results.
+                    </p>
 
-                <p>
-                    Note: This function is not tail recursive, but it can be rewritten to be.
-                </p>
+                </SubSection>
 
                 <h2>Polymorphic Types</h2>
 

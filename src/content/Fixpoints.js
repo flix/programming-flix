@@ -56,7 +56,7 @@ Connected(x, z) :- Connected(x, y), DirectedEdge(y, z).`}
                     <DesignNote>
                         In Flix, all predicate symbols must be declared before they can be used. We are currently
                         debating whether or not this is a good thing.
-                    </DesignNote>
+                        </DesignNote>
 
                 </SubSection>
 

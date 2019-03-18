@@ -1,35 +1,36 @@
 import React from 'react'
 import Code from '../components/Code';
 import Editor from '../util/Editor';
+import Section from "../components/Section";
+import SubSection from "../components/SubSection";
+import DesignNote from "../components/DesignNote";
 
 class DataTypes extends React.Component {
 
     render() {
         return (
-            <section>
-                <h1>User-Defined Data Types</h1>
+            <Section name="Data Types">
 
                 <p>
-                    As we have seen, Flix comes with a collection of built-in data types. These includes base types,
-                    such as booleans, floats and integers, and compound types, such as tuples. Moreover, the Flix
-                    standard library defines types such as <Code>Option[a]</Code>, <Code>Result[t,
-                    e]</Code>, <Code>List[a]</Code>, <Code>Set[a]</Code>, and <Code>Map[k, v]</Code>. In addition, Flix
-                    allows users to define their own data types, including <i>enumerated types</i>, <i>recursive
-                    types</i>, and <i>polymorphic types</i>.
+                    Flix comes with a collection of built-in data types, such as booleans, floats and integers, and
+                    compound types, such as tuples and records. Moreover, the standard library defines types such
+                    as <Code>Option[a]</Code>, <Code>Result[t, e]</Code>, <Code>List[a]</Code>, <Code>Set[a]</Code>,
+                    and <Code>Map[k, v]</Code>. In addition to these types, Flix allows programmers to define their own
+                    types, including <i>enumerated types</i>, <i>recursive types</i>, and <i>polymorphic types</i>.
                 </p>
 
-                <h2>Enumerated Types</h2>
+                <SubSection name="Enumerated Types">
 
-                <p>
-                    Enumerated types are used to define a type that a finite sequence of values. Enumerated types are
-                    useful for thing such as modeling a set of primary colors, a deck of cards, the compass directions,
-                    and so forth.
-                </p>
+                    <p>
+                        Enumerated types are used to define a type that has a finite (enumerated) set of values.
+                        Enumerated types are useful for things such as modeling compass directions, the cards in a deck,
+                        and the days in a week.
+                    </p>
 
-                <p>For example, here we can define an enumeration type for the weekdays:</p>
+                    <p>For example, here is an enumeration of the days in a week:</p>
 
-                <Editor flix={this.props.flix}>
-                    {`enum Weekday {
+                    <Editor flix={this.props.flix}>
+                        {`enum Weekday {
     case Monday,
     case Tuesday,
     case Wednesday,
@@ -38,23 +39,23 @@ class DataTypes extends React.Component {
     case Saturday,
     case Sunday
 }`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    Here <Code>Monday</Code>, <Code>Tuesday</Code> and so on are referred to as
-                    the <i>constructors</i> of the enum.
-                </p>
+                    <p>
+                        Here <Code>Monday</Code>, <Code>Tuesday</Code> and so on are referred to as
+                        the <i>constructors</i> of the enum.
+                    </p>
 
-                <p>
-                    We can now refer to a weekday either as <Code>Monday</Code> or <Code>Weekday.Monday</Code> if we
-                    want to specific about what enum we are referring to or if we have multiple enums with same
-                    constructor.
-                </p>
+                    <p>
+                        We can refer to a weekday either as <Code>Monday</Code> or <Code>Weekday.Monday</Code> if we
+                        want to specific about the enum we refer to. This is useful if multiple enums have constructors
+                        with the same name.
+                    </p>
 
-                <p>We can use pattern matching to inspect an enum. For example:</p>
+                    <p>We can use pattern matching to inspect an enum value. For example:</p>
 
-                <Editor flix={this.props.flix}>
-                    {`enum Animal {
+                    <Editor flix={this.props.flix}>
+                        {`enum Animal {
     case Cat,
     case Dog,
     case Giraffe
@@ -67,17 +68,21 @@ def isTall(a: Animal): Bool = match a with {
 }
 
 def main(): Bool = isTall(Giraffe)`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    The function <Code>isTall</Code> takes a value of type <Code>Animal</Code> and performs a pattern
-                    match on it. If the value is <Code>Giraffe</Code> the function returns <Code>true</Code>. Otherwise
-                    it returns <Code>false</Code>.
-                </p>
+                    <p>
+                        The function <Code>isTall</Code> takes a value of type <Code>Animal</Code> and performs a
+                        pattern match on it. If the value is <Code>Giraffe</Code> the function returns <Code>true</Code>.
+                        Otherwise it returns <Code>false</Code>.
+                    </p>
 
-                <p>
-                    Flix guarantees that such pattern matches are exhaustive, i.e. that all cases have been covered.
-                </p>
+                    <DesignNote>
+                        Flix guarantees that such pattern matches are exhaustive, i.e. that all cases have been covered.
+                        It is a compile-time error if a pattern match is non-exhaustive. A pattern match can always be
+                        made exhaustive by adding a default case as the last case.
+                    </DesignNote>
+
+                </SubSection>
 
 
                 <h2>Recursive Types</h2>
@@ -130,9 +135,7 @@ def main(): Int = sum(Node(Leaf(1), Node(Leaf(2), Leaf(3))))`}
                 <h2>Polymorphic Types</h2>
 
 
-
-
-            </section>
+            </Section>
         )
     }
 

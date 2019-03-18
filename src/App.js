@@ -88,10 +88,6 @@ class App extends React.Component {
                         <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/concurrency/">Concurrency</NavLink>
                         </NavItem>
-
-                        <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link} to="/namespaces/">Namespaces</NavLink>
-                        </NavItem>
                     </Nav>
                 </Navbar>
 
@@ -102,7 +98,6 @@ class App extends React.Component {
                 <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
                 <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>
                 <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
-                <Route path="/namespaces/" render={() => <Namespaces flix={this.getFlix()}/>}/>
 
             </div>
         );

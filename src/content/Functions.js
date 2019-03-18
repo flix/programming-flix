@@ -1,18 +1,20 @@
 import React from 'react'
 import Code from '../components/Code';
 import Editor from '../util/Editor';
+import Section from "../components/Section";
+import SubSection from "../components/SubSection";
 
 class Functions extends React.Component {
     render() {
         return (
-            <section>
-                <h1>Functions and Higher-Order Functions</h1>
+            <Section name="Functions and Higher-Order Functions">
 
                 <p>
-                    Functions and higher-order functions are unsurprisingly key components of any functional language.
+                    Functions and higher-order functions are the key building block of any functional programming
+                    language.
                 </p>
 
-                <p>In Flix, we define functions a the top-level using the <Code>def</Code> keyword. For example, </p>
+                <p>In Flix, we can define a top-level function with <Code>def</Code> keyword. For example: </p>
 
                 <Editor flix={this.props.flix}>
                     {`def inc(x: Int): Int = x + 1
@@ -20,60 +22,103 @@ def main(): Int = inc(42)`}
                 </Editor>
 
                 <p>
-                    A function definition consists of the function name, here <Code>inc</Code>, followed by an argument
-                    list, the function return type, and the function body. Although Flix supports full type inference,
-                    top-level function definitions must declare the type of their arguments and their return type.
+                    A function definition consists of the function name followed by an argument list, the return type,
+                    and the function body. Although Flix supports type inference, top-level function definitions
+                    must declare the type of their arguments and their return type.
                 </p>
 
-                <h2>First-class Functions</h2>
+                <SubSection name="First-Class and Higher-Order Functions">
+
+                    <p>
+                        A <i>higher-order function</i> is a function that takes a parameter which is itself a function.
+                        For example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def twice(f: Int -> Int, x: Int): Int = f(f(x))
+def main(): Int = twice(x -> x + 1, 42)`}
+                    </Editor>
+
+                    <p>
+                        Here the <Code>twice</Code> function takes two arguments, a function <Code>f</Code> and an
+                        integer <Code>x</Code>, and applies <Code>f</Code> to <Code>x</Code> two times.
+                        The <Code>main</Code> method passes the <i>lambda expression</i> <Code>x
+                        -> x + 1</Code> to <Code>twice</Code> along with the number <Code>42</Code> to produce the
+                        result <Code>44</Code>.
+                    </p>
+
+                    <p>
+                        The syntax for lambda expressions that take more than one argument is straightforward:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def twice(f: (Int, Int) -> Int, x: Int): Int = f(f(x, x), f(x, x))
+def main(): Int = twice((x, y) -> x + y, 42)`}
+                    </Editor>
+
+                    <p>
+                        We can also call a higher-order function passing a top-level function. For example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def inc(x: Int): Int = x
+def twice(f: Int -> Int, x: Int): Int = f(f(x))
+def main(): Int = twice(inc, 42)`}
+                    </Editor>
+
+                    <p>
+                        Programming with first-class and higher-order functions is extremely common.
+                    </p>
+
+                </SubSection>
 
 
-                <h2>Higher-Order Functions</h2>
 
+                <SubSection name="Curried by Default">
 
-                <h2>Currying</h2>
+                    <p>
+                        Functions in Flix are curried by default. A curried function can be called with fewer arguments
+                        than it declares returning a new function that takes the remainder of the arguments. For
+                        example:
+                    </p>
 
-                <p>
-                    Functions in Flix are curried by default. A curried function can be called with fewer arguments than
-                    it declares returning a new function that takes the remainder of the arguments. For example:
-                </p>
-
-                <Editor flix={this.props.flix}>
-                    {`def sum(x: Int, y: Int): Int = x + y
+                    <Editor flix={this.props.flix}>
+                        {`def sum(x: Int, y: Int): Int = x + y
 def main(): Int =
     let inc = sum(1);
         inc(42)`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    Here the <Code>sum</Code> function takes two arguments, <Code>x</Code> and <Code>y</Code>, but it is
-                    only invoked with one argument inside <Code>f</Code>. This invocation returns a new function which
-                    is similar to <Code>sum</Code>, except that inside this function <Code>x</Code> is always bound
-                    to <Code>1</Code>. Hence, when <Code>inc</Code> is later invoked, it returns <Code>43</Code>.
-                </p>
+                    <p>
+                        Here the <Code>sum</Code> function takes two arguments, <Code>x</Code> and <Code>y</Code>, but
+                        it is only called with one argument inside <Code>main</Code>. This call returns a new function
+                        which is similar to <Code>sum</Code>, except that in this function <Code>x</Code> is always
+                        bound to <Code>1</Code>. Hence when <Code>inc</Code> is called with <Code>42</Code> it
+                        returns <Code>43</Code>.
+                    </p>
 
-                <p>
-                    Currying is very useful in many functional programming patterns. For example, consider
-                    the <Code>List.map</Code> function. This function takes two arguments, a function of type <Code>a ->
-                    b</Code> and a list of type <Code>List[a]</Code>, and returns a <Code>List[b]</Code> obtained by
-                    applying the function to every element of the list. Now, if we combine currying with the pipeline
-                    operator <Code>|></Code> we are able to write:
-                </p>
+                    <p>
+                        Currying is useful in many programming patterns. For example, consider
+                        the <Code>List.map</Code> function. This function takes two arguments, a function of type <Code>a
+                        -> b</Code> and a list of type <Code>List[a]</Code>, and returns a <Code>List[b]</Code> obtained
+                        by applying the function to every element of the list. Now, if we combine currying with the
+                        pipeline operator <Code>|></Code> we are able to write:
+                    </p>
 
-                <Editor flix={this.props.flix}>
-                    def main(): List[Int] = List.range(1, 10) |> List.map(x -> x + 1)
-                </Editor>
+                    <Editor flix={this.props.flix}>
+                        def main(): List[Int] = List.range(1, 10) |> List.map(x -> x + 1)
+                    </Editor>
 
-                <p>
-                    Here the call to <Code>List.map</Code> passes the function <Code>x -> x +
-                    1</Code> which <i>returns</i> a new function that excepts a list argument. This list argument is
-                    then supplied by the pipeline operator <Code>|></Code> which, in this case, expects a list and a
-                    function that takes a list.
-                </p>
+                    <p>
+                        Here the call to <Code>List.map</Code> passes the function <Code>x -> x +
+                        1</Code> which <i>returns</i> a new function that expects a list argument. This list argument is
+                        then supplied by the pipeline operator <Code>|></Code> which, in this case, expects a list and a
+                        function that takes a list.
+                    </p>
 
+                </SubSection>
 
-
-            </section>)
+            </Section>)
     }
 }
 

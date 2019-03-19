@@ -1,10 +1,18 @@
 import React from 'react'
+import ReactGA from "react-ga";
+
 import Code from '../components/Code';
 import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 
 class Functions extends React.Component {
+
+    componentDidMount() {
+        document.title = "Programming Flix | Functions";
+        ReactGA.pageview(window.location.pathname + window.location.hash);
+    }
+
     render() {
         return (
             <Section name="Functions and Higher-Order Functions">

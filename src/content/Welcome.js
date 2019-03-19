@@ -1,7 +1,14 @@
 import React from 'react'
+import ReactGA from "react-ga";
 import Container from "reactstrap/es/Container";
 
 class Welcome extends React.Component {
+
+    componentDidMount() {
+        document.title = "Programming Flix | Welcome";
+        ReactGA.pageview(window.location.pathname + window.location.hash);
+    }
+
     render() {
         const style = {textAlign: "center", marginBottom: "2.5em"};
         return (

@@ -1,9 +1,15 @@
 import React from 'react'
+import ReactGA from "react-ga";
 
 import Editor from '../util/Editor';
 import Section from "../components/Section";
 
 class Introduction extends React.Component {
+
+    componentDidMount() {
+        document.title = "Programming Flix | Introduction";
+        ReactGA.pageview(window.location.pathname + window.location.hash);
+    }
 
     render() {
         return (

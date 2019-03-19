@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactGA from 'react-ga';
 
 import Code from '../components/Code';
 import Editor from '../util/Editor';
@@ -8,7 +9,12 @@ import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
 import SubSubSection from "../components/SubSubSection";
 
-class Introduction extends React.Component {
+class Basics extends React.Component {
+
+    componentDidMount() {
+        document.title = "Programming Flix | Basics";
+        ReactGA.pageview(window.location.pathname + window.location.hash);
+    }
 
     render() {
         return (
@@ -218,4 +224,4 @@ def h(): Float = 123.0`}
 
 }
 
-export default Introduction
+export default Basics

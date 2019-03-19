@@ -1,4 +1,6 @@
 import React from 'react'
+import ReactGA from "react-ga";
+
 import Code from '../components/Code';
 import Editor from '../util/Editor';
 import Section from "../components/Section";
@@ -6,6 +8,11 @@ import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
 
 class DataTypes extends React.Component {
+
+    componentDidMount() {
+        document.title = "Programming Flix | Data Types";
+        ReactGA.pageview(window.location.pathname + window.location.hash);
+    }
 
     render() {
         return (

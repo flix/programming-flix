@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactGA from "react-ga";
 
 import Code from '../components/Code';
 import Editor from '../util/Editor';
@@ -10,6 +11,11 @@ import SubSubSection from "../components/SubSubSection";
 import DesignNote from "../components/DesignNote";
 
 class Concurrency extends React.Component {
+
+    componentDidMount() {
+        document.title = "Programming Flix | Concurrency";
+        ReactGA.pageview(window.location.pathname + window.location.hash);
+    }
 
     render() {
         return (

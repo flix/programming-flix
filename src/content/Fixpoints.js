@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactGA from "react-ga";
 
 import Code from '../components/Code';
 import Editor from '../util/Editor';
@@ -7,7 +8,12 @@ import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
 import Warning from "../components/Warning";
 
-class Introduction extends React.Component {
+class Fixpoints extends React.Component {
+
+    componentDidMount() {
+        document.title = "Programming Flix | Fixpoints";
+        ReactGA.pageview(window.location.pathname + window.location.hash);
+    }
 
     render() {
         return (
@@ -101,4 +107,4 @@ Connected(x, z) :- Connected(x, y), DirectedEdge(y, z).`}
 
 }
 
-export default Introduction
+export default Fixpoints

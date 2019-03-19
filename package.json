@@ -10,6 +10,7 @@
     "react": "16.2.0",
     "react-ace": "^5.10.0",
     "react-dom": "16.2.0",
+    "react-ga": "^2.5.7",
     "react-newline-to-break": "^1.0.6",
     "react-router": "^4.4.0",
     "react-router-dom": "^4.4.0",

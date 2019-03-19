@@ -1,10 +1,16 @@
 import React from 'react'
+import ReactGA from "react-ga";
 
 import Code from '../components/Code';
 import Editor from '../util/Editor';
 import Section from "../components/Section";
 
 class Lists extends React.Component {
+
+    componentDidMount() {
+        document.title = "Programming Flix | Lists";
+        ReactGA.pageview(window.location.pathname + window.location.hash);
+    }
 
     render() {
         return (

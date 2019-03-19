@@ -126,35 +126,91 @@ B(x) :- not A(x), C(x).`}
                 <SubSection name="Programming with First-class Constraints">
 
                     <p>
-                        A unique feature of Flix is its support for <i>first-class constraints</i>.
+                        A unique feature of Flix is its support for <i>first-class constraints</i>. A first-class
+                        constraint is a value that can be constructed, passed around, composed with other constraints,
+                        and ultimately solved. The solution to a constraint system is another constraint system which
+                        can be further composed.
+                    </p>
+
+                    <p>
+                        For a concrete example, consider the program below:
                     </p>
 
 
                     <Editor flix={this.props.flix}>
-                        {`/// Declare two predicate symbols.
-rel ParentOf(x: Str, y: Str)
+                        {`rel ParentOf(x: Str, y: Str)
 rel AncestorOf(x: Str, y: Str)
+rel AdoptedBy(x: Str, y: Str)
 
-/// Returns a collection of facts.
-def getFacts(): Schema { ParentOf, AncestorOf } = {
+def getParents[r](): Schema { ParentOf | r } = {
     ParentOf("Pompey", "Strabo").
     ParentOf("Gnaeus", "Pompey").
     ParentOf("Pompeia", "Pompey").
     ParentOf("Sextus", "Pompey").
 }
 
-/// Returns a collection of rules to compute ancestors.
-def getRules(): Schema { ParentOf, AncestorOf } = {
+def getAdoptions[r](): Schema { AdoptedBy | r } = {
+    AdoptedBy("Augustus", "Caesar").
+    AdoptedBy("Tiberius", "Augustus").
+}
+
+def withAncestors[r](): Schema { ParentOf, AncestorOf | r } = {
     AncestorOf(x, y) :- ParentOf(x, y).
     AncestorOf(x, z) :- AncestorOf(x, y), AncestorOf(y, z).
 }
 
-/// Composes the facts and rules, and computes the lfp.
-def main(): Schema { ParentOf, AncestorOf } =
-    solve getFacts() <+> getRules()
+def withAdoptions[r](): Schema { AdoptedBy, AncestorOf | r } = {
+    AncestorOf(x, y) :- AdoptedBy(y, x).
+}
+
+def main(): Schema { ParentOf, AncestorOf, AdoptedBy } =
+    let b = false;
+    let c = getParents() <+> withAncestors();
+    if (b)
+        solve c
+    else
+        solve c <+> getAdoptions() <+> withAdoptions()
 `}
                     </Editor>
 
+                    <p>
+                        The program defines three predicate symbols: <Code>ParentOf</Code>, <Code>AncestorOf</Code>,
+                        and <Code>AdoptedBy</Code>. The <Code>getParents</Code> function returns a collection of facts
+                        that represent biological parents, whereas the <Code>getAdoptions</Code> function returns
+                        a collection of facts that represent adoptions. The <Code>withAncestors</Code> function
+                        returns two constraints that populate the <Code>AncestorOf</Code> relation using the
+                        <Code>ParentOf</Code> relation. The <Code>withAdoptions</Code> function returns a constraint
+                        that populates the <Code>ParentOf</Code> relation using the <Code>AdoptedBy</Code> relation.
+                    </p>
+
+                    <p>
+                        In the <Code>main</Code> function the boolean <Code>b</Code> controls whether we solve a program
+                        that only considers biological parents or if we include adoptions. This implemented by computing
+                        the composition of the result of <Code>getParents</Code> with <Code>withAncestors</Code>, and
+                        then branching on the boolean to decide whether to include the results
+                        of <Code>getAdoptions</Code> and <Code>withAdoptions</Code>.
+                    </p>
+
+                    <p>
+                        As can be seen, the types the functions are row-polymorphic. For example, the signature
+                        of <Code>getParents</Code> is <Code>def getParents[r]():
+                        Schema {"{ ParentOf | r }"}</Code> where <Code>r</Code> is row polymorphic type variable that
+                        represent the rest of the predicates that the result of the function can be composed with.
+                    </p>
+
+                    <DesignNote>
+                        The row polymorphic types are best understood as an over-approximation of the predicates that
+                        may occur in a constraint system. For example, if a constraint system has
+                        type <Code>{"Schema { P }"}</Code> that does necessarily mean that it will refer to the
+                        predicate symbol <Code>P</Code>, but it does guarantee that it will refer to no other predicate
+                        symbols.
+                    </DesignNote>
+
+                    <SubSection name="Polymorphic First-class Constraints">
+
+
+
+                    </SubSection>
 
                     <Editor flix={this.props.flix}>
                         {`/// Declare two polymorphic predicate symbols.

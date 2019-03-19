@@ -90,7 +90,7 @@ class Editor extends Component {
                             value={this.state.input}
                             autoScrollEditorIntoView={true}
                             minLines={1}
-                            maxLines={30}
+                            maxLines={40}
                             editorProps={{$blockScrolling: true}}/>
                     </div>
                 </div>

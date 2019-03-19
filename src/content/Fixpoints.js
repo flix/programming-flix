@@ -169,8 +169,7 @@ def main(): Schema { ParentOf, AncestorOf, AdoptedBy } =
     if (b)
         solve c
     else
-        solve c <+> getAdoptions() <+> withAdoptions()
-`}
+        solve c <+> getAdoptions() <+> withAdoptions()`}
                     </Editor>
 
                     <p>
@@ -206,17 +205,19 @@ def main(): Schema { ParentOf, AncestorOf, AdoptedBy } =
                         symbols.
                     </DesignNote>
 
-                    <SubSection name="Polymorphic First-class Constraints">
+                </SubSection>
 
-                        <p>
-                            Another unique feature of Flix is its support for
-                            first-class <i>polymorphic</i> constraints. That is, constraints where one or more
-                            constraints are polymorphic in their term types. For example:
-                        </p>
+                <SubSection name="Polymorphic First-class Constraints">
+
+                    <p>
+                        Another unique feature of Flix is its support for
+                        first-class <i>polymorphic</i> constraints. That is, constraints where one or more
+                        constraints are polymorphic in their term types. For example:
+                    </p>
 
 
-                        <Editor flix={this.props.flix}>
-                            {`rel LabelEdge[l](x: Str, l: l, y: Str)
+                    <Editor flix={this.props.flix}>
+                        {`rel LabelEdge[l](x: Str, l: l, y: Str)
 rel LabelPath[l](x: Str, l: l, y: Str)
 
 def getEdgesWithNumbers[r](): Schema { LabelEdge[Int] | r } = {
@@ -240,70 +241,78 @@ def main1(): Schema { LabelEdge[Int], LabelPath[Int] }  =
     solve getEdgesWithNumbers() <+> getRules()
 
 def main2(): Schema { LabelEdge[Str], LabelPath[Str] }  =
-    solve getEdgesWithColor() <+> getRules()
-`}
-                        </Editor>
+    solve getEdgesWithColor() <+> getRules()`}
+                    </Editor>
 
-                        <p>
-                            Here we declare two predicate symbols: <Code>LabelEdge</Code> and <Code>LabelPath</Code>.
-                            Each predicate has a type parameter named <Code>l</Code> and is polymorphic in the "label"
-                            type associated with the edge/path. Note how <Code>getEdgesWithNumbers</Code> returns a
-                            collection of edge facts where the labels are integers,
-                            whereas <Code>getEdgesWithColor</Code> returns a collection of facts where the labels are
-                            strings. The <Code>getRules</Code> function is polymorphic and returns two rules that
-                            compute the transitive closure of edges that have the same label. This function is used by
-                            both <Code>main1</Code> and <Code>main2</Code> to compute the transitive closure of graphs
-                            with different types of labels.
-                        </p>
+                    <p>
+                        Here we declare two predicate symbols: <Code>LabelEdge</Code> and <Code>LabelPath</Code>.
+                        Each predicate has a type parameter named <Code>l</Code> and is polymorphic in the "label"
+                        type associated with the edge/path. Note how <Code>getEdgesWithNumbers</Code> returns a
+                        collection of edge facts where the labels are integers,
+                        whereas <Code>getEdgesWithColor</Code> returns a collection of facts where the labels are
+                        strings. The <Code>getRules</Code> function is polymorphic and returns two rules that
+                        compute the transitive closure of edges that have the same label. This function is used by
+                        both <Code>main1</Code> and <Code>main2</Code> to compute the transitive closure of graphs
+                        with different types of labels.
+                    </p>
 
-                    </SubSection>
+                </SubSection>
 
+                <SubSection name="Pipelines of Fixpoint Computations">
+
+                    <p>
+                        The solution (i.e. fixpoint) of a constraint system is another constraint system. We can use
+                        this to construct <i>pipelines</i> of fixpoint computations, i.e. to feed the result of one
+                        fixpoint computation into another fixpoint computation. For example:
+                    </p>
 
                     <Editor flix={this.props.flix}>
-                        {`// Declare three predicate symbols.
-rel ColorEdge(x: Int, c: Str, y: Int)
+                        {`rel ColorEdge(x: Int, c: Str, y: Int)
 rel ColorPath(x: Int, c: Str, y: Int)
 rel ColorlessPath(x: Int, y: Int)
 
 def main(): Bool =
-    // Introduce some facts for colored paths.
     let f1 = {
         ColorEdge(1, "blue", 2).
         ColorEdge(2, "blue", 3).
     };
-    // Introduce some rules for computing paths.
     let r1 = {
         ColorPath(x, c, y) :- ColorEdge(x, c, y).
         ColorPath(x, c, z) :- ColorPath(x, c, y), ColorEdge(y, c, z).
     };
-    // Introduce some rules for computing colorless paths.
     let r2 = {
         ColorlessPath(x, y) :- ColorPath(x, _, y).
     };
-    // Compute all the color paths.
     let m1 = solve (f1 <+> r1);
-
-    // Use that result to compute colorless paths.
     let m2 = solve (m1 <+> r2);
-
-    // Check that there is a path from 1 to 3.
-    m2 |= ColorlessPath(1, 3).
-`}
+    m2 |= ColorlessPath(1, 3).`}
                     </Editor>
 
+                    <p>
+                        The program declares three predicates: <Code>ColorEdge</Code>, <Code>ColorPath</Code>,
+                        and <Code>ColorlessPath</Code>. Our goal is to compute the transitive closures of the
+                        colored edges and then afterwards construct a graph where the edges have no color. The program
+                        defines two edge facts <Code>f1</Code>, then two rules to compute the transitive
+                        closure <Code>r1</Code>, and finally a rule <Code>r2</Code> to copy all color path facts to
+                        colorless path facts.
+                    </p>
+
+                    <p>
+                        The program first computes the fixpoint of <Code>f1</Code> and <Code>r1</Code> which yields
+                        the transitive closure of the colored graph. Next, the program takes that result, composes it
+                        with the rule <Code>r2</Code>, and computes its fixpoint. The result is another constraint
+                        system with (i) the original colored edge facts, (ii) the colored path facts, and (iii) the
+                        colorless path facts. Finally, we ask if this constraint system contains the fact <Code>ColorlessPath(1,
+                        3)</Code>.
+                    </p>
 
                 </SubSection>
 
                 <SubSection name="Using Flix to Solve Constraints on Lattices">
 
                     <p>
-                        Flix generalizes Datalog to support <i>constraints on lattices</i>:
+                        TBD.
                     </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`....
-`}
-                    </Editor>
 
                 </SubSection>
 

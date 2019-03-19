@@ -311,8 +311,92 @@ def main(): Bool =
                 <SubSection name="Using Flix to Solve Constraints on Lattices">
 
                     <p>
-                        TBD.
+                        Flix supports not only <i>constraints on relations</i>, but also <i>constraints on lattices</i>.
+                        To create such constraints, we must first define the lattice operations (the partial order,
+                        the least upper bound, and so on) as functions, associate them with a type, and then declare the
+                        predicate symbols that have lattice semantics. For example:
                     </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`enum Sign {
+              case Top,
+
+    case Neg, case Zer, case Pos,
+
+              case Bot
+}
+
+def equ(e1: Sign, e2: Sign): Bool = e1 == e2
+
+def leq(e1: Sign, e2: Sign): Bool = match (e1, e2) with {
+    case (Bot, _)   => true
+    case (Neg, Neg) => true
+    case (Zer, Zer) => true
+    case (Pos, Pos) => true
+    case (_, Top)   => true
+    case _          => false
+}
+
+def lub(e1: Sign, e2: Sign): Sign = match (e1, e2) with {
+    case (Bot, x)   => x
+    case (x, Bot)   => x
+    case (Neg, Neg) => Neg
+    case (Zer, Zer) => Zer
+    case (Pos, Pos) => Pos
+    case _          => Top
+}
+
+def glb(e1: Sign, e2: Sign): Sign = match (e1, e2) with {
+    case (Top, x)   => x
+    case (x, Top)   => x
+    case (Neg, Neg) => Neg
+    case (Zer, Zer) => Zer
+    case (Pos, Pos) => Pos
+    case _          => Bot
+}
+
+let Sign<> = (Bot, Top, equ, leq, lub, glb)
+
+lat A(x: Str, s: Sign)
+lat B(x: Str, s: Sign)
+lat R(x: Str, s: Sign)
+
+A("a", Pos).
+A("b", Neg).
+B("a", Top).
+
+R("c", s) :- A("a", s).
+R("c", s) :- A("b", s).
+R("d", s) :- A(x, s), B(x, s).
+`}
+                    </Editor>
+
+                    <p>
+                        The program above defines an enum for the elements of the sign lattice and then defines each of
+                        the lattice operations as functions. Here <Code>equ</Code> is equality, <Code>leq</Code> is the
+                        partial order, <Code>lub</Code> is the least upper bound, and <Code>glb</Code> is the greatest
+                        lower bound.
+                    </p>
+
+                    <p>Next the program associates the <Code>Sign</Code> type with the lattice components.</p>
+
+                    <p>
+                        Finally, the program defines three predicate symbols <Code>A</Code>, <Code>B</Code>,
+                        and <Code>C</Code> with lattice interpretations. The program then defines three facts and three
+                        rules. The two first rules require that in the fact <Code>R("c",
+                        s)</Code> the <Code>s</Code> element must be at least the least upper bound
+                        of <Code>s1</Code> and <Code>s2</Code> for any facts <Code>A("a", s1)</Code> and <Code>A("b",
+                        s2)</Code>. Thus we compute the fact <Code>R("c", Top)</Code>. The last rule, on the other hand
+                        requires that in the fact <Code>R("d", s)</Code> s must be the greatest lower bound
+                        of <Code>s1</Code> and <Code>s2</Code> for any facts <Code>A(x, s1)</Code> and <Code>B(x,
+                        s2)</Code>. Thus we compute the fact <Code>R("d", Pos)</Code>.
+                    </p>
+
+                    <Warning>
+                        The syntax <Code>let Sign&lt;&gt; = (Bot, Top, equ, leq, lub, glb)</Code> used to associate
+                        the <Code>Sign</Code> type with lattice operations will be deprecated in the future, once we add
+                        type classes.
+                    </Warning>
 
                 </SubSection>
 

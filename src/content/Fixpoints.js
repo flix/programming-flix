@@ -57,14 +57,69 @@ Connected(x, z) :- Connected(x, y), DirectedEdge(y, z).`}
                     </p>
 
                     <p>
-                        Note: The expression "fixpoints on relational constraints" is equivalent to Datalog. That is,
-                        when used in this way Flix works as an ordinary Datalog solver.
+                        The above program demonstrates that Flix can be used as an ordinary Datalog solver.
                     </p>
 
                     <DesignNote>
-                        In Flix, all predicate symbols must be declared before they can be used. We are currently
-                        debating whether or not this is a good thing.
+                        In Flix, all predicate symbols must be declared before they can be used.
                     </DesignNote>
+
+                </SubSection>
+
+                <SubSection name="Stratified Negation">
+
+                    <p>
+                        Flix supports <i>stratified negation</i> which allow restricted use of negation in rule
+                        bodies. For example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`rel Movie(title: Str)
+rel StarringIn(title: Str, name: Str)
+rel DirectedBy(title: Str, name: Str)
+rel DirectorNotInMovie(title: Str)
+
+Movie("The Hateful Eight").
+Movie("Interstellar").
+
+StarringIn("The Hateful Eight", "Samuel L. Jackson").
+StarringIn("The Hateful Eight", "Kurt Russel").
+StarringIn("The Hateful Eight", "Quentin Tarantino").
+StarringIn("Interstellar", "Matthew McConaughey").
+StarringIn("Interstellar", "Anne Hathaway").
+
+DirectedBy("The Hateful Eight", "Quentin Tarantino").
+DirectedBy("Interstellar", "Christopher Nolan").
+
+DirectorNotInMovie(title) :-
+    Movie(title), DirectedBy(title, name), not StarringIn(title, name).`}
+                    </Editor>
+
+                    <p>
+                        The program defines four
+                        predicates: <Code>Movie</Code>, <Code>StarringIn</Code>, <Code>DirectedBy</Code>,
+                        and <Code>DirectorNotInMovie</Code>. It then provides several facts for the movies "The
+                        Hateful Eight" and "Interstellar". The constraint, at the bottom, uses negation to select those
+                        movies where the director has not appeared as a cast member.
+                    </p>
+
+                    <Warning>
+                        Flix enforces that programs are stratified, i.e. a program must not have recursive dependencies
+                        that form on which there is use of negation. If there is, the Flix compiler rejects the program.
+                    </Warning>
+
+                    <p>
+                        The example below is <i>not</i> stratified and hence is rejected:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`rel A(x: Int)
+rel B(x: Int)
+rel C(x: Int)
+
+A(x) :- B(x).
+B(x) :- not A(x), C(x).`}
+                    </Editor>
 
                 </SubSection>
 
@@ -75,6 +130,114 @@ Connected(x, z) :- Connected(x, y), DirectedEdge(y, z).`}
                     </p>
 
 
+                    <Editor flix={this.props.flix}>
+                        {`/// Declare two predicate symbols.
+rel ParentOf(x: Str, y: Str)
+rel AncestorOf(x: Str, y: Str)
+
+/// Returns a collection of facts.
+def getFacts(): Schema { ParentOf, AncestorOf } = {
+    ParentOf("Pompey", "Strabo").
+    ParentOf("Gnaeus", "Pompey").
+    ParentOf("Pompeia", "Pompey").
+    ParentOf("Sextus", "Pompey").
+}
+
+/// Returns a collection of rules to compute ancestors.
+def getRules(): Schema { ParentOf, AncestorOf } = {
+    AncestorOf(x, y) :- ParentOf(x, y).
+    AncestorOf(x, z) :- AncestorOf(x, y), AncestorOf(y, z).
+}
+
+/// Composes the facts and rules, and computes the lfp.
+def main(): Schema { ParentOf, AncestorOf } =
+    solve getFacts() <+> getRules()
+`}
+                    </Editor>
+
+
+                    <Editor flix={this.props.flix}>
+                        {`/// Declare two polymorphic predicate symbols.
+/// Here an edge and a path are labelled with some type \`l\`.
+rel LabelEdge[l](x: Str, l: l, y: Str)
+rel LabelPath[l](x: Str, l: l, y: Str)
+
+/// Returns a set of edge facts labelled with numbers.
+/// Note that the return type is \`closed\` which means that the
+/// facts can *only* be used within a constraint system that
+/// has labelled edges and paths of ints.
+def getEdgesWithNumbers(): Schema { LabelEdge[Int], LabelPath[Int] } = {
+    LabelEdge("a", 1, "b").
+    LabelEdge("b", 1, "c").
+    LabelEdge("c", 2, "d").
+}
+
+/// Returns a set of edge facts labelled with colors (strings).
+/// Note that the return type is \`open\` (polymorphic) which
+/// means that the facts can be used within any constraint
+/// as long as the edges are labelled with strings.
+def getEdgesWithColor[r](): Schema { LabelEdge[Str] | r } = {
+    LabelEdge("a", "red", "b").
+    LabelEdge("b", "red", "c").
+    LabelEdge("c", "blu", "d").
+}
+
+/// Returns a set of polymorphic rules to compute the transitive
+/// closure of edges with the *same* label.
+def getRules[l](): Schema { LabelEdge[l], LabelPath[l] } = {
+    LabelPath(x, l, y) :- LabelEdge(x, l, y).
+    LabelPath(x, l, z) :- LabelPath(x, l, y), LabelPath(y, l, z).
+}
+
+/// Computes the fixpoint of the two sets of facts with the rules.
+/// Note that polymorphism allow us to use \`getRules\`
+/// with both types of facts.
+def main(): Unit =
+    let r1 = solve getEdgesWithColor() <+> getRules();
+    let r2 = solve getEdgesWithNumbers() <+> getRules();
+    ()
+
+/// However, the type system ensures that we do not mix facts of
+/// different type:
+def main2(): Unit =
+    /// Uncomment to see that the composition does not type check:
+    /// let r1 = solve getEdgesWithColor() <+> getEdgesWithNumbers();
+    ()
+`}
+                    </Editor>
+
+
+                    <Editor flix={this.props.flix}>
+                        {`// Declare three predicate symbols.
+rel ColorEdge(x: Int, c: Str, y: Int)
+rel ColorPath(x: Int, c: Str, y: Int)
+rel ColorlessPath(x: Int, y: Int)
+
+def main(): Bool =
+    // Introduce some facts for colored paths.
+    let f1 = {
+        ColorEdge(1, "blue", 2).
+        ColorEdge(2, "blue", 3).
+    };
+    // Introduce some rules for computing paths.
+    let r1 = {
+        ColorPath(x, c, y) :- ColorEdge(x, c, y).
+        ColorPath(x, c, z) :- ColorPath(x, c, y), ColorEdge(y, c, z).
+    };
+    // Introduce some rules for computing colorless paths.
+    let r2 = {
+        ColorlessPath(x, y) :- ColorPath(x, _, y).
+    };
+    // Compute all the color paths.
+    let m1 = solve (f1 <+> r1);
+
+    // Use that result to compute colorless paths.
+    let m2 = solve (m1 <+> r2);
+
+    // Check that there is a path from 1 to 3.
+    m2 |= ColorlessPath(1, 3).
+`}
+                    </Editor>
 
 
                 </SubSection>

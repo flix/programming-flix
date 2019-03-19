@@ -290,7 +290,7 @@ def main(): Bool =
 
                     <p>
                         The program declares three predicates: <Code>ColorEdge</Code>, <Code>ColorPath</Code>,
-                        and <Code>ColorlessPath</Code>. Our goal is to compute the transitive closures of the
+                        and <Code>ColorlessPath</Code>. Our goal is to compute the transitive closure of the
                         colored edges and then afterwards construct a graph where the edges have no color. The program
                         defines two edge facts <Code>f1</Code>, then two rules to compute the transitive
                         closure <Code>r1</Code>, and finally a rule <Code>r2</Code> to copy all color path facts to

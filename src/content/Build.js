@@ -53,10 +53,6 @@ class Build extends React.Component {
                             <td>builds a jar-file for the current project.</td>
                         </tr>
                         <tr>
-                            <td><Code>build-pkg</Code></td>
-                            <td>builds a fpkg-file for the current project.</td>
-                        </tr>
-                        <tr>
                             <td><Code>run</Code></td>
                             <td>runs main for the current project.</td>
                         </tr>

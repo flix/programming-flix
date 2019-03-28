@@ -11,6 +11,7 @@ import {Route} from "react-router";
 import {Link} from "react-router-dom";
 import Concurrency from "./content/Concurrency";
 import Fixpoints from "./content/Fixpoints";
+import Build from "./content/Build";
 
 const SocketAddress = 'wss://flix-evaluator.cs.au.dk/ws';
 
@@ -92,6 +93,10 @@ class App extends React.Component {
                         <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/fixpoints/">Fixpoints</NavLink>
                         </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/build/">Build</NavLink>
+                        </NavItem>
                     </Nav>
                 </Navbar>
 
@@ -103,6 +108,7 @@ class App extends React.Component {
                 <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>
                 <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
                 <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
+                <Route path="/build/" render={() => <Build flix={this.getFlix()}/>}/>
 
             </div>
         );

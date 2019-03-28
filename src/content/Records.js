@@ -29,11 +29,30 @@ class Records extends React.Component {
                     syntax of type ascriptions.
                 </p>
 
-                <p>We can access the field of a record using the dot: </p>
+                <p>
+                    The field order in a record does not matter, hence the above record is equivalent to the record:
+                </p>
+
+                <Editor flix={this.props.flix}>{`def main(): {x : Int, y: Int} = { y = 2, x = 1 }`}</Editor>
+
+                <p> We can access a field of a record using the dot: </p>
 
                 <Editor flix={this.props.flix}>{`def main(): Int = 
     let p = { x = 1, y = 2 };
     p.x + p.y`}</Editor>
+
+                <p>
+                    The Flix type system ensures that we cannot accidentally access a field that does not exist.
+                </p>
+
+                <p>
+                    Records are immutable. A record, once constructed, cannot have the values of any of its fields
+                    changed.
+                </p>
+
+                <p>
+                    We can, however, construct a new record with updated field values:
+                </p>
 
 
 

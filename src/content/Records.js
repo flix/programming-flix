@@ -81,8 +81,34 @@ class Records extends React.Component {
                 <Editor flix={this.props.flix}>{`def f[s](r: {x: Int, y: Int | s}): Int = r.x + r.y`}</Editor>
 
                 <p>
-                    This function can be called with <i>any</i> record as long as it has
-                    an <Code>x</Code> and <Code>y</Code> fields of <Code>Int</Code> type.
+                    This function can be called with <i>any</i> record as long as it
+                    has <Code>x</Code> and <Code>y</Code> fields of <Code>Int</Code> type.
+                </p>
+
+                <p> We can add a new field to an existing record as follows: </p>
+
+                <Editor flix={this.props.flix}>{`def main(): Int = 
+    let p1 = { x = 1, y = 2 };
+    let p2 = { +z = 3 | p1 };
+    p1.x + p1.y + p2.z`}</Editor>
+
+                <p>
+                    Here the expression <Code>{`{ +z = 3 | p1 }`}</Code> extends the record <Code>p1</Code> with a new
+                    field <Code>z</Code> such that the result has three fields: <Code>x</Code>, <Code>y</Code>,
+                    and <Code>z</Code> of <Code>Int</Code> type.
+                </p>
+
+                <p>
+                    Similarly, we can remove a field from a record:
+                </p>
+
+                <Editor flix={this.props.flix}>{`def main(): Int = 
+    let p1 = { x = 1, y = 2 };
+    let p2 = { -y | p1 };
+    p2.x`}</Editor>
+
+                <p>
+                    Here the record <Code>p2</Code> is similar to <Code>p1</Code> but without its <Code>y</Code> field.
                 </p>
 
             </Section>

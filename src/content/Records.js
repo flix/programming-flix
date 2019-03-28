@@ -14,7 +14,7 @@ class Records extends React.Component {
 
     render() {
         return (
-            <Section name="Records">
+            <Section name="Programming with Records">
 
                 <p> Flix supports statically-typed polymorphic extensible records. </p>
 
@@ -54,7 +54,36 @@ class Records extends React.Component {
                     We can, however, construct a new record with updated field values:
                 </p>
 
+                <Editor flix={this.props.flix}>{`def main(): Int = 
+    let p1 = { x = 1, y = 2 };
+    let p2 = { x = 3 | p1 };
+    p1.x + p2.x`}</Editor>
 
+                <p>
+                    The expression <Code>{`{ x = 3 | p1 }`}</Code> updates the record <Code>p1</Code> with a new value
+                    of its <Code>x</Code> field. Note that updating a field requires that the field exists on the record
+                    (!) A record cannot be <i>updated</i> with a new field, but it can be <i>extended</i> with a new
+                    field, as we shall see later.
+                </p>
+
+                <p> If we write a function that takes a record we must specify its fields: </p>
+
+                <Editor flix={this.props.flix}>{`def f(r: {x: Int, y: Int}): Int = r.x + r.y`}</Editor>
+
+                <p>
+                    We can call this function with the
+                    records <Code>{`{ x = 1, y = 2 }`}</Code> or <Code>{`{ y = 2, x = 1 }`}</Code>, but
+                    we <i>cannot</i> call it with the record <Code>{`{ x = 1, y = 2, z = 3 }`}</Code>. The signature
+                    of <Code>f</Code> demands a record with <i>exactly</i> two fields: <Code>x</Code> and <Code>y</Code>.
+                    If we want to less this restriction, we can write a record polymorphic function:
+                </p>
+
+                <Editor flix={this.props.flix}>{`def f[s](r: {x: Int, y: Int | s}): Int = r.x + r.y`}</Editor>
+
+                <p>
+                    This function can be called with <i>any</i> record as long as it has
+                    an <Code>x</Code> and <Code>y</Code> fields of <Code>Int</Code> type.
+                </p>
 
             </Section>
         )

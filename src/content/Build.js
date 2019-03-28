@@ -5,7 +5,6 @@ import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import Code from "../components/Code";
 import {Card, CardBody, Table} from "reactstrap";
-import DesignNote from "../components/DesignNote";
 import PlannedFeature from "../components/PlannedFeature";
 import Warning from "../components/Warning";
 
@@ -21,15 +20,16 @@ class Build extends React.Component {
             <Section name="Build">
 
                 <p>
-                    Flix features a simple build system. The build system makes it easy to create a Flix project, to
-                    compile a Flix project, to test and benchmark it, and finally to ship a standalone "fat" JAR with
-                    all dependencies included. We plan to develop and extend the build system as Flix matures.
+                    Flix has a simple build system that comes with the compiler. The build system makes it easy to
+                    create a new Flix project, to compile a Flix project, to test and benchmark it, and to ship a
+                    standalone "fat" JAR with all the required dependencies included, i.e. the Flix runtime. We plan to
+                    extend the build system as Flix matures.
                 </p>
 
                 <SubSection name="Overview">
 
                     <p>
-                        Here is a brief overview of the project commands:
+                        Here is a brief overview of the build system commands:
                     </p>
 
                     <Table>
@@ -42,46 +42,48 @@ class Build extends React.Component {
                         <tbody>
                         <tr>
                             <td><Code>init</Code></td>
-                            <td>create a new project in the current directory.</td>
+                            <td>creates a new project in the current directory.</td>
                         </tr>
                         <tr>
                             <td><Code>build</Code></td>
-                            <td>build the current project.</td>
+                            <td>builds the current project.</td>
                         </tr>
                         <tr>
                             <td><Code>build-jar</Code></td>
-                            <td>build a jar-file for the current project.</td>
+                            <td>builds a jar-file for the current project.</td>
                         </tr>
                         <tr>
                             <td><Code>build-pkg</Code></td>
-                            <td>build a fpkg-file for the current project.</td>
+                            <td>builds a fpkg-file for the current project.</td>
                         </tr>
                         <tr>
                             <td><Code>run</Code></td>
-                            <td>run main for the current project.</td>
+                            <td>runs main for the current project.</td>
                         </tr>
                         <tr>
                             <td><Code>benchmark</Code></td>
-                            <td>run benchmarks for the current project.</td>
+                            <td>runs benchmarks for the current project.</td>
                         </tr>
                         <tr>
                             <td><Code>test</Code></td>
-                            <td>run tests for the current project.</td>
+                            <td>runs tests for the current project.</td>
                         </tr>
                         </tbody>
                     </Table>
 
                     <p>
                         A command is executed by running <Code>flix &lt;command&gt;</Code> inside the project directory.
+                        Depending on how Flix is installed on your machine, you may need to run <Code>java -jar
+                        flix.jar &lt;command&gt;</Code>.
                     </p>
 
                 </SubSection>
 
-                <SubSection name="Creating a Project">
+                <SubSection name="Creating a New Project">
 
                     <p>
-                        We can create a new project by creating an empty directory and running the <Code>flix
-                        init</Code> command inside it:
+                        We can create a new project by creating an empty directory and running
+                        the <Code>init</Code> command inside it:
                     </p>
 
                     <Card>
@@ -95,7 +97,7 @@ class Build extends React.Component {
                     </Card>
 
                     <p>
-                        This will create a project structure with the following layout:
+                        This will create a project structure with approximately the following layout:
                     </p>
 
                     <Card>
@@ -115,7 +117,7 @@ class Build extends React.Component {
                     </Card>
 
                     <p>
-                        The most relevant files are <Code>src/Main.flix</Code> and <Code>test/Main.flix</Code>.
+                        The most relevant files are <Code>src/Main.flix</Code> and <Code>test/TestMain.flix</Code>.
                     </p>
 
                 </SubSection>
@@ -123,8 +125,7 @@ class Build extends React.Component {
                 <SubSection name="Building a Project">
 
                     <p>
-                        We can build a project by running the <Code>flix build</Code> command inside the project
-                        directory:
+                        We can build a project by running the <Code>build</Code> command inside the project directory:
                     </p>
 
                     <Card>
@@ -178,7 +179,7 @@ class Build extends React.Component {
                     </p>
 
                     <Warning>
-                        The project must have been built before with the <Code>flix build</Code> command.
+                        The project must have been built before with the <Code>build</Code> command.
                     </Warning>
 
                 </SubSection>
@@ -186,8 +187,8 @@ class Build extends React.Component {
                 <SubSection name="Running a Project">
 
                     <p>
-                        We don't have to build a JAR-file to run a project, we can simply use the <Code>flix
-                        run</Code> command:
+                        We do not have to build a JAR-file to run a project, we can simply use
+                        the <Code>run</Code> command:
                     </p>
 
                     <Card>
@@ -208,7 +209,7 @@ class Build extends React.Component {
                 <SubSection name="Testing a Project">
 
                     <p>
-                        We can use the <Code>flix test</Code> command to run all test cases in a project:
+                        We can use the <Code>test</Code> command to run all test cases in a project:
                     </p>
 
                     <Card>
@@ -220,17 +221,26 @@ class Build extends React.Component {
                     </Card>
 
                     <p>
-                        Flix will collect all functions marked <Code>@test</Code>, execute them, and print a summary of
-                        the results.
+                        Flix will collect all functions marked with <Code>@test</Code>, execute them, and print a
+                        summary of the results:
                     </p>
 
-                </SubSection>
+                    <Card>
+                        <CardBody>
+                            <code>
+                                -- Tests -------------------------------------------------- root <br/>
+                                <br/>
+                                ✓ testMain01
+                            </code>
+                        </CardBody>
+                    </Card>
 
+                </SubSection>
 
                 <SubSection name="Benchmarking a Project">
 
                     <p>
-                        We can use the the <Code>flix benchmark</Code> command to run all benchmarks in a project:
+                        We can use the the <Code>benchmark</Code> command to run all benchmarks in a project:
                     </p>
 
                     <Card>
@@ -242,15 +252,13 @@ class Build extends React.Component {
                     </Card>
 
                     <p>
-                        Flix will collect all functions marked <Code>@benchmark</Code>, execute them multiple times
+                        Flix will collect all functions marked with <Code>@benchmark</Code>, execute them multiple times
                         while measuring their performance, and print a summary of the results.
                     </p>
 
                     <PlannedFeature>
-                        We think measuring at the function level is too coarse-grained and we would like to move to a
-                        model where we can measure the performance of individual expressions. We would also like to
-                        integrate some statistics into the measurement framework and to allow automatic comparisons
-                        between two implementations (pieces of code).
+                        We have plans to expand the benchmark facilities with a better measurement framework with
+                        statistics and to move from function-level towards expression-level benchmarking.
                     </PlannedFeature>
 
                 </SubSection>

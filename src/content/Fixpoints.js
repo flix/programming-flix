@@ -142,28 +142,28 @@ B(x) :- not A(x), C(x).`}
 rel AncestorOf(x: Str, y: Str)
 rel AdoptedBy(x: Str, y: Str)
 
-def getParents[r](): Schema { ParentOf | r } = {
+def getParents[r](): #{ ParentOf | r } = {
     ParentOf("Pompey", "Strabo").
     ParentOf("Gnaeus", "Pompey").
     ParentOf("Pompeia", "Pompey").
     ParentOf("Sextus", "Pompey").
 }
 
-def getAdoptions[r](): Schema { AdoptedBy | r } = {
+def getAdoptions[r](): #{ AdoptedBy | r } = {
     AdoptedBy("Augustus", "Caesar").
     AdoptedBy("Tiberius", "Augustus").
 }
 
-def withAncestors[r](): Schema { ParentOf, AncestorOf | r } = {
+def withAncestors[r](): #{ ParentOf, AncestorOf | r } = {
     AncestorOf(x, y) :- ParentOf(x, y).
     AncestorOf(x, z) :- AncestorOf(x, y), AncestorOf(y, z).
 }
 
-def withAdoptions[r](): Schema { AdoptedBy, AncestorOf | r } = {
+def withAdoptions[r](): #{ AdoptedBy, AncestorOf | r } = {
     AncestorOf(x, y) :- AdoptedBy(y, x).
 }
 
-def main(): Schema { ParentOf, AncestorOf, AdoptedBy } =
+def main(): #{ ParentOf, AncestorOf, AdoptedBy } =
     let b = false;
     let c = getParents() <+> withAncestors();
     if (b)
@@ -193,14 +193,14 @@ def main(): Schema { ParentOf, AncestorOf, AdoptedBy } =
                     <p>
                         As can be seen, the types the functions are row-polymorphic. For example, the signature
                         of <Code>getParents</Code> is <Code>def getParents[r]():
-                        Schema {"{ ParentOf | r }"}</Code> where <Code>r</Code> is row polymorphic type variable that
+                        #{"{ ParentOf | r }"}</Code> where <Code>r</Code> is row polymorphic type variable that
                         represent the rest of the predicates that the result of the function can be composed with.
                     </p>
 
                     <DesignNote>
                         The row polymorphic types are best understood as an over-approximation of the predicates that
                         may occur in a constraint system. For example, if a constraint system has
-                        type <Code>{"Schema { P }"}</Code> that does necessarily mean that it will refer to the
+                        type <Code>{"#{ P }"}</Code> that does necessarily mean that it will refer to the
                         predicate symbol <Code>P</Code>, but it does guarantee that it will refer to no other predicate
                         symbols.
                     </DesignNote>
@@ -220,27 +220,27 @@ def main(): Schema { ParentOf, AncestorOf, AdoptedBy } =
                         {`rel LabelEdge[l](x: Str, l: l, y: Str)
 rel LabelPath[l](x: Str, l: l, y: Str)
 
-def getEdgesWithNumbers[r](): Schema { LabelEdge[Int] | r } = {
+def getEdgesWithNumbers[r](): #{ LabelEdge[Int] | r } = {
     LabelEdge("a", 1, "b").
     LabelEdge("b", 1, "c").
     LabelEdge("c", 2, "d").
 }
 
-def getEdgesWithColor[r](): Schema { LabelEdge[Str] | r } = {
+def getEdgesWithColor[r](): #{ LabelEdge[Str] | r } = {
     LabelEdge("a", "red", "b").
     LabelEdge("b", "red", "c").
     LabelEdge("c", "blu", "d").
 }
 
-def getRules[l](): Schema { LabelEdge[l], LabelPath[l] } = {
+def getRules[l](): #{ LabelEdge[l], LabelPath[l] } = {
     LabelPath(x, l, y) :- LabelEdge(x, l, y).
     LabelPath(x, l, z) :- LabelPath(x, l, y), LabelPath(y, l, z).
 }
 
-def main1(): Schema { LabelEdge[Int], LabelPath[Int] }  =
+def main1(): #{ LabelEdge[Int], LabelPath[Int] }  =
     solve getEdgesWithNumbers() <+> getRules()
 
-def main2(): Schema { LabelEdge[Str], LabelPath[Str] }  =
+def main2(): #{ LabelEdge[Str], LabelPath[Str] }  =
     solve getEdgesWithColor() <+> getRules()`}
                     </Editor>
 

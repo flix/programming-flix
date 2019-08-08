@@ -142,24 +142,24 @@ B(x) :- not A(x), C(x).`}
 rel AncestorOf(x: Str, y: Str)
 rel AdoptedBy(x: Str, y: Str)
 
-def getParents[r](): #{ ParentOf | r } = {
+def getParents[r](): #{ ParentOf | r } = #{
     ParentOf("Pompey", "Strabo").
     ParentOf("Gnaeus", "Pompey").
     ParentOf("Pompeia", "Pompey").
     ParentOf("Sextus", "Pompey").
 }
 
-def getAdoptions[r](): #{ AdoptedBy | r } = {
+def getAdoptions[r](): #{ AdoptedBy | r } = #{
     AdoptedBy("Augustus", "Caesar").
     AdoptedBy("Tiberius", "Augustus").
 }
 
-def withAncestors[r](): #{ ParentOf, AncestorOf | r } = {
+def withAncestors[r](): #{ ParentOf, AncestorOf | r } = #{
     AncestorOf(x, y) :- ParentOf(x, y).
     AncestorOf(x, z) :- AncestorOf(x, y), AncestorOf(y, z).
 }
 
-def withAdoptions[r](): #{ AdoptedBy, AncestorOf | r } = {
+def withAdoptions[r](): #{ AdoptedBy, AncestorOf | r } = #{
     AncestorOf(x, y) :- AdoptedBy(y, x).
 }
 
@@ -220,19 +220,19 @@ def main(): #{ ParentOf, AncestorOf, AdoptedBy } =
                         {`rel LabelEdge[l](x: Str, l: l, y: Str)
 rel LabelPath[l](x: Str, l: l, y: Str)
 
-def getEdgesWithNumbers[r](): #{ LabelEdge[Int] | r } = {
+def getEdgesWithNumbers[r](): #{ LabelEdge[Int] | r } = #{
     LabelEdge("a", 1, "b").
     LabelEdge("b", 1, "c").
     LabelEdge("c", 2, "d").
 }
 
-def getEdgesWithColor[r](): #{ LabelEdge[Str] | r } = {
+def getEdgesWithColor[r](): #{ LabelEdge[Str] | r } = #{
     LabelEdge("a", "red", "b").
     LabelEdge("b", "red", "c").
     LabelEdge("c", "blu", "d").
 }
 
-def getRules[l](): #{ LabelEdge[l], LabelPath[l] } = {
+def getRules[l](): #{ LabelEdge[l], LabelPath[l] } = #{
     LabelPath(x, l, y) :- LabelEdge(x, l, y).
     LabelPath(x, l, z) :- LabelPath(x, l, y), LabelPath(y, l, z).
 }
@@ -272,15 +272,15 @@ rel ColorPath(x: Int, c: Str, y: Int)
 rel ColorlessPath(x: Int, y: Int)
 
 def main(): Bool =
-    let f1 = {
+    let f1 = #{
         ColorEdge(1, "blue", 2).
         ColorEdge(2, "blue", 3).
     };
-    let r1 = {
+    let r1 = #{
         ColorPath(x, c, y) :- ColorEdge(x, c, y).
         ColorPath(x, c, z) :- ColorPath(x, c, y), ColorEdge(y, c, z).
     };
-    let r2 = {
+    let r2 = #{
         ColorlessPath(x, y) :- ColorPath(x, _, y).
     };
     let m1 = solve (f1 <+> r1);

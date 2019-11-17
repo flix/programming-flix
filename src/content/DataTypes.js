@@ -6,6 +6,7 @@ import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
+import Warning from "../components/Warning";
 
 class DataTypes extends React.Component {
 
@@ -226,12 +227,55 @@ def main(): USD = sum(USD(1), USD(5))
                     </Editor>
 
                     <p>
-                        An opaque type works similar to declaring an enum that has a single constructor of the underlying type.
+                        An opaque type works similar to declaring an enum that has a single constructor of the
+                        underlying type.
+                    </p>
+
+                    <p>
+                        An opaque type may be polymorphic.
                     </p>
 
                     <DesignNote>
                         An <i>opaque type</i> is also called a <i>newtype</i> in Haskell.
                     </DesignNote>
+
+                </SubSection>
+
+                <SubSection name="Type Aliases">
+
+                    <p>
+                        Type aliases introduces a short-hand for a type. For example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`/// 
+/// A type alias for a map from keys of type \`k\` 
+/// to values of type \`Result[v, Str]\`
+///
+type alias M[k, v] = Map[k, Result[v, Str]]
+
+def main(): M[Bool, Int] = Map#{true -> Ok(123)}
+`}
+                    </Editor>
+
+                    <p>
+                        A <i>type alias</i>, unlike an <i>opaque type</i>, does not define a new distinct type. Rather a
+                        type alias is simply a syntactic short-hand for a (usually complex) type.
+                    </p>
+
+                    <p>
+                        A type alias may be polymorphic.
+                    </p>
+
+                    <DesignNote>
+                        The Flix compiler expands all type aliases before type checking. Consequently, potentially type
+                        errors are always reported with respect to the actual types.
+                    </DesignNote>
+
+                    <Warning>
+                        A type alias cannot be recursively defined in terms of itself. The Flix compiler will detect and
+                        report such recursive cycles.
+                    </Warning>
 
                 </SubSection>
 

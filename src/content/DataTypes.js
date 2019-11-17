@@ -194,6 +194,47 @@ enum Result[t, e] {
 
                 </SubSection>
 
+                <SubSection name="Opaque Types">
+
+                    <p>
+                        Opaque types introduce a new name for an underlying type. For example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`///
+/// An opaque type for US dollars.
+///
+opaque type USD = Int
+
+///
+/// An opaque type for Canadian dollars.
+///
+opaque type CAD = Int
+
+///
+/// A function that adds two US dollar amounts.
+///
+/// Cannot accidentially be called with Canadian dollars.
+///
+def sum(x: USD, y: USD): USD = 
+  let USD(u) = x;
+  let USD(v) = y;
+  USD(u + v)
+
+def main(): USD = sum(USD(1), USD(5))
+`}
+                    </Editor>
+
+                    <p>
+                        An opaque type works similar to declaring an enum that has a single constructor of the underlying type.
+                    </p>
+
+                    <DesignNote>
+                        An <i>opaque type</i> is also called a <i>newtype</i> in Haskell.
+                    </DesignNote>
+
+                </SubSection>
+
             </Section>
         )
     }

@@ -14,7 +14,7 @@ import Fixpoints from "./content/Fixpoints";
 import Build from "./content/Build";
 import Records from "./content/Records";
 
-const SocketAddress = 'wss://flix-evaluator.cs.au.dk/ws';
+const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
 class App extends React.Component {
 

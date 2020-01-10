@@ -361,13 +361,13 @@ lat A(x: Str, s: Sign)
 lat B(x: Str, s: Sign)
 lat R(x: Str, s: Sign)
 
-A("a", Pos).
-A("b", Neg).
-B("a", Top).
+A("a"; Pos).
+B("a"; Top).
+A("b"; Neg).
 
-R("c", s) :- A("a", s).
-R("c", s) :- A("b", s).
-R("d", s) :- A(x, s), B(x, s).
+R("c"; s) :- A("a"; s).
+R("c"; s) :- A("b"; s).
+R("d"; s) :- A(x; s), B(x; s).
 `}
                     </Editor>
 

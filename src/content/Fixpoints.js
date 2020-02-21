@@ -418,18 +418,18 @@ def getData(): List[Str] =
     "a, b" :: "b, c" :: "c, d" :: Nil
 
 /// A function that writes edge facts to disk.
-def writeData(path: Path): Result[Unit, Path.IOError] =
+def writeData(path: Path): Result[Unit, Path.IOError] & Impure =
     Path.writeLines(path, getData())
 
 /// A function that parses a comma-separated string into an edge fact.
-def getEdgeFact(s: Str): #{ DirectedEdge, DirectedPath } =
+def getEdgeFact(s: Str): #{ DirectedEdge, DirectedPath } & Impure =
     let parts = String.split(s, ",");
     let src = parts[0];
     let dst = parts[1];
     DirectedEdge(src, dst).
 
 /// A function that parses a list of strings into a set of facts.
-def getEdgeFacts(l: List[Str]): #{ DirectedEdge, DirectedPath } =
+def getEdgeFacts(l: List[Str]): #{ DirectedEdge, DirectedPath } & Impure =
     match l with {
         case Nil => #{ }
         case x :: xs => getEdgeFact(x) <+> getEdgeFacts(xs)
@@ -437,11 +437,11 @@ def getEdgeFacts(l: List[Str]): #{ DirectedEdge, DirectedPath } =
 
 /// A function to read and parse a CSV file with edge facts.
 def readFacts(path: Path): Result[#{ DirectedEdge, DirectedPath },
-                                  Path.IOError] =
+                                  Path.IOError] & Impure =
     Result.map(getEdgeFacts, Path.readLines(path))
 
 /// The main function.
-def main(): #{ DirectedEdge, DirectedPath } =
+def main(): #{ DirectedEdge, DirectedPath } & Impure =
     // The path to file we will write to and then read from.
     let path = Path.new("facts.csv");
 

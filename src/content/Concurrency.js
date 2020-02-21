@@ -30,7 +30,7 @@ class Concurrency extends React.Component {
                     <p> We can spawn a process with the <Code>spawn</Code> keyword: </p>
 
                     <Editor flix={this.props.flix}>
-                        def main(): Unit = spawn (1 + 2)
+                        def main(): Unit & Impure = spawn (1 + 2)
                     </Editor>
 
                     <p>
@@ -41,7 +41,7 @@ class Concurrency extends React.Component {
 
                     <Editor flix={this.props.flix}>
                         {`def sum(x: Int, y: Int): Int = x + y
-def main(): Unit = spawn sum(1, 2)`}
+def main(): Unit & Impure = spawn sum(1, 2)`}
                     </Editor>
 
                     <Warning>
@@ -72,8 +72,8 @@ def main(): Unit = spawn sum(1, 2)`}
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`def send(c: Channel[Int]): Unit = c <- 42; ()
-def main(): Int =
+                        {`def send(c: Channel[Int]): Unit & Impure = c <- 42; ()
+def main(): Int & Impure =
     let c = chan Int 0;
     spawn send(c);
     <- c`}
@@ -100,9 +100,9 @@ def main(): Int =
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`def meow(c: Channel[Str]): Unit = c <- "Meow!"; ()
-def woof(c: Channel[Str]): Unit = c <- "Woof!"; ()
-def main(): Str =
+                        {`def meow(c: Channel[Str]): Unit & Impure = c <- "Meow!"; ()
+def woof(c: Channel[Str]): Unit & Impure = c <- "Woof!"; ()
+def main(): Str & Impure =
     let c1 = chan Str 1;
     let c2 = chan Str 1;
     spawn meow(c1);
@@ -134,7 +134,7 @@ def main(): Str =
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`def main(): Str =
+                        {`def main(): Str & Impure =
     let c1 = chan Str 1;
     let c2 = chan Str 1;
     select {
@@ -167,12 +167,13 @@ def main(): Str =
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`def slow(c: Channel[Str]): Unit =
-    sleep(Duration.oneMinute());
+                        {`def slow(c: Channel[Str]): Unit & Impure =
+    import java.lang.Thread:sleep(Int64);
+    sleep(Duration.oneMinute() / 1000000i64);
     c <- "I am very slow";
     ()
 
-def main(): Str =
+def main(): Str & Impure =
     let c = chan Str 1;
     spawn slow(c);
     select {

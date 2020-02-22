@@ -54,7 +54,11 @@ class App extends React.Component {
             f(data);
         };
 
-        this.state.websocket.send(src);
+        let data = {
+            src: src
+        };
+
+        this.state.websocket.send(JSON.stringify(data));
     };
 
     getFlix() {

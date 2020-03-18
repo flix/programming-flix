@@ -189,6 +189,45 @@ namespace B {
 
                 </SubSection>
 
+                <SubSection name="Using Types from a Namespace">
+
+                    <p>
+                        We can use types from a namespace in the same way as definitions. For example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`use A/B.Color;
+
+def main(): Color = Color.Red
+
+namespace A/B {
+    pub enum Color {
+        case Red, Blu
+    }
+}`}
+                    </Editor>
+
+                    <p>
+                        We can use <i>opaque types</i> and <i>type aliases</i> in the same way:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`use A/B.Color;
+use A/B.Hue;
+
+def main(): Hue = Color.Blu
+
+namespace A/B {
+    pub enum Color {
+        case Red, Blu
+    }
+    type alias Hue = Color
+}`}
+                    </Editor>
+
+                </SubSection>
+
+
 
             </Section>
         )

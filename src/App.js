@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './App.css';
+
 import Welcome from './content/Welcome';
 import Introduction from './content/Introduction';
 import Lists from './content/Lists';

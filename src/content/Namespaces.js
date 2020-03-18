@@ -67,10 +67,10 @@ class Namespaces extends React.Component {
 
                 </SubSection>
 
-                <SubSection name="Using a Namespace">
+                <SubSection name="Using Definitions from a Namespace">
 
                     <p>
-                        We can refer to elements of a namespace by its fully-qualified name. For example:
+                        We can refer to definitions of a namespace by their fully-qualified name. For example:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -118,10 +118,10 @@ namespace Core/Math {
 
                 </SubSection>
 
-                <SubSection name="Using Multiple Elements from a Namespaces">
+                <SubSection name="Using Multiple Definitions from a Namespaces">
 
                     <p>
-                        We can use multiple elements from a namespace:
+                        We can use multiple definitions from a namespace:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -227,7 +227,33 @@ namespace A/B {
 
                 </SubSection>
 
+                <SubSection name="Using Enums from a Namespace">
 
+                    <p>
+                        We can use enumerated types from a namespace. For example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool = 
+  use A/B.Color.{Red, Blu};
+  Red != Blu
+
+namespace A/B {
+    pub enum Color {
+        case Red, Blu
+    }
+}`}
+                    </Editor>
+
+                    <p>
+                        Note that <code>A/B.Color</code> is the fully-qualified name of
+                        a <i>type</i> whereas <code>{"A/B.Color.Red"}</code> is the fully-qualified name of
+                        a <i>tag</i> inside an enumerated type. That is, a fully-qualified name is of the
+                        form <code>A/B/C.D</code> and then when accessing a tag, we use an extra dot,
+                        i.e. <code>A/B/C/d.t</code>.
+                    </p>
+
+                </SubSection>
 
             </Section>
         )

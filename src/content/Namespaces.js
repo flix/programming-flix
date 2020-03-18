@@ -66,7 +66,7 @@ class Namespaces extends React.Component {
 
                 </SubSection>
 
-                <SubSection name="Using Namespaces">
+                <SubSection name="Using a Namespace">
 
                     <p>
                         We can refer to elements of a namespace by its fully-qualified name. For example:
@@ -112,6 +112,43 @@ def main(): Int =
 
 namespace Core/Math {
     pub def sum(x: Int, y: Int): Int = x + y
+}`}
+                    </Editor>
+
+                </SubSection>
+
+                <SubSection name="Using Multiple Elements from a Namespaces">
+
+                    <p>
+                        We can use multiple elements from a namespace:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`use Core/Math.sum;
+use Core/Math.mul;
+
+def main(): Int = 
+    sum(21, mul(42, 84))
+
+namespace Core/Math {
+    pub def sum(x: Int, y: Int): Int = x + y
+    pub def mul(x: Int, y: Int): Int = x * y
+}`}
+                    </Editor>
+
+                    <p>
+                        Multiple such uses can be grouped together:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`use Core/Math.{sum, mul};
+
+def main(): Int = 
+    sum(21, mul(42, 84))
+
+namespace Core/Math {
+    pub def sum(x: Int, y: Int): Int = x + y
+    pub def mul(x: Int, y: Int): Int = x * y
 }`}
                     </Editor>
 

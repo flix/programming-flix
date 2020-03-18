@@ -5,6 +5,7 @@ import Code from '../components/Code';
 import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
+import DesignNote from "../components/DesignNote";
 
 class Namespaces extends React.Component {
 
@@ -152,8 +153,41 @@ namespace Core/Math {
 }`}
                     </Editor>
 
+                    <DesignNote>
+                        Flix does not support <i>wildcard</i> uses. We may add this in the future, but for the moment we
+                        feel there are significantly ambiguity issues, which we wish to avoid.
+                    </DesignNote>
+
                 </SubSection>
 
+                <SubSection name="Avoiding Name Clashes with Renaming">
+
+                    <p>
+                        We can use renaming to avoid potential name clashes. For example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`use A.{concat => stringConcat};
+use B.{concat => listConcat};
+
+def main(): String = 
+    stringConcat("Hello", " World!")
+
+namespace A {
+    pub def concat(x: String, y: String): String = x + y
+}
+
+namespace B {
+    pub def concat(xs: List[Int], ys: List[Int]): List[Int] = xs ::: ys
+}`}
+                    </Editor>
+
+                    <p>
+                        Note: A better approach might be to use a local <code>use</code> avoiding the problem in
+                        the first place.
+                    </p>
+
+                </SubSection>
 
 
             </Section>

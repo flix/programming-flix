@@ -15,6 +15,7 @@ import Concurrency from "./content/Concurrency";
 import Fixpoints from "./content/Fixpoints";
 import Build from "./content/Build";
 import Records from "./content/Records";
+import Namespaces from "./content/Namespaces";
 
 const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
@@ -69,17 +70,15 @@ class App extends React.Component {
 
     render() {
         return (
-            <div id="page">
-
-                <Navbar expand="md" className="menu mb-4">
+            <div>
+                <Navbar expand="md" color="light" className="menu mb-4">
                     <Nav className="mr-lg-auto" navbar>
                         <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/introduction/">Introduction</NavLink>
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link}
-                                     to="/basics/">Basics</NavLink>
+                            <NavLink tag={Link} to="/basics/">Basics</NavLink>
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
@@ -106,22 +105,30 @@ class App extends React.Component {
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/namespaces/">Namespaces</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/build/">Build</NavLink>
                         </NavItem>
                     </Nav>
                 </Navbar>
 
-                <Route path="/" exact render={() => <Welcome flix={this.getFlix()}/>}/>
-                <Route path="/introduction/" render={() => <Introduction flix={this.getFlix()}/>}/>
-                <Route path="/basics/" render={() => <Basics flix={this.getFlix()}/>}/>
-                <Route path="/functions/" render={() => <Functions flix={this.getFlix()}/>}/>
-                <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
-                <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>
-                <Route path="/records/" render={() => <Records flix={this.getFlix()}/>}/>
-                <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
-                <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
-                <Route path="/build/" render={() => <Build flix={this.getFlix()}/>}/>
+                <div id="page">
 
+                    <Route path="/" exact render={() => <Welcome flix={this.getFlix()}/>}/>
+                    <Route path="/introduction/" render={() => <Introduction flix={this.getFlix()}/>}/>
+                    <Route path="/basics/" render={() => <Basics flix={this.getFlix()}/>}/>
+                    <Route path="/functions/" render={() => <Functions flix={this.getFlix()}/>}/>
+                    <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
+                    <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>
+                    <Route path="/records/" render={() => <Records flix={this.getFlix()}/>}/>
+                    <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
+                    <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
+                    <Route path="/namespaces/" render={() => <Namespaces flix={this.getFlix()}/>}/>
+                    <Route path="/build/" render={() => <Build flix={this.getFlix()}/>}/>
+
+                </div>
             </div>
         );
     }

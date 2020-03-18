@@ -6,6 +6,7 @@ import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
+import Warning from "../components/Warning";
 
 class Namespaces extends React.Component {
 
@@ -19,13 +20,13 @@ class Namespaces extends React.Component {
             <Section name="Namespaces">
 
                 <p>
-                    Flix supports a standard hierarchy namespace mechanism.
+                    Flix supports hierarchical namespaces as known from many other programming languages.
                 </p>
 
                 <SubSection name="Declaring a Namespace">
 
                     <p>
-                        We can declare a namespace and nest definitions and types within it. For example:
+                        We can declare a namespace to nest definitions and types within it. For example:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -35,7 +36,7 @@ class Namespaces extends React.Component {
                     </Editor>
 
                     <p>
-                        Namespaces are hierarchical, so we can declare a richer structure of namespaces. For example:
+                        Namespaces are hierarchical, so we can declare a deeper namespace:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -45,7 +46,7 @@ class Namespaces extends React.Component {
                     </Editor>
 
                     <p>
-                        Note that namespaces are separated by <code>/</code> like paths.
+                        Note that the fragments of a namespace are separated by <Code>/</Code>.
                     </p>
 
                     <p>
@@ -70,7 +71,7 @@ class Namespaces extends React.Component {
                 <SubSection name="Using Definitions from a Namespace">
 
                     <p>
-                        We can refer to definitions of a namespace by their fully-qualified name. For example:
+                        We can refer to definitions from a namespace by their fully-qualified name. For example:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -81,13 +82,17 @@ namespace Core/Math {
 }`}
                     </Editor>
 
+                    <Warning>
+                        We must declare <Code>sum</Code> as public (<Code>pub</Code>) to allow access to it from outside
+                        its own namespace.
+                    </Warning>
+
                     <p>
-                        Note that the <code>sum</code> definition was declared public to allow access to it from outside
-                        the namespace.
+                        It can quickly get tedious to refer to definitions by their fully-qualified name.
                     </p>
 
                     <p>
-                        We can <code>use</code> definitions and types that belong to a namespace. For example:
+                        The <Code>use</Code> construct allows us to "import" definitions from another namespace:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -101,8 +106,8 @@ namespace Core/Math {
                     </Editor>
 
                     <p>
-                        Here the use is local to the function. We can also use namespaces for an entire
-                        file. For example:
+                        Here the <Code>use</Code> is local to the <Code>main</Code> function. A <Code>use</Code> can
+                        also appear at the top of a file:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -155,7 +160,7 @@ namespace Core/Math {
 
                     <DesignNote>
                         Flix does not support <i>wildcard</i> uses. We may add this in the future, but for the moment we
-                        feel there are significantly ambiguity issues, which we wish to avoid.
+                        feel that there are significant ambiguity issues.
                     </DesignNote>
 
                 </SubSection>
@@ -163,7 +168,7 @@ namespace Core/Math {
                 <SubSection name="Avoiding Name Clashes with Renaming">
 
                     <p>
-                        We can use renaming to avoid potential name clashes. For example:
+                        We can use renaming to avoid name clashes between identically named definitions. For example:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -183,8 +188,8 @@ namespace B {
                     </Editor>
 
                     <p>
-                        Note: A better approach might be to use a local <code>use</code> avoiding the problem in
-                        the first place.
+                        Note: In many cases a better approach is to use a <i>local</i> <Code>use</Code> to avoid the
+                        problem in the first place.
                     </p>
 
                 </SubSection>
@@ -208,7 +213,7 @@ namespace A/B {
                     </Editor>
 
                     <p>
-                        We can use <i>opaque types</i> and <i>type aliases</i> in the same way:
+                        We can also use <i>opaque types</i> and <i>type aliases</i> in the same way:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -246,11 +251,12 @@ namespace A/B {
                     </Editor>
 
                     <p>
-                        Note that <code>A/B.Color</code> is the fully-qualified name of
-                        a <i>type</i> whereas <code>{"A/B.Color.Red"}</code> is the fully-qualified name of
-                        a <i>tag</i> inside an enumerated type. That is, a fully-qualified name is of the
-                        form <code>A/B/C.D</code> and then when accessing a tag, we use an extra dot,
-                        i.e. <code>A/B/C/d.t</code>.
+                        Note that <Code>A/B.Color</Code> is the fully-qualified name of
+                        a <i>type</i> whereas <Code>{"A/B.Color.Red"}</Code> is the fully-qualified name of
+                        a <i>tag</i> inside an enumerated type. That is, a fully-qualified definition is of the
+                        form <Code>A/B/C.d</Code>, a fully-qualified type is of the
+                        form <Code>A/B/C.D</Code>, and finally a fully-qualified tag is of the
+                        form <Code>A/B/C.D.T</Code>.
                     </p>
 
                 </SubSection>

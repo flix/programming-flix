@@ -163,7 +163,24 @@ class Interoperability extends React.Component {
                 </SubSection>
 
                 <SubSection name="Invoking Static Methods">
-                    TBD
+
+                    <p>
+                        We can invoke a <i>static</i> method using syntax almost identical to the syntax for object
+                        method invocation:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool & Impure =
+    import java.lang.String:valueOf(Bool);
+    valueOf(true) == "true"`}
+                    </Editor>
+
+                    <p>
+                        Note that the fully-qualified name <Code>java.lang.String:valueOf</Code> includes a
+                        colon <Code>:</Code> to indicate that the reference is to a static method.
+                    </p>
+
+
                 </SubSection>
 
                 <SubSection name="Reading Static Fields">

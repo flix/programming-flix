@@ -120,15 +120,46 @@ class Interoperability extends React.Component {
     s.charAt(i) as & Pure`}
                     </Editor>
 
-
                 </SubSection>
 
                 <SubSection name="Reading Object Fields">
-                    TBD
+
+                    <p>
+                        Reading a field of an object is straightforward:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool & Impure =
+    import new flix.test.TestClass() as newObject;
+    import get flix.test.TestClass.boolField as getField;
+    let o = newObject();
+    o.getField() == true`}
+                    </Editor>
+
+                    <p>
+                        Here we assume that <Code>TestClass</Code> is a Java class with an instance field
+                        named <Code>boolField</Code> of type <Code>Bool</Code>.
+                    </p>
+
+
                 </SubSection>
 
                 <SubSection name="Writing Object Fields">
-                    TBD
+
+                    <p>
+                        Writing a field of an object is also straightforward:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool & Impure =
+    import new flix.test.TestClass() as newObject;
+    import get flix.test.TestClass.boolField as getField;
+    import set flix.test.TestClass.boolField as setField;
+    let o = newObject();
+    o.setField(false);
+    getField(o) == false`}
+                    </Editor>
+
                 </SubSection>
 
                 <SubSection name="Invoking Static Methods">

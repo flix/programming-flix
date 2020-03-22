@@ -73,7 +73,54 @@ class Interoperability extends React.Component {
                 </SubSection>
 
                 <SubSection name="Invoking Object Methods">
-                    YBD
+
+                    <p>
+                        We can invoke methods on objects:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool & Impure =
+    import new java.io.File(String) as newFile;
+    import java.io.File.exists();
+    let file = newFile("helloworld.txt");
+    exists(file)`}
+                    </Editor>
+
+                    <p>
+                        We can use uniform function call syntax (UFCS) to get a familiar feel:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool & Impure =
+    import new java.io.File(String) as newFile;
+    import java.io.File.exists();
+    let file = newFile("helloworld.txt");
+    file.exists()`}
+                    </Editor>
+
+                    <p>
+                        Or, since <Code>newFile</Code> and <Code>exists</Code> are ordinary functions, we can use a more
+                        functional style:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool & Impure =
+    import new java.io.File(String) as newFile;
+    import java.io.File.exists();
+    newFile("helloworld.txt") |> exists`}
+                    </Editor>
+
+                    <p>
+                        We can pass arguments to methods as the following example shows:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`pub def charAt(i: Int, s: String): Char =
+    import java.lang.String.charAt(Int32);
+    s.charAt(i) as & Pure`}
+                    </Editor>
+
+
                 </SubSection>
 
                 <SubSection name="Reading Object Fields">

@@ -180,15 +180,26 @@ class Interoperability extends React.Component {
                         colon <Code>:</Code> to indicate that the reference is to a static method.
                     </p>
 
-
                 </SubSection>
 
-                <SubSection name="Reading Static Fields">
-                    TBD
-                </SubSection>
+                <SubSection name="Reading and Writing Static Fields">
 
-                <SubSection name="Writing Static Fields">
-                    TBD
+                    <p>
+                        Reading or writing <i>static</i> fields is similar to reading or reading object fields. For
+                        example:
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`def main(): Bool & Impure =
+    import get java.lang.Integer:MIN_VALUE as getMinValue;
+    getMinValue() == Int32.minValue()`}
+                    </Editor>
+
+                    <p>
+                        As you can see, the only difference is using a colon <Code>:</Code> to indicate that the
+                        reference is to a static field.
+                    </p>
+
                 </SubSection>
 
             </Section>

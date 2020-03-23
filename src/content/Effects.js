@@ -2,6 +2,7 @@ import React from 'react'
 import ReactGA from 'react-ga';
 import Section from "../components/Section";
 import Editor from "../util/Editor";
+import Code from "../components/Code";
 
 class Effects extends React.Component {
 
@@ -50,6 +51,18 @@ Possible fixes:
   (3)  Introduce a let-binding with a wildcard name.`}
                 </Editor>
 
+                <p>
+                    The problem with the above program is that the <Code>map</Code> expression in the expression
+                    statement has no side-effect and its result is silent discarded: it is redundant code. Probably
+                    the programmer wanted the result to be used somehow.
+                </p>
+
+                <p>
+                    NB: The above warning may not appear in the online evaluator (because redundancy checks are
+                    disabled for convenience). If so, go to the Flix playground at <a
+                    href="https://play.flix.dev/">play.flix.dev</a> and de-select
+                    (allow) "unused code". You should now be able to see the same error message.
+                </p>
 
             </Section>
         )

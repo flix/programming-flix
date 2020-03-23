@@ -8,6 +8,7 @@ import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
 import {Link} from "react-router-dom";
 import Warning from "../components/Warning";
+import {Table} from "reactstrap";
 
 class Interoperability extends React.Component {
 
@@ -21,7 +22,7 @@ class Interoperability extends React.Component {
             <Section name="Interoperability">
 
                 <p>
-                    Flix supports interoperability with Java libraries through the import mechanism.
+                    Flix supports interoperability with Java libraries through imports.
                     The <Code>import</Code> construct allows a Java constructor, method, or field to be exposed as an
                     impure Flix function.
                 </p>
@@ -35,8 +36,8 @@ class Interoperability extends React.Component {
                 <SubSection name="Creating Objects">
 
                     <p>
-                        We can use the import mechanism to retrieve the constructor of a Java class and then call its
-                        associated function to construct a new Java object. For example:
+                        We can use imports to retrieve the constructor of a Java class and then call its associated
+                        function to construct a new Java object. For example:
                     </p>
 
                     <Editor flix={this.props.flix}>
@@ -48,9 +49,10 @@ class Interoperability extends React.Component {
                     <p>
                         Here we import the constructor of the <Code>java.io.File</Code> class and give it the local
                         name <Code>newFile</Code>. The <Code>newFile</Code> function takes a string argument and returns
-                        a fresh Java <Code>File</Code> object. The Java type of this object is written
-                        as <Code>##java.io.File</Code>. Constructing a fresh object is impure,
-                        hence <Code>main</Code> is marked as <Code>Impure</Code>.
+                        a fresh Java <Code>File</Code> object. The type of this object is written
+                        as <Code>##java.io.File</Code> where the two hashes <Code>##</Code> designate that it is a Java
+                        type. Constructing a fresh object is impure, hence <Code>main</Code> is marked
+                        as <Code>Impure</Code>.
                     </p>
 
                     <DesignNote>
@@ -67,6 +69,13 @@ class Interoperability extends React.Component {
     import new java.io.File(String, String) as newFile;
     newFile("text", "helloworld.txt")`}
                     </Editor>
+
+                    <p>
+                        The import describes the signature of the constructor. We can use this to import any
+                        constructor (or method), even if the constructor (or method) is overloaded, as in the above
+                        example. The return type is never part of the constructor (or method) signature since it is
+                        uniquely determined by the argument types.
+                    </p>
 
                 </SubSection>
 
@@ -88,7 +97,8 @@ class Interoperability extends React.Component {
                         Note that in this case the method is imported without an <Code>as</Code> clause, hence its local
                         name is simply the Java local name: <Code>exists</Code>. Note that Java methods (and fields)
                         with names that are illegal as Flix names must be imported with the <Code>as</Code> clause using
-                        a legal Flix name.
+                        a legal Flix name. For example, a non-idiomatic Java method may start with an uppercase letter,
+                        whereas a Flix function must start with a lowercase letter.
                     </p>
 
                     <p>
@@ -136,6 +146,13 @@ class Interoperability extends React.Component {
     import java.lang.String.charAt(Int32);
     s.charAt(i) as & Pure`}
                     </Editor>
+
+                    <p>
+                        Type signatures should use Flix type names and not Java type names for primitive types.
+                        For example, if a Java method takes a <Code>Double</Code> its signature should use the Flix
+                        type <Code>Float64</Code>. Similarly, if a Java method takes a <Code>Boolean</Code> its
+                        signature should use the Flix type <Code>Bool</Code>.
+                    </p>
 
                 </SubSection>
 
@@ -218,6 +235,52 @@ class Interoperability extends React.Component {
                         reference is to a static field.
                     </p>
 
+                </SubSection>
+
+                <SubSection name="Summary">
+
+                    <p>
+                        The table below gives an overview of the syntax:
+                    </p>
+
+                    <Table>
+                        <thead>
+                        <tr>
+                            <th>Import</th>
+                            <th>Syntax</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Constructor</td>
+                            <td><Code>import new Foo.Bar.Baz(...)</Code></td>
+                        </tr>
+                        <tr>
+                            <td>Object Method</td>
+                            <td><Code>import Foo.Bar.baz(...) [as name]</Code></td>
+                        </tr>
+                        <tr>
+                            <td>Static Method</td>
+                            <td><Code>import Foo.Bar:baz(...) [as name]</Code></td>
+                        </tr>
+                        <tr>
+                            <td>Get Object Field</td>
+                            <td><Code>import get Foo.Bar.baz as getValue</Code></td>
+                        </tr>
+                        <tr>
+                            <td>Set Object Field</td>
+                            <td><Code>import set Foo.Bar.baz as setValue</Code></td>
+                        </tr>
+                        <tr>
+                            <td>Get Static Field</td>
+                            <td><Code>import get Foo.Bar:baz as getValue</Code></td>
+                        </tr>
+                        <tr>
+                            <td>Set Static Field</td>
+                            <td><Code>import set Foo.Bar:baz as setValue</Code></td>
+                        </tr>
+                        </tbody>
+                    </Table>
                 </SubSection>
 
                 <SubSection name="Limitations">

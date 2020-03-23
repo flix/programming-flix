@@ -17,6 +17,7 @@ import Build from "./content/Build";
 import Records from "./content/Records";
 import Namespaces from "./content/Namespaces";
 import Interoperability from "./content/Interoperability";
+import Effects from "./content/Effects";
 
 const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
@@ -98,15 +99,19 @@ class App extends React.Component {
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/namespaces/">Namespaces</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/concurrency/">Concurrency</NavLink>
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link} to="/fixpoints/">Fixpoints</NavLink>
+                            <NavLink tag={Link} to="/effects/">Effects</NavLink>
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link} to="/namespaces/">Namespaces</NavLink>
+                            <NavLink tag={Link} to="/fixpoints/">Fixpoints</NavLink>
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
@@ -128,9 +133,10 @@ class App extends React.Component {
                     <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
                     <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>
                     <Route path="/records/" render={() => <Records flix={this.getFlix()}/>}/>
-                    <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
-                    <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/namespaces/" render={() => <Namespaces flix={this.getFlix()}/>}/>
+                    <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
+                    <Route path="/effects/" render={() => <Effects flix={this.getFlix()}/>}/>
+                    <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
                     <Route path="/build/" render={() => <Build flix={this.getFlix()}/>}/>
 

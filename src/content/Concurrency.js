@@ -139,7 +139,7 @@ def main(): Str & Impure =
     let c2 = chan Str 1;
     select {
         case m <- c1 => "one"
-        case m <- c1 => "two"
+        case m <- c2 => "two"
         case _       => "default"
     }`}
                     </Editor>

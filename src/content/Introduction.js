@@ -8,7 +8,7 @@ class Introduction extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Introduction";
-        ReactGA.pageview(window.location.pathname + window.location.hash);
+        ReactGA.pageview(window.location.pathname);
     }
 
     render() {

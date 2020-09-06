@@ -12,7 +12,7 @@ class Fixpoints extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Fixpoints";
-        ReactGA.pageview(window.location.pathname + window.location.hash);
+        ReactGA.pageview(window.location.pathname);
     }
 
     render() {

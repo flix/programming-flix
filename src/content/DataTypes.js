@@ -12,7 +12,7 @@ class DataTypes extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Data Types";
-        ReactGA.pageview(window.location.pathname + window.location.hash);
+        ReactGA.pageview(window.location.pathname);
     }
 
     render() {

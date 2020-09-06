@@ -6,7 +6,7 @@ class Welcome extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Welcome";
-        ReactGA.pageview(window.location.pathname + window.location.hash);
+        ReactGA.pageview(window.location.pathname);
     }
 
     render() {

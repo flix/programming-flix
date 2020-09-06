@@ -13,7 +13,7 @@ class Basics extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Basics";
-        ReactGA.pageview(window.location.pathname + window.location.hash);
+        ReactGA.pageview(window.location.pathname);
     }
 
     render() {

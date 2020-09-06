@@ -4,14 +4,14 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import ReactGA from 'react-ga';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 
 ReactGA.initialize('UA-136308253-1', {debug: false});
 
 ReactDOM.render(
-    <HashRouter>
+    <BrowserRouter basename="/programming-flix">
         <App/>
-    </HashRouter>,
+    </BrowserRouter>,
     document.getElementById('root')
 );
 

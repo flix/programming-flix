@@ -23,7 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "homepage": "https://flix.dev/programming-flix",
+  "homepage": "https://doc.flix.dev/",
   "browserslist": {
     "production": [
       ">0.2%",

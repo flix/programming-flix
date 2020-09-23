@@ -9,7 +9,7 @@ import {BrowserRouter} from "react-router-dom";
 ReactGA.initialize('UA-136308253-1', {debug: false});
 
 ReactDOM.render(
-    <BrowserRouter basename="/programming-flix">
+    <BrowserRouter basename="/">
         <App/>
     </BrowserRouter>,
     document.getElementById('root')

@@ -100,11 +100,11 @@ def main(): Int & Impure =
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`def meow(c: Channel[Str]): Unit & Impure = c <- "Meow!"; ()
-def woof(c: Channel[Str]): Unit & Impure = c <- "Woof!"; ()
-def main(): Str & Impure =
-    let c1 = chan Str 1;
-    let c2 = chan Str 1;
+                        {`def meow(c: Channel[String]): Unit & Impure = c <- "Meow!"; ()
+def woof(c: Channel[String]): Unit & Impure = c <- "Woof!"; ()
+def main(): String & Impure =
+    let c1 = chan String 1;
+    let c2 = chan String 1;
     spawn meow(c1);
     spawn woof(c1);
     select {
@@ -134,9 +134,9 @@ def main(): Str & Impure =
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`def main(): Str & Impure =
-    let c1 = chan Str 1;
-    let c2 = chan Str 1;
+                        {`def main(): String & Impure =
+    let c1 = chan String 1;
+    let c2 = chan String 1;
     select {
         case m <- c1 => "one"
         case m <- c2 => "two"
@@ -167,14 +167,14 @@ def main(): Str & Impure =
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`def slow(c: Channel[Str]): Unit & Impure =
+                        {`def slow(c: Channel[String]): Unit & Impure =
     import java.lang.Thread:sleep(Int64);
     sleep(Duration.oneMinute() / 1000000i64);
     c <- "I am very slow";
     ()
 
-def main(): Str & Impure =
-    let c = chan Str 1;
+def main(): String & Impure =
+    let c = chan String 1;
     spawn slow(c);
     select {
         case m <- c                    => m

@@ -74,10 +74,10 @@ Connected(x, z) :- Connected(x, y), DirectedEdge(y, z).`}
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`rel Movie(title: Str)
-rel StarringIn(title: Str, name: Str)
-rel DirectedBy(title: Str, name: Str)
-rel DirectorNotInMovie(title: Str)
+                        {`rel Movie(title: String)
+rel StarringIn(title: String, name: String)
+rel DirectedBy(title: String, name: String)
+rel DirectorNotInMovie(title: String)
 
 Movie("The Hateful Eight").
 Movie("Interstellar").
@@ -138,9 +138,9 @@ B(x) :- not A(x), C(x).`}
 
 
                     <Editor flix={this.props.flix}>
-                        {`rel ParentOf(x: Str, y: Str)
-rel AncestorOf(x: Str, y: Str)
-rel AdoptedBy(x: Str, y: Str)
+                        {`rel ParentOf(x: String, y: String)
+rel AncestorOf(x: String, y: String)
+rel AdoptedBy(x: String, y: String)
 
 def getParents[r](): #{ ParentOf | r } = #{
     ParentOf("Pompey", "Strabo").
@@ -217,8 +217,8 @@ def main(): #{ ParentOf, AncestorOf, AdoptedBy } =
 
 
                     <Editor flix={this.props.flix}>
-                        {`rel LabelEdge[l](x: Str, l: l, y: Str)
-rel LabelPath[l](x: Str, l: l, y: Str)
+                        {`rel LabelEdge[l](x: String, l: l, y: String)
+rel LabelPath[l](x: String, l: l, y: String)
 
 def getEdgesWithNumbers[r](): #{ LabelEdge[Int] | r } = #{
     LabelEdge("a", 1, "b").
@@ -226,7 +226,7 @@ def getEdgesWithNumbers[r](): #{ LabelEdge[Int] | r } = #{
     LabelEdge("c", 2, "d").
 }
 
-def getEdgesWithColor[r](): #{ LabelEdge[Str] | r } = #{
+def getEdgesWithColor[r](): #{ LabelEdge[String] | r } = #{
     LabelEdge("a", "red", "b").
     LabelEdge("b", "red", "c").
     LabelEdge("c", "blu", "d").
@@ -240,7 +240,7 @@ def getRules[l](): #{ LabelEdge[l], LabelPath[l] } = #{
 def main1(): #{ LabelEdge[Int], LabelPath[Int] }  =
     solve getEdgesWithNumbers() <+> getRules()
 
-def main2(): #{ LabelEdge[Str], LabelPath[Str] }  =
+def main2(): #{ LabelEdge[String], LabelPath[String] }  =
     solve getEdgesWithColor() <+> getRules()`}
                     </Editor>
 
@@ -267,8 +267,8 @@ def main2(): #{ LabelEdge[Str], LabelPath[Str] }  =
                     </p>
 
                     <Editor flix={this.props.flix}>
-                        {`rel ColorEdge(x: Int, c: Str, y: Int)
-rel ColorPath(x: Int, c: Str, y: Int)
+                        {`rel ColorEdge(x: Int, c: String, y: Int)
+rel ColorPath(x: Int, c: String, y: Int)
 rel ColorlessPath(x: Int, y: Int)
 
 def main(): Bool =
@@ -357,9 +357,9 @@ def glb(e1: Sign, e2: Sign): Sign = match (e1, e2) with {
 
 let Sign<> = (Bot, Top, equ, leq, lub, glb)
 
-lat A(x: Str, s: Sign)
-lat B(x: Str, s: Sign)
-lat R(x: Str, s: Sign)
+lat A(x: String, s: Sign)
+lat B(x: String, s: Sign)
+lat R(x: String, s: Sign)
 
 A("a"; Pos).
 B("a"; Top).
@@ -410,11 +410,11 @@ R("d"; s) :- A(x; s), B(x; s).
 
                     <Editor flix={this.props.flix}>
                         {`/// Declare two relations that represents edges and paths in a graph.
-rel DirectedEdge(x: Str, y: Str)
-rel DirectedPath(x: Str, y: Str)
+rel DirectedEdge(x: String, y: String)
+rel DirectedPath(x: String, y: String)
 
 /// A list that contains edge facts which will be written to disk.
-def getData(): List[Str] =
+def getData(): List[String] =
     "a, b" :: "b, c" :: "c, d" :: Nil
 
 /// A function that writes edge facts to disk.
@@ -422,14 +422,14 @@ def writeData(path: Path): Result[Unit, Path.IOError] & Impure =
     Path.writeLines(path, getData())
 
 /// A function that parses a comma-separated string into an edge fact.
-def getEdgeFact(s: Str): #{ DirectedEdge, DirectedPath } & Impure =
+def getEdgeFact(s: String): #{ DirectedEdge, DirectedPath } & Impure =
     let parts = String.split(s, ",");
     let src = parts[0];
     let dst = parts[1];
     DirectedEdge(src, dst).
 
 /// A function that parses a list of strings into a set of facts.
-def getEdgeFacts(l: List[Str]): #{ DirectedEdge, DirectedPath } & Impure =
+def getEdgeFacts(l: List[String]): #{ DirectedEdge, DirectedPath } & Impure =
     match l with {
         case Nil => #{ }
         case x :: xs => getEdgeFact(x) <+> getEdgeFacts(xs)

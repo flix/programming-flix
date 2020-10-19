@@ -86,7 +86,7 @@ class Basics extends React.Component {
                             <td>A signed 64-bit integer.</td>
                         </tr>
                         <tr>
-                            <td>Str</td>
+                            <td>String</td>
                             <td><Code>"hello"</Code>, <Code>"world"</Code></td>
                             <td>A string value.</td>
                         </tr>
@@ -124,7 +124,7 @@ class Basics extends React.Component {
                         </p>
 
                         <Editor flix={this.props.flix}>
-                            def main(): Result[Str, Unit] = Ok("Hello World!")
+                            def main(): Result[String, Unit] = Ok("Hello World!")
                         </Editor>
 
                     </SubSubSection>
@@ -170,7 +170,7 @@ def b(): Char = 'b'`}
                         </p>
 
                         <DesignNote>
-                            A <Code>Str</Code> is <i>not</i> a list of characters.
+                            A <Code>String</Code> is <i>not</i> a list of characters.
                         </DesignNote>
 
                     </SubSubSection>

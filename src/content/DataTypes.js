@@ -250,9 +250,9 @@ def main(): USD = sum(USD(1), USD(5))
                     <Editor flix={this.props.flix}>
                         {`/// 
 /// A type alias for a map from keys of type \`k\` 
-/// to values of type \`Result[v, Str]\`
+/// to values of type \`Result[v, String]\`
 ///
-type alias M[k, v] = Map[k, Result[v, Str]]
+type alias M[k, v] = Map[k, Result[v, String]]
 
 def main(): M[Bool, Int] = Map#{true -> Ok(123)}
 `}

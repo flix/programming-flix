@@ -1,76 +1,76 @@
 body {
-    font-family: "Roboto", sans-serif;
-    overflow-y: scroll;
+  font-family: 'Roboto', sans-serif;
+  overflow-y: scroll;
 }
 
 #page {
-    margin-left: auto;
-    margin-right: auto;
-    width: 50em;
-    margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50em;
+  margin-top: 1em;
 }
 
 .title {
-    font-size: 5em;
-    text-align: center;
-    font-family: "Playfair", serif;
-    margin-bottom: 0.1em;
+  font-size: 5em;
+  text-align: center;
+  font-family: 'Playfair', serif;
+  margin-bottom: 0.1em;
 }
 
 .code {
-    font-family: "Roboto Mono", monospace;
-    color: #1178d4;
+  font-family: 'Roboto Mono', monospace;
+  color: #1178d4;
 }
 
 .editor-frame {
-    margin-top: 1em;
-    margin-bottom: 1.5em;
+  margin-top: 1em;
+  margin-bottom: 1.5em;
 }
 
 .editor-buttons {
-    margin-top: 0.3em;
-    float: right;
+  margin-top: 0.3em;
+  float: right;
 }
 
 .editor-code {
-    margin-top: 1.3em;
-    padding: 1em 1.5em;
-    background-color: #f7f7f7;
+  margin-top: 1.3em;
+  padding: 1em 1.5em;
+  background-color: #f7f7f7;
 }
 
 .asection {
-    margin-bottom: 4rem;
+  margin-bottom: 4rem;
 }
 
 .asubsection {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
 .asubsubsection {
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
 .asection h1 {
-    font-family: "Roboto", sans-serif;
-    font-size: 2.5rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.5rem;
 }
 
 .asubsection h2 {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
 }
 
 .asubsubsection h3 {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.4rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.4rem;
 }
 
 p {
-    text-align: justify;
-    line-height: 1.8em;
+  text-align: justify;
+  line-height: 1.8em;
 }
 
-#brace-editor.ace_editor {
-    font: 14px/normal "Roboto Mono", monospace;
-    background-color: inherit;
+#ace-editor {
+  font: 14px / normal 'Roboto Mono', monospace;
+  background-color: inherit;
 }

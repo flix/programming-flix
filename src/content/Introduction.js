@@ -1,33 +1,39 @@
 import React from 'react'
-import ReactGA from "react-ga";
+import ReactGA from 'react-ga'
 
-import Editor from '../util/Editor';
-import Section from "../components/Section";
+import Editor from '../util/Editor'
+import Section from '../components/Section'
 
 class Introduction extends React.Component {
+  componentDidMount() {
+    document.title = 'Programming Flix | Introduction'
+    ReactGA.pageview(window.location.pathname)
+  }
 
-    componentDidMount() {
-        document.title = "Programming Flix | Introduction";
-        ReactGA.pageview(window.location.pathname);
-    }
+  render() {
+    return (
+      <Section name="Introduction to Flix">
+        <p>
+          Flix is a principled and opinionated functional programming language
+          that takes inspiration from F#, Go, OCaml, Haskell, Rust, and Scala.
+          Flix visually resembles Scala, but its type system is closer to that
+          of OCaml and Haskell. Its concurrency model is inspired by Go-style
+          processes and channels.
+        </p>
 
-    render() {
-        return (
-            <Section name="Introduction to Flix">
-                <p>
-                    Flix is a principled and opinionated functional programming language that takes inspiration from F#,
-                    Go, OCaml, Haskell, Rust, and Scala. Flix visually resembles Scala, but its type system is closer to
-                    that of OCaml and Haskell. Its concurrency model is inspired by Go-style processes and channels.
-                </p>
+        <p>
+          Here are three different Flix programs to give you and idea of the
+          look and feel of the language.
+        </p>
 
-                <p>
-                    Here are three different Flix programs to give you and idea of the look and feel of the language.
-                </p>
+        <p>
+          {' '}
+          This program illustrates the use of algebraic data types and pattern
+          matching:{' '}
+        </p>
 
-                <p> This program illustrates the use of algebraic data types and pattern matching: </p>
-
-                <Editor flix={this.props.flix}>
-                    {`/// An algebraic data type for shapes.
+        <Editor flix={this.props.flix}>
+          {`/// An algebraic data type for shapes.
 enum Shape {
     case Circle(Int),        // circle radius
     case Square(Int),        // side length
@@ -45,14 +51,12 @@ def area(s: Shape): Int = match s with {
 // Computes the area of a 2 by 4.
 def main(): Int = area(Rectangle(2, 4))
 `}
-                </Editor>
+        </Editor>
 
-                <p>
-                    Here is a Flix program using polymorphic records:
-                </p>
+        <p>Here is a Flix program using polymorphic records:</p>
 
-                <Editor flix={this.props.flix}>
-                    {`/// Returns the area of the rectangle \`r\`.
+        <Editor flix={this.props.flix}>
+          {`/// Returns the area of the rectangle \`r\`.
 /// The record \`r\` must have \`x\` and \`y\` labels, and no other labels.
 def area(r: {x: Int, y: Int}): Int = r.x * r.y
 
@@ -75,14 +79,12 @@ def polyAreas(): List[Int] =
 
 def main(): List[Int] = polyAreas()
 `}
-                </Editor>
+        </Editor>
 
-                <p>
-                    and here is one using processes and channels:
-                </p>
+        <p>and here is one using processes and channels:</p>
 
-                <Editor flix={this.props.flix}>
-                    {`/// A function that sends every element of a list
+        <Editor flix={this.props.flix}>
+          {`/// A function that sends every element of a list
 def send(o: Channel[Int], l: List[Int]): Unit & Impure =
     match l with {
         case Nil     => ()
@@ -111,12 +113,10 @@ def main(): List[Int] & Impure =
     spawn wait(c, List.length(l), d);
     <- d
 `}
-                </Editor>
-
-            </Section>
-        )
-    }
-
+        </Editor>
+      </Section>
+    )
+  }
 }
 
 export default Introduction

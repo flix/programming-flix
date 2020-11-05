@@ -3,25 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "bootstrap": "^4.5.2",
-    "brace": "^0.11.1",
-    "jquery": "^3.5.1",
-    "lodash": "^4.17.20",
-    "react": "^16.13.1",
-    "react-ace": "^7.0.5",
-    "react-dom": "^16.13.1",
-    "react-ga": "^3.1.2",
+    "bootstrap": "^4.5.3",
+    "react": "^17.0.1",
+    "react-ace": "^9.2.0",
+    "react-dom": "^17.0.1",
+    "react-ga": "^3.2.0",
     "react-newline-to-break": "^1.0.6",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
-    "reactstrap": "^8.6.0"
+    "react-scripts": "^4.0.0",
+    "reactstrap": "^8.7.1",
+    "prettier": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "format": "prettier --write ."
   },
   "homepage": "https://doc.flix.dev/",
   "browserslist": {

@@ -7,7 +7,6 @@ import Introduction from './content/Introduction';
 import Lists from './content/Lists';
 import DataTypes from './content/DataTypes';
 import Functions from "./content/Functions";
-import Basics from "./content/Basics";
 import {Nav, Navbar, NavItem, NavLink} from "reactstrap";
 import {Route} from "react-router";
 import {Link} from "react-router-dom";
@@ -79,10 +78,6 @@ class App extends React.Component {
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link} to="/basics/">Basics</NavLink>
-                        </NavItem>
-
-                        <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/functions/">Functions</NavLink></NavItem>
 
                         <NavItem className="pl-1 pr-1">
@@ -123,7 +118,6 @@ class App extends React.Component {
 
                     <Route path="/" exact render={() => <Welcome flix={this.getFlix()}/>}/>
                     <Route path="/introduction/" render={() => <Introduction flix={this.getFlix()}/>}/>
-                    <Route path="/basics/" render={() => <Basics flix={this.getFlix()}/>}/>
                     <Route path="/functions/" render={() => <Functions flix={this.getFlix()}/>}/>
                     <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
                     <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>

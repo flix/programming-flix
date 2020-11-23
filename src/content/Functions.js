@@ -171,30 +171,6 @@ def main(): Int =
 
                 </SubSection>
 
-                <SubSection name="Uniform Function Call Syntax">
-
-                    <p>
-                        Flix supports <a href="https://en.wikipedia.org/wiki/Uniform_Function_Call_Syntax">uniform
-                        function call syntax (UFCS)</a> which allows a function call <Code>f(a, b, c)</Code> to be
-                        written as <Code>a.f(b, c)</Code> emulating an "object-oriented" syntax. For example:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`def inc(x: Int): Int = x + 1
-def main(): Int = 42.inc()`}
-                    </Editor>
-
-                    <p>
-                        We can also pass additional arguments to the call. For example:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`def add(x: Int, y: Int): Int = x + y
-def main(): Int = 42.add(43)`}
-                    </Editor>
-
-                </SubSection>
-
             </Section>)
     }
 }

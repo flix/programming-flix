@@ -13,7 +13,6 @@ import {Route} from "react-router";
 import {Link} from "react-router-dom";
 import Concurrency from "./content/Concurrency";
 import Fixpoints from "./content/Fixpoints";
-import Build from "./content/Build";
 import Records from "./content/Records";
 import Namespaces from "./content/Namespaces";
 import Interoperability from "./content/Interoperability";
@@ -117,10 +116,6 @@ class App extends React.Component {
                         <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/interoperability/">Interoperability</NavLink>
                         </NavItem>
-
-                        <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link} to="/build/">Build</NavLink>
-                        </NavItem>
                     </Nav>
                 </Navbar>
 
@@ -138,7 +133,6 @@ class App extends React.Component {
                     <Route path="/effects/" render={() => <Effects flix={this.getFlix()}/>}/>
                     <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
-                    <Route path="/build/" render={() => <Build flix={this.getFlix()}/>}/>
 
                 </div>
             </div>

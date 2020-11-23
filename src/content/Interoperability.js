@@ -14,7 +14,7 @@ class Interoperability extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Interoperability";
-        ReactGA.pageview(window.location.pathname);
+        ReactGA.pageview(window.location.href);
     }
 
     render() {

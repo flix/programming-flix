@@ -10,7 +10,7 @@ class Functions extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Functions";
-        ReactGA.pageview(window.location.pathname);
+        ReactGA.pageview(window.location.href);
     }
 
     render() {

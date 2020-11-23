@@ -8,7 +8,7 @@ class Effects extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Effects";
-        ReactGA.pageview(window.location.pathname);
+        ReactGA.pageview(window.location.href);
     }
 
     render() {

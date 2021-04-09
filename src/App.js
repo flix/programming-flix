@@ -18,6 +18,7 @@ import Records from "./content/Records";
 import Namespaces from "./content/Namespaces";
 import Interoperability from "./content/Interoperability";
 import Effects from "./content/Effects";
+import Syntax from "./content/Syntax";
 
 const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
@@ -119,6 +120,10 @@ class App extends React.Component {
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/syntax/">Syntax</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/build/">Build</NavLink>
                         </NavItem>
                     </Nav>
@@ -138,6 +143,7 @@ class App extends React.Component {
                     <Route path="/effects/" render={() => <Effects flix={this.getFlix()}/>}/>
                     <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
+                    <Route path="/syntax/" render={() => <Syntax flix={this.getFlix()}/>}/>
                     <Route path="/build/" render={() => <Build flix={this.getFlix()}/>}/>
 
                 </div>

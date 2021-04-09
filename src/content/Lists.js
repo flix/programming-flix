@@ -9,7 +9,7 @@ class Lists extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Lists";
-        ReactGA.pageview(window.location.pathname);
+        ReactGA.pageview(window.location.href);
     }
 
     render() {
@@ -21,7 +21,7 @@ class Lists extends React.Component {
                     written as <Code>Nil</Code>, or a cons cell, written as <Code>x :: xs</Code> where <Code>x</Code> is
                     the head element and <Code>xs</Code> is the tail of the list. The <Code>List</Code> type is
                     polymorphic so you can have a list of integers, written as <Code>List[Int]</Code>, or a list of
-                    strings written as <Code>List[Str]</Code>. The <Code>List</Code> type and list operations are part
+                    strings written as <Code>List[String]</Code>. The <Code>List</Code> type and list operations are part
                     of the Flix standard library.
                 </p>
 
@@ -43,7 +43,7 @@ class Lists extends React.Component {
                 </p>
 
                 <Editor flix={this.props.flix}>
-                    def main(): List[Str] = "Hello" :: "World" :: Nil
+                    def main(): List[String] = "Hello" :: "World" :: Nil
                 </Editor>
 
                 <p>Given a list there are many useful operations we can perform on it.</p>
@@ -107,11 +107,11 @@ class Lists extends React.Component {
                 </p>
 
                 <Editor flix={this.props.flix}>
-                    {`def main(): List[Str] = List.intersperse("X", "a" :: "b" :: "c" :: Nil)`}
+                    {`def main(): List[String] = List.intersperse("X", "a" :: "b" :: "c" :: Nil)`}
                 </Editor>
 
                 <Editor flix={this.props.flix}>
-                    {`def main(): List[Str] =
+                    {`def main(): List[String] =
     let l1 = "X" :: "Y" :: Nil;
     let l2 = ("a" :: "b" :: Nil) :: ("c" :: "d" :: Nil) :: Nil;
     List.intercalate(l1, l2)`}

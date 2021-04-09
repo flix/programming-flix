@@ -7,12 +7,13 @@ import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
 import Warning from "../components/Warning";
+import {Table} from "reactstrap";
 
 class DataTypes extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Data Types";
-        ReactGA.pageview(window.location.pathname);
+        ReactGA.pageview(window.location.href);
     }
 
     render() {
@@ -26,6 +27,89 @@ class DataTypes extends React.Component {
                     and <Code>Map[k, v]</Code>. In addition to these types, Flix allows programmers to define their own
                     types, including <i>enumerated types</i>, <i>recursive types</i>, and <i>polymorphic types</i>.
                 </p>
+
+
+                <SubSection name="Primitive Types">
+                    <p>
+                        Flix supports the usual primitive types known from most languages:
+                    </p>
+
+                    <Table>
+                        <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Syntax</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Unit</td>
+                            <td><Code>()</Code></td>
+                            <td>The unit value.</td>
+                        </tr>
+                        <tr>
+                            <td>Bool</td>
+                            <td><Code>true</Code>, <Code>false</Code></td>
+                            <td>A boolean value.</td>
+                        </tr>
+                        <tr>
+                            <td>Char</td>
+                            <td><Code>'a'</Code>, <Code>'b'</Code>, <Code>'c'</Code></td>
+                            <td>A character value.</td>
+                        </tr>
+                        <tr>
+                            <td>Float32</td>
+                            <td><Code>0.0f32</Code>, <Code>21.42f32</Code>, <Code>-21.42f32</Code></td>
+                            <td>A 32-bit floating point integer.</td>
+                        </tr>
+                        <tr>
+                            <td>Float64</td>
+                            <td><Code>0.0f64</Code>, <Code>21.42f64</Code>, <Code>-21.42f64</Code></td>
+                            <td>A 64-bit floating point integer.</td>
+                        </tr>
+                        <tr>
+                            <td>Int8</td>
+                            <td>
+                                <Code>0i8</Code>, <Code>1i8</Code>, <Code>-1i8</Code>, <Code>127i8</Code>, <Code>-128i8</Code>
+                            </td>
+                            <td>A signed 8-bit integer.</td>
+                        </tr>
+                        <tr>
+                            <td>Int16</td>
+                            <td><Code>0i16</Code>, <Code>123i16</Code>, <Code>-123i16</Code></td>
+                            <td>A signed 16-bit integer.</td>
+                        </tr>
+                        <tr>
+                            <td>Int32</td>
+                            <td><Code>0i32</Code>, <Code>123i32</Code>, <Code>-123i32</Code></td>
+                            <td>A signed 32-bit integer.</td>
+                        </tr>
+                        <tr>
+                            <td>Int64</td>
+                            <td><Code>0i64</Code>, <Code>123i64</Code>, <Code>-123i64</Code></td>
+                            <td>A signed 64-bit integer.</td>
+                        </tr>
+                        <tr>
+                            <td>String</td>
+                            <td><Code>"hello"</Code>, <Code>"world"</Code></td>
+                            <td>A string value.</td>
+                        </tr>
+                        <tr>
+                            <td>BigInt</td>
+                            <td><Code>0ii</Code>, <Code>123ii</Code>, <Code>-123ii</Code></td>
+                            <td>An arbitrary precision integer.</td>
+                        </tr>
+                        </tbody>
+                    </Table>
+
+                    <p>
+                        <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is
+                        shorthand for <Code>Int32</Code>. <Code>Float64</Code> and <Code>Int32</Code> values can be
+                        written without suffix, i.e. <Code>123.0f64</Code> can simply be written
+                        as <Code>123.0</Code> and <Code>123i32</Code> can be written as <Code>123</Code>.
+                    </p>
+                </SubSection>
 
                 <SubSection name="Enumerated Types">
 
@@ -250,9 +334,9 @@ def main(): USD = sum(USD(1), USD(5))
                     <Editor flix={this.props.flix}>
                         {`/// 
 /// A type alias for a map from keys of type \`k\` 
-/// to values of type \`Result[v, Str]\`
+/// to values of type \`Result[v, String]\`
 ///
-type alias M[k, v] = Map[k, Result[v, Str]]
+type alias M[k, v] = Map[k, Result[v, String]]
 
 def main(): M[Bool, Int] = Map#{true -> Ok(123)}
 `}

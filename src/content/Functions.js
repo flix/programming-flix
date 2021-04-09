@@ -10,7 +10,7 @@ class Functions extends React.Component {
 
     componentDidMount() {
         document.title = "Programming Flix | Functions";
-        ReactGA.pageview(window.location.pathname);
+        ReactGA.pageview(window.location.href);
     }
 
     render() {
@@ -168,30 +168,6 @@ def main(): Int =
                         then supplied by the pipeline operator <Code>|></Code> which, in this case, expects a list and a
                         function that takes a list.
                     </p>
-
-                </SubSection>
-
-                <SubSection name="Uniform Function Call Syntax">
-
-                    <p>
-                        Flix supports <a href="https://en.wikipedia.org/wiki/Uniform_Function_Call_Syntax">uniform
-                        function call syntax (UFCS)</a> which allows a function call <Code>f(a, b, c)</Code> to be
-                        written as <Code>a.f(b, c)</Code> emulating an "object-oriented" syntax. For example:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`def inc(x: Int): Int = x + 1
-def main(): Int = 42.inc()`}
-                    </Editor>
-
-                    <p>
-                        We can also pass additional arguments to the call. For example:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`def add(x: Int, y: Int): Int = x + y
-def main(): Int = 42.add(43)`}
-                    </Editor>
 
                 </SubSection>
 

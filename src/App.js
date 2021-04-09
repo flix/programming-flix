@@ -133,7 +133,6 @@ class App extends React.Component {
                     <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
                     <Route path="/syntax/" render={() => <Syntax flix={this.getFlix()}/>}/>
-                    <Route path="/build/" render={() => <Build flix={this.getFlix()}/>}/>
 
                 </div>
             </div>

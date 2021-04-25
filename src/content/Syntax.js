@@ -39,7 +39,7 @@ class Syntax extends React.Component {
 
                 </SubSection>
 
-                <SubSection name="Casting">
+                <SubSection name="Casting and Ascription">
 
                     <p>TBD</p>
 
@@ -52,6 +52,59 @@ class Syntax extends React.Component {
 
                 </SubSection>
 
+                <SubSection name="ToString and println">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="Bug!">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="String Interpolation">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="Partial Application and Currying">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="Let pattern match">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="Infix Application">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="Built-in Literals">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="Arrays">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="Holes and Named Holes">
+
+                    <p>TBD</p>
+
+                </SubSection>
 
             </Section>
         )

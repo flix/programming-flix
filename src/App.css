@@ -70,10 +70,19 @@ p {
     line-height: 1.8em;
 }
 
-#brace-editor.ace_editor {
-    font: 14px/normal "Roboto Mono", monospace;
-}
-
 .ace_editor {
     background-color: inherit;
 }
+
+#brace-editor .ace_editor {
+    font: 14px/normal "Roboto Mono", monospace;
+}
+
+.ace_editor .ace_marker-layer .ace_bracket {
+    display: none
+}
+
+.ace_editor .ace_cursor {
+    display: none !important;
+}
+

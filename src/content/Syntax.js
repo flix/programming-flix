@@ -3,6 +3,8 @@ import ReactGA from 'react-ga';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import CodeBlock from "../util/CodeBlock";
+import Code from "../components/Code";
+import SubSubSection from "../components/SubSubSection";
 
 class Syntax extends React.Component {
 
@@ -95,13 +97,41 @@ class Syntax extends React.Component {
 
                 <SubSection name="Built-in Literals">
 
-                    <p>TBD</p>
+                    <p>Flix has built-in syntactic sugar for lists, sets, and maps.</p>
 
-                </SubSection>
+                    <SubSubSection name="List Literals">
 
-                <SubSection name="Arrays">
+                        <p>
+                            A list literal is written using the infix <Code>::</Code> constructor.
+                            For example:
+                        </p>
 
-                    <p>TBD</p>
+                        <CodeBlock>{`1 :: 2 :: 3 :: Nil`}</CodeBlock>
+
+                        <p>
+                            which is syntactic sugar for:
+                        </p>
+
+                        <CodeBlock>{`Cons(1, Cons(2, Cons(3, Nil)))`}</CodeBlock>
+
+                    </SubSubSection>
+
+                    <SubSubSection name="Set Literals">
+
+                        <p>
+                            A set literal is written using the notation <Code>{`Set#{exp1, exp2, ...}`}</Code>.
+                            For example:
+                        </p>
+
+                        <CodeBlock>{`Set#{1, 2, 3}`}</CodeBlock>
+
+                        <p>
+                            which is syntactic sugar for:
+                        </p>
+
+                        <CodeBlock>{`Set.insert(1, Set.insert(2, Set.insert(3, Set.empty())))`}</CodeBlock>
+
+                    </SubSubSection>
 
                 </SubSection>
 

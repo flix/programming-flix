@@ -119,7 +119,7 @@ class Syntax extends React.Component {
                     <SubSubSection name="Set Literals">
 
                         <p>
-                            A set literal is written using the notation <Code>{`Set#{exp1, exp2, ...}`}</Code>.
+                            A set literal is written using the notation <Code>{`Set#{v1, v2, ...}`}</Code>.
                             For example:
                         </p>
 
@@ -130,6 +130,23 @@ class Syntax extends React.Component {
                         </p>
 
                         <CodeBlock>{`Set.insert(1, Set.insert(2, Set.insert(3, Set.empty())))`}</CodeBlock>
+
+                    </SubSubSection>
+
+                    <SubSubSection name="Map Literals">
+
+                        <p>
+                            A map literal is written using the notion <Code>{`Map#{k1 -> v1, k2 -> v2, ...}`}</Code>.
+                            For example:
+                        </p>
+
+                        <CodeBlock>{`Map#{1 -> "Hello", 2 -> "World"}`}</CodeBlock>
+
+                        <p>
+                            which is syntactic sugar for:
+                        </p>
+
+                        <CodeBlock>{`Map.insert(1, "Hello", Map.insert(2, "World", Map.empty()))`}</CodeBlock>
 
                     </SubSubSection>
 

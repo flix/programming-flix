@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactGA from 'react-ga';
 import Section from "../components/Section";
-import Editor from "../util/Editor";
 import SubSection from "../components/SubSection";
+import CodeBlock from "../util/CodeBlock";
 
 class Syntax extends React.Component {
 
@@ -13,7 +13,7 @@ class Syntax extends React.Component {
 
     render() {
         return (
-            <Section name="Syntactic Sugar">
+            <Section name="Syntax">
 
                 <p>
                     This page documents a few features that make Flix code easier to read and write.
@@ -21,15 +21,20 @@ class Syntax extends React.Component {
 
                 <SubSection name="Pipelines">
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Int = List.range(1, 100) |> List.length`}
-                    </Editor>
+                    <CodeBlock>
+                        {`List.range(1, 100) |> List.length`}
+                    </CodeBlock>
 
                 </SubSection>
 
                 <SubSection name="Match Lambdas">
 
                     <p>TBD</p>
+
+                    <CodeBlock>
+                        {`List.map(match (x, y) -> `}
+                    </CodeBlock>
+
 
                 </SubSection>
 

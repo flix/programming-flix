@@ -72,5 +72,8 @@ p {
 
 #brace-editor.ace_editor {
     font: 14px/normal "Roboto Mono", monospace;
+}
+
+.ace_editor {
     background-color: inherit;
 }

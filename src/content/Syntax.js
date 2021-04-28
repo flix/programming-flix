@@ -152,9 +152,38 @@ class Syntax extends React.Component {
 
                 </SubSection>
 
-                <SubSection name="Holes and Named Holes">
+                <SubSection name="Anonymous and Named Holes">
 
-                    <p>TBD</p>
+                    <p>
+                        During development, Flix encourages the use of holes for incomplete code.
+                        For example:
+                    </p>
+
+                    <CodeBlock>{`def sum(x: Int, y: Int}: Int = ???`}</CodeBlock>
+
+                    <p>
+                        The triple question marks <Code>???</Code> represents an anonymous hole and can be used wherever
+                        an expression is expected. In the above code, <Code>???</Code> represents a missing function
+                        body, but it can also be used inside an expression. For example:
+                    </p>
+
+                    <CodeBlock>{`def length(l: List[a]}: Int = match l {
+  case Nil     => 0
+  case x :: xs => ???
+}`}</CodeBlock>
+
+                    <p>
+                        When a program has multiple holes, it can be useful to name them. For example:
+                    </p>
+
+                    <CodeBlock>{`def length(l: List[a]}: Int = match l {
+  case Nil     => ?base
+  case x :: xs => ?step
+}`}</CodeBlock>
+
+                    <p>
+                        Flix requires that each named hole has a unique name.
+                    </p>
 
                 </SubSection>
 

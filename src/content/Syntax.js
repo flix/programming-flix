@@ -48,11 +48,6 @@ class Syntax extends React.Component {
 
                 </SubSection>
 
-                <SubSection name="Bug!">
-
-                    <p>TBD</p>
-
-                </SubSection>
 
                 <SubSection name="String Interpolation">
 
@@ -255,6 +250,38 @@ let g = match (x, y, z) -> x + y + z + 42i32`}
 
                 </SubSection>
 
+                <SubSection name="bug! and unreachable!">
+
+                    <p>
+                        Flix supports two special "functions": <Code>bug!</Code> and <Code>unreachable!</Code> that can
+                        be used to indicate when an internal program invariant is broken and execute should abort.
+                    </p>
+
+                    <p>
+                        For example:
+                    </p>
+
+                    <CodeBlock>{`match o {
+  case Some(x) => ...
+  case None    => bug!("The value of \`o\` cannot be empty.")
+}`}</CodeBlock>
+
+                    <p>
+                        As another example:
+                    </p>
+
+                    <CodeBlock>{`match n {
+  case n if n == 0 => ...
+  case n if n >= 0 => ...
+  case n if n <= 0 => ...
+  case n           =>  unreachable!()
+}`}</CodeBlock>
+
+                    <p>
+                        Use of <Code>bug!</Code> and <Code>unreachable!</Code> should be avoided whenever possible.
+                    </p>
+
+                </SubSection>
 
                 <SubSection name="Type Ascriptions and Casts">
 

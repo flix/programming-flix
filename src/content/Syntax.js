@@ -91,7 +91,18 @@ class Syntax extends React.Component {
 
                 <SubSection name="Infix Application">
 
-                    <p>TBD</p>
+                    <p>
+                        Flix supports infix function application by enclosing the function name in backticks.
+                        For example:
+                    </p>
+
+                    <CodeBlock>{`123 \`sum\` 456`}</CodeBlock>
+
+                    <p>
+                        is equivalent to the normal function call:
+                    </p>
+
+                    <CodeBlock>{`sum(123, 456)`}</CodeBlock>
 
                 </SubSection>
 

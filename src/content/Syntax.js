@@ -29,16 +29,6 @@ class Syntax extends React.Component {
 
                 </SubSection>
 
-                <SubSection name="Match Lambdas">
-
-                    <p>TBD</p>
-
-                    <CodeBlock>
-                        {`List.map(match (x, y) -> `}
-                    </CodeBlock>
-
-
-                </SubSection>
 
                 <SubSection name="Simple Enums">
 
@@ -83,9 +73,54 @@ class Syntax extends React.Component {
 
                 </SubSection>
 
-                <SubSection name="Let pattern match">
+                <SubSection name="Let Pattern Match">
+
+                    <p>
+                        In addition to the pattern <Code>match</Code> construct, a let-binding can be used to destruct a
+                        value. For example:
+                    </p>
+
+                    <CodeBlock>{`let (x, y, z) = (1, 2, 3)`}</CodeBlock>
+
+                    <p>
+                        Binds the variables <Code>x</Code>, <Code>y</Code>, and <Code>z</Code> to the
+                        values <Code>1</Code>, <Code>2</Code>, and <Code>3</Code>, respectively.
+                    </p>
+
+                    <p>
+                        Any exhaustive pattern may be used in a let-binding. For example:
+                    </p>
+
+                    <CodeBlock>{`let (x, Foo(y, z)) = (1, Foo(2, 3))`}</CodeBlock>
+
+                    <p>
+                        is legal provided that the <Code>Foo</Code> constructor belongs to a type where it is the only
+                        constructor.
+                    </p>
+
+                    <p>
+                        The following let-bindings are <i>illegal</i> because they are not exhaustive:
+                    </p>
+
+                    <CodeBlock>
+                        {`let (1, 2, z) = ...
+let Some(x) = ...`}
+                    </CodeBlock>
+
+                    <p>
+                        The Flix compiler will reject such non-exhaustive patterns.
+                    </p>
+
+                </SubSection>
+
+                <SubSection name="Match Lambdas">
 
                     <p>TBD</p>
+
+                    <CodeBlock>
+                        {`List.map(match (x, y) -> `}
+                    </CodeBlock>
+
 
                 </SubSection>
 

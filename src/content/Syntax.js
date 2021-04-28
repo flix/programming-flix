@@ -21,6 +21,20 @@ class Syntax extends React.Component {
                     This page documents a few features that make Flix code easier to read and write.
                 </p>
 
+                <SubSection name="ToString and println">
+
+                    <p>TBD</p>
+
+                </SubSection>
+
+                <SubSection name="String Interpolation">
+
+                    <p>
+                        Flix strings are by default interpolated.
+                    </p>
+
+                </SubSection>
+
                 <SubSection name="Pipelines">
 
                     <CodeBlock>
@@ -36,24 +50,6 @@ class Syntax extends React.Component {
 
                 </SubSection>
 
-                <SubSection name="Let*">
-
-                    <p>TBD</p>
-
-                </SubSection>
-
-                <SubSection name="ToString and println">
-
-                    <p>TBD</p>
-
-                </SubSection>
-
-
-                <SubSection name="String Interpolation">
-
-                    <p>TBD</p>
-
-                </SubSection>
 
                 <SubSection name="Partial Application and Currying">
 
@@ -212,6 +208,12 @@ let g = match (x, y, z) -> x + y + z + 42i32`}
                         <CodeBlock>{`Map.insert(1, "Hello", Map.insert(2, "World", Map.empty()))`}</CodeBlock>
 
                     </SubSubSection>
+
+                </SubSection>
+
+                <SubSection name="Let*">
+
+                    <p>TBD</p>
 
                 </SubSection>
 

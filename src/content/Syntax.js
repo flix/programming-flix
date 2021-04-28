@@ -115,12 +115,41 @@ let Some(x) = ...`}
 
                 <SubSection name="Match Lambdas">
 
-                    <p>TBD</p>
+                    <p>
+                        Pattern matches can also be used with lambda expressions.
+                        For example:
+                    </p>
 
                     <CodeBlock>
-                        {`List.map(match (x, y) -> `}
+                        {`List.map(match (x, y) -> x + y, (1, 1) :: (2, 2) :: Nil)`}
                     </CodeBlock>
 
+                    <p>
+                        is equivalent to:
+                    </p>
+
+                    <CodeBlock>
+                        {`List.map(w -> match w { case (x, y) => x + y }, (1, 1) :: (2, 2) :: Nil)`}
+                    </CodeBlock>
+
+                    <p>
+                        As for let-bindings, such pattern matches must be exhaustive.
+                    </p>
+
+                    <p>
+                        Note the difference between the two lambda expressions:
+                    </p>
+
+                    <CodeBlock>
+                        {`let f = (x, y, z) -> x + y + z + 42i32
+let g = match (x, y, z) -> x + y + z + 42i32`}
+                    </CodeBlock>
+
+                    <p>
+                        Here <Code>f</Code> is a function that expects <i>three</i> <Code>Int32</Code> arguments,
+                        whereas <Code>g</Code> is a function that expects <i>one</i> three tuple <Code>(Int32, Int32,
+                        Int32)</Code> argument.
+                    </p>
 
                 </SubSection>
 

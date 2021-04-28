@@ -23,6 +23,7 @@ class CodeBlock extends Component {
             <div className="editor-frame">
                 <div className="editor-code">
                     <AceEditor
+                        style={{"width": "48.5em"}}
                         mode='text'
                         theme='chrome'
                         ref="aceEditor"

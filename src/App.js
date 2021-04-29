@@ -132,13 +132,13 @@ class App extends React.Component {
                     <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
                     <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>
                     <Route path="/records/" render={() => <Records flix={this.getFlix()}/>}/>
-                    <Route path="/references/" render={() => <References flix={this.getFlix()}/>}/>
+                    <Route path="/references/" render={() => <References/>}/>
                     <Route path="/namespaces/" render={() => <Namespaces flix={this.getFlix()}/>}/>
                     <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
                     <Route path="/effects/" render={() => <Effects flix={this.getFlix()}/>}/>
                     <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
-                    <Route path="/tipstricks/" render={() => <TipsAndTricks flix={this.getFlix()}/>}/>
+                    <Route path="/tipstricks/" render={() => <TipsAndTricks/>}/>
 
                 </div>
             </div>

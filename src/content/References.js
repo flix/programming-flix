@@ -5,6 +5,7 @@ import Editor from "../util/Editor";
 import Code from "../components/Code";
 import SubSection from "../components/SubSection";
 import CodeBlock from "../util/CodeBlock";
+import DesignNote from "../components/DesignNote";
 
 class References extends React.Component {
 
@@ -23,12 +24,12 @@ class References extends React.Component {
                     and <Code>e := e</Code>. The <Code>ref e</Code> operation allocates a reference cell in the heap and
                     returns its location, the <Code>deref</Code> operation dereferences a location and returns the
                     content of a reference cell, and finally the assigment <Code>:=</Code> operation changes the value
-                    of a reference cell in the heap. Informally, a reference cell can be thought of as an "object" with
+                    of a reference cell. Informally, a reference cell can be thought of as an "object" with
                     a single field that can be changed.
                 </p>
 
                 <p>
-                    All references operations are impure.
+                    All references operations are by nature impure.
                 </p>
 
                 <p>
@@ -68,7 +69,7 @@ deref l`}</CodeBlock>
                 <SubSection name="Assignment">
 
                     <p>
-                        A reference cell have its value updated as follows:
+                        A reference cell can have its value updated as follows:
                     </p>
 
                     <CodeBlock>{`let l = ref 42;
@@ -84,10 +85,44 @@ deref l`}</CodeBlock>
                 <SubSection name={"Example: A Simple Counter"}>
 
                     <p>
-                        TBD
+                        The following program models a simple counter that can be incremented:
+                    </p>
+
+                    <CodeBlock>{`enum Counter {
+    case Counter(Ref[Int32])                        
+}
+
+def newCounter(): Counter & Impure = Counter(ref 0)
+
+def getCount(c: Counter): Int32 & Impure =
+    let Counter(l) = c;
+    deref l
+
+def increment(c: Counter): Unit & Impure = 
+    let Counter(l) = c;
+    l := (deref l) + 1
+    
+def f(): Unit & Impure = 
+    let c = newCounter();
+    increment(c);
+    increment(c);
+    increment(c);
+    getCount(c) |> println`}</CodeBlock>
+
+                    <p>
+                        Note that the <Code>newCounter</Code>, <Code>getCount</Code>, <Code>increment</Code>,
+                        and <Code>f</Code> functions must all be marked as <Code>Impure</Code>.
                     </p>
 
                 </SubSection>
+
+                
+
+                <DesignNote>
+                    Flix does not support any notion of global mutable state. If you need to maintain a program-wide
+                    counter (or other mutable state) then you have to allocate it in the main function and explicitly
+                    thread it through the program.
+                </DesignNote>
 
             </Section>
         )

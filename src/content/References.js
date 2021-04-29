@@ -29,11 +29,8 @@ class References extends React.Component {
                 </p>
 
                 <p>
-                    All references operations are by nature impure.
-                </p>
-
-                <p>
-                    Reference cells do not support any notion of equality or ordering.
+                    All references operations are impure. As such, all functions that use references must be marked
+                    as <Code>Impure</Code> or be casted to <Code>Pure</Code>.
                 </p>
 
                 <SubSection name="Allocation">

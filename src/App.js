@@ -17,6 +17,7 @@ import Namespaces from "./content/Namespaces";
 import Interoperability from "./content/Interoperability";
 import Effects from "./content/Effects";
 import TipsAndTricks from "./content/TipsAndTricks";
+import References from "./content/References";
 
 const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
@@ -94,6 +95,10 @@ class App extends React.Component {
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/references/">References</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/namespaces/">Namespaces</NavLink>
                         </NavItem>
 
@@ -127,6 +132,7 @@ class App extends React.Component {
                     <Route path="/datatypes/" render={() => <DataTypes flix={this.getFlix()}/>}/>
                     <Route path="/lists/" render={() => <Lists flix={this.getFlix()}/>}/>
                     <Route path="/records/" render={() => <Records flix={this.getFlix()}/>}/>
+                    <Route path="/references/" render={() => <References flix={this.getFlix()}/>}/>
                     <Route path="/namespaces/" render={() => <Namespaces flix={this.getFlix()}/>}/>
                     <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
                     <Route path="/effects/" render={() => <Effects flix={this.getFlix()}/>}/>

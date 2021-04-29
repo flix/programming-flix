@@ -4,6 +4,7 @@ import Section from "../components/Section";
 import Code from "../components/Code";
 import CodeBlock from "../util/CodeBlock";
 import SubSection from "../components/SubSection";
+import DesignNote from "../components/DesignNote";
 
 class Arrays extends React.Component {
 
@@ -37,13 +38,32 @@ class Arrays extends React.Component {
                 <SubSection name="Array Literals">
 
                     <p>
-                        An array literal is of the form <Code>[e1, e2, ... en]</Code>. For example:
+                        An array literal is of the form <Code>[e1, e2, ... en]</Code>. For example, the expression:
                     </p>
 
-                    <CodeBlock>{`[1, 2, 3]`}</CodeBlock>
+                    <CodeBlock>{`[1, 2, 3, 4]`}</CodeBlock>
+
+                    <p>
+                        evaluates to an array with the four elements: <Code>1, 2, 3, 4</Code>.
+                    </p>
+
+                    <p>
+                        In some cases we want to allocate a large array filled with the same value.
+                        For example, the expression:
+                    </p>
+
+                    <CodeBlock>{`["Hello World"; 100]`}</CodeBlock>
+
+                    <p>
+                        evaluates to an array of size 100 where every entry contains the string <Code>"Hello
+                        World"</Code>.
+                    </p>
+
+                    <DesignNote>
+                        It is not possible to allocate an array without assigning a value to each entry.
+                    </DesignNote>
 
                 </SubSection>
-
 
 
             </Section>

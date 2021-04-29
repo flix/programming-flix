@@ -6,16 +6,16 @@ import CodeBlock from "../util/CodeBlock";
 import Code from "../components/Code";
 import SubSubSection from "../components/SubSubSection";
 
-class Syntax extends React.Component {
+class TipsAndTricks extends React.Component {
 
     componentDidMount() {
-        document.title = "Programming Flix | Syntax";
+        document.title = "Programming Flix | Tips & Tricks";
         ReactGA.pageview(window.location.pathname);
     }
 
     render() {
         return (
-            <Section name="Syntax">
+            <Section name="Tips &amp; Tricks">
 
                 <p>
                     This page documents a few features that make Flix code easier to read and write.
@@ -478,4 +478,4 @@ let g = match (x, y, z) -> x + y + z + 42i32`}
 
 }
 
-export default Syntax
+export default TipsAndTricks

@@ -16,7 +16,7 @@ import Records from "./content/Records";
 import Namespaces from "./content/Namespaces";
 import Interoperability from "./content/Interoperability";
 import Effects from "./content/Effects";
-import Syntax from "./content/Syntax";
+import TipsAndTricks from "./content/TipsAndTricks";
 
 const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
@@ -114,7 +114,7 @@ class App extends React.Component {
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
-                            <NavLink tag={Link} to="/syntax/">Syntax</NavLink>
+                            <NavLink tag={Link} to="/tipstricks/">Tips &amp; Tricks</NavLink>
                         </NavItem>
                     </Nav>
                 </Navbar>
@@ -132,7 +132,7 @@ class App extends React.Component {
                     <Route path="/effects/" render={() => <Effects flix={this.getFlix()}/>}/>
                     <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
-                    <Route path="/syntax/" render={() => <Syntax flix={this.getFlix()}/>}/>
+                    <Route path="/tipstricks/" render={() => <TipsAndTricks flix={this.getFlix()}/>}/>
 
                 </div>
             </div>

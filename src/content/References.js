@@ -45,8 +45,8 @@ class References extends React.Component {
                     <CodeBlock>{`ref 42`}</CodeBlock>
 
                     <p>
-                        which returns a value of type <Code>Ref[Int32]</Code> which is a reference (pointer) to a single
-                        memory cell that holds the value <Code>42</Code>.
+                        which evaluates to a value of type <Code>Ref[Int32]</Code> which is a reference (pointer) to a
+                        single memory cell that holds the value <Code>42</Code>.
                     </p>
 
                 </SubSection>
@@ -61,7 +61,7 @@ class References extends React.Component {
 deref l`}</CodeBlock>
 
                     <p>
-                        which returns <Code>42</Code> as expected.
+                        which evaluates to <Code>42</Code> as expected.
                     </p>
 
                 </SubSection>
@@ -77,7 +77,7 @@ l := 84;
 deref l`}</CodeBlock>
 
                     <p>
-                        which returns <Code>84</Code> as expected.
+                        which evaluates to <Code>84</Code> as expected.
                     </p>
 
                 </SubSection>

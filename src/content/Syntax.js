@@ -30,7 +30,69 @@ class Syntax extends React.Component {
                 <SubSection name="String Interpolation">
 
                     <p>
-                        Flix strings are by default interpolated.
+                        Flix strings support interpolation. Inside a string the
+                        form <Code>{"${e}"}</Code> evaluates <Code>e</Code> to a value and converts it to a string using
+                        the <Code>ToString</Code> type class. For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`let fstName = "Lucky";
+let lstName = "Luke";
+"Hello Mr. \${lstName}. Do you feel \${lstName}, punk?"`}
+                    </CodeBlock>
+
+                    <p>
+                        String interpolation works for any types that implements a <Code>ToString</Code> instance. For
+                        example:
+                    </p>
+
+                    <CodeBlock>
+                        {`let i = 123;
+let o = Some(123);
+let l = 1 :: 2 :: 3 :: Nil;
+"i = \${i}, o = \${o}, l = \${l}"`}
+                    </CodeBlock>
+
+                    <p>
+                        String interpolations may contain arbitrary expressions. For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`let x = 1;
+let y = 2;
+"\${x + y + 1}"`}
+                    </CodeBlock>
+
+                    <p>
+                        String interpolation is the preferred way to concatenate two strings:
+                    </p>
+
+                    <CodeBlock>
+                        {`let x = "Hello";
+let y = "World";
+"\${x}\${y}" // equivalent to x + y`}
+                    </CodeBlock>
+
+                    <p>
+                        String interpolation is the preferred way to convert a value to a string:
+                    </p>
+
+                    <CodeBlock>
+                        {`let o = Some(123);
+"\${o}"`}
+                    </CodeBlock>
+
+                    <p>
+                        which is equivalent to an explicit use of the <Code>toString</Code> function from
+                        the <Code>ToString</Code> type class:
+                    </p>
+
+                    <CodeBlock>
+                        {`ToString.toString(o)`}
+                    </CodeBlock>
+
+                    <p>
+                        String interpolators may nest, but this is strongly discouraged.
                     </p>
 
                 </SubSection>

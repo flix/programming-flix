@@ -183,9 +183,33 @@ List.count`}</CodeBlock>
 
                 </SubSection>
 
-                <SubSection name="Simple Enums">
+                <SubSection name="Shorthand for Enum Declarations">
 
-                    <p>TBD</p>
+                    <p>
+                        A typical enum may look like:
+                    </p>
+
+                    <CodeBlock>{`enum Weekday {
+    case Monday,
+    case Tuesday,
+    case Wednesday,
+    case Thursday,
+    case Friday,
+    case Saturday,
+    case Sunday
+}`}</CodeBlock>
+
+                    <p>
+                        The same enum can also be declared as:
+                    </p>
+
+                    <CodeBlock>{`enum Weekday {
+    case Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+}`}</CodeBlock>
+
+                    <p>
+                        This shorthand syntax is always available, but should only be used for simple enums.
+                    </p>
 
                 </SubSection>
 

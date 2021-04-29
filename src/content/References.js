@@ -116,7 +116,35 @@ def f(): Unit & Impure =
 
                 </SubSection>
 
-                
+                <SubSection name={"Aliasing and References to References"}>
+
+                    <p>
+                        References naturally support aliasing. That is their purpose. For example:
+                    </p>
+
+                    <CodeBlock>{`let l1 = ref 42;
+let l2 = l1;
+l2 := 84;
+deref l1`}</CodeBlock>
+
+                    <p>
+                        Evaluates to <Code>84</Code> because the reference cell that <Code>l1</Code> points to is
+                        modified through the alias <Code>l2</Code>.
+                    </p>
+
+                    <p>
+                        References can point-to references as the following example illustrates:
+                    </p>
+
+                    <CodeBlock>{`let l1 = ref 42;
+let l2 = ref l1;
+deref (deref l2)`}</CodeBlock>
+
+                    <p>
+                        Evaluates to <Code>42</Code> as expected.
+                    </p>
+
+                </SubSection>
 
                 <DesignNote>
                     Flix does not support any notion of global mutable state. If you need to maintain a program-wide

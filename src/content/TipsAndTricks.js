@@ -160,10 +160,28 @@ let y = "World";
 
                 <SubSection name="Pipelines">
 
-                    TBD
+                    <p>
+                        Flix supports the pipeline operator <Code>|></Code> which is simply a prefix version of function
+                        application (i.e. the argument appears before the function).
+                    </p>
+
+                    <p>
+                        The pipeline operator can often be used to make functional code more readable. For example:
+                    </p>
+
+                    <CodeBlock>{`let l = 1 :: 2 :: 3 :: Nil;
+l |> 
+List.map(x -> x * 2) |>
+List.filter(x -> x < 4) |>  
+List.count`}</CodeBlock>
+
+                    <p>
+                        Here is another example:
+                    </p>
+
+                    <CodeBlock>{`"Hello World" |> String.toUpperCase |> println`}</CodeBlock>
 
                 </SubSection>
-
 
                 <SubSection name="Simple Enums">
 

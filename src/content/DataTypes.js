@@ -8,6 +8,7 @@ import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
 import Warning from "../components/Warning";
 import {Table} from "reactstrap";
+import CodeBlock from "../util/CodeBlock";
 
 class DataTypes extends React.Component {
 
@@ -110,6 +111,53 @@ class DataTypes extends React.Component {
                         as <Code>123.0</Code> and <Code>123i32</Code> can be written as <Code>123</Code>.
                     </p>
                 </SubSection>
+
+                <SubSection name="Tuples">
+
+                    <p>
+                        A tuple is product of values.
+                    </p>
+
+                    <p>
+                        For example, here is a pair of an integer and a Boolean:
+                    </p>
+
+                    <CodeBlock>{`(1, true)`}</CodeBlock>
+
+                    <p>
+                        The type of a tuple is written like the tuple itself. Hence the type of the tuple is <Code>(Int32,
+                        Bool)</Code>.
+                    </p>
+
+                    <p>
+                        We can extract the value of a tuple using pattern matching. For example:
+                    </p>
+
+                    <CodeBlock>{`let t = ("Lucky", "Luke", 42, true);
+let (fstName, lstName, age, male) = t`}</CodeBlock>
+
+                    <p>
+                        For pairs (i.e. 2-tuples), the Flix prelude defines
+                        the <Code>fst</Code> and <Code>snd</Code> functions:
+                    </p>
+
+                    <CodeBlock>{`let p = (1, 2);
+let x = fst(t);
+let y = snd(t)`}</CodeBlock>
+
+                    <p>
+                        These functions are especially useful when working with lists of pairs. For example:
+                    </p>
+
+                    <CodeBlock>{`let l = (1, 1) :: (2, 2) :: Nil; // has type List[(Int32, Int32)]
+List.map(fst, l1)                // has type List[Int32]`}</CodeBlock>
+
+                    <p>
+                        which extracts the first component of the pairs in the list <Code>l</Code>.
+                    </p>
+
+                </SubSection>
+
 
                 <SubSection name="Enumerated Types">
 

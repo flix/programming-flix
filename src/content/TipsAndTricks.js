@@ -5,6 +5,7 @@ import SubSection from "../components/SubSection";
 import CodeBlock from "../util/CodeBlock";
 import Code from "../components/Code";
 import SubSubSection from "../components/SubSubSection";
+import DesignNote from "../components/DesignNote";
 
 class TipsAndTricks extends React.Component {
 
@@ -367,11 +368,38 @@ let g = match (x, y, z) -> x + y + z + 42i32`}
 
                 </SubSection>
 
-                <SubSection name="Let*">
+                <SubSection name="Let* (Do-notation)">
 
                     <p>
-                        TBD
+                        Flix supports a feature similar to <i>do-notation</i> in Haskell
+                        and <i>for-comprehensions</i> in Scala.
                     </p>
+
+                    <p>
+                        The following monadic code:
+                    </p>
+
+                    <CodeBlock>{`use Option.flatMap;
+let o1 = Some(21);
+let o2 = Some(42);
+flatMap(x -> flatMap(y -> Some(x + y), o2), o1)`}</CodeBlock>
+
+                    <p>
+                        May be expressed more concisely as:
+                    </p>
+
+                    <CodeBlock>{`use Option.flatMap;
+let* o1 = Some(21);
+let* o2 = Some(42);
+Some(x + y) `}</CodeBlock>
+
+                    <p>
+                        where each <Code>let*</Code> corresponds to a <Code>flatMap</Code> use.
+                    </p>
+
+                    <DesignNote>
+                        This feature is experimental and subject to change.
+                    </DesignNote>
 
                 </SubSection>
 
@@ -443,71 +471,66 @@ let g = match (x, y, z) -> x + y + z + 42i32`}
 
                 </SubSection>
 
-                <SubSection name="Type Ascriptions and Casts">
+                <SubSection name="Type Ascriptions">
 
-                    <SubSubSection name="Ascriptions">
+                    <p>
+                        While Flix supports local type inference, it can sometimes be useful to annotate an
+                        expression or a let-binding with its type. We call such annotations for <i>type
+                        ascriptions</i>. A type ascription cannot change the type of an expression nor can it be
+                        used to violate type safety.
+                    </p>
 
-                        <p>
-                            While Flix supports local type inference, it can sometimes be useful to annotate an
-                            expression or a let-binding with its type. We call such annotations for <i>type
-                            ascriptions</i>. A type ascription cannot change the type of an expression nor can it be
-                            used to violate type safety.
-                        </p>
+                    <p>
+                        A type ascription can be placed after an expression:
+                    </p>
 
-                        <p>
-                            A type ascription can be placed after an expression:
-                        </p>
+                    <CodeBlock>{`("Hello" :: "World" :: Nil) : List[String]`}</CodeBlock>
 
-                        <CodeBlock>{`("Hello" :: "World" :: Nil) : List[String]`}</CodeBlock>
+                    <p>
+                        and it can also be placed on a let-binding:
+                    </p>
 
-                        <p>
-                            and it can also be placed on a let-binding:
-                        </p>
-
-                        <CodeBlock>{`let l: List[String] = "Hello" :: "World" :: Nil`}</CodeBlock>
-
-                    </SubSubSection>
-
-                    <SubSubSection name="Casts">
-
-                        <p>
-                            A casts subvert the type system by changing the type of an expression. Casts are by their
-                            nature dangerous and should be used with caution.
-                        </p>
-
-                        <p>
-                            The following cast changes the type of an expression and triggers
-                            a <Code>ClassCastException</Code> at run-time:
-                        </p>
-
-                        <CodeBlock>{`(123, 456) as String`}</CodeBlock>
-
-                        <p>
-                            A cast can also change the effect of an expression. Such casts are safer, but should
-                            still be used with caution.
-                        </p>
-
-                        <p>
-                            For example, we can cast an impure expression to a pure expression:
-                        </p>
-
-                        <CodeBlock>{`Console.println("Hello World") as Unit & Pure`}</CodeBlock>
-
-                        <p>
-                            As a short-hand, we can simply write:
-                        </p>
-
-                        <CodeBlock>{`Console.println("Hello World") as & Pure`}</CodeBlock>
-
-                        <p>
-                            Casting an impure expression to a pure expression is safe if the expression respects
-                            equational reasoning.
-                        </p>
-
-                    </SubSubSection>
+                    <CodeBlock>{`let l: List[String] = "Hello" :: "World" :: Nil`}</CodeBlock>
 
                 </SubSection>
 
+                <SubSubSection name="Type Casts">
+
+                    <p>
+                        A cast subverts the type system by changing the type of an expression. Casts are by their
+                        nature dangerous and should be used with caution.
+                    </p>
+
+                    <p>
+                        The following cast changes the type of an expression and triggers
+                        a <Code>ClassCastException</Code> at run-time:
+                    </p>
+
+                    <CodeBlock>{`(123, 456) as String`}</CodeBlock>
+
+                    <p>
+                        A cast can also change the effect of an expression. Such casts are safer, but should
+                        still be used with caution.
+                    </p>
+
+                    <p>
+                        For example, we can cast an impure expression to a pure expression:
+                    </p>
+
+                    <CodeBlock>{`Console.println("Hello World") as Unit & Pure`}</CodeBlock>
+
+                    <p>
+                        As a short-hand, we can simply write:
+                    </p>
+
+                    <CodeBlock>{`Console.println("Hello World") as & Pure`}</CodeBlock>
+
+                    <p>
+                        Casting an impure expression to a pure expression is safe if the expression respects
+                        equational reasoning.
+                    </p>
+
+                </SubSubSection>
 
             </Section>
         )

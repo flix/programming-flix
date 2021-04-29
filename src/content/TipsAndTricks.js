@@ -213,13 +213,6 @@ List.count`}</CodeBlock>
 
                 </SubSection>
 
-
-                <SubSection name="Partial Application and Currying">
-
-                    <p>TBD</p>
-
-                </SubSection>
-
                 <SubSection name="Let Pattern Match">
 
                     <p>
@@ -376,7 +369,9 @@ let g = match (x, y, z) -> x + y + z + 42i32`}
 
                 <SubSection name="Let*">
 
-                    <p>TBD</p>
+                    <p>
+                        TBD
+                    </p>
 
                 </SubSection>
 

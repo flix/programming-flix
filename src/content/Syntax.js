@@ -21,9 +21,51 @@ class Syntax extends React.Component {
                     This page documents a few features that make Flix code easier to read and write.
                 </p>
 
-                <SubSection name="ToString and println">
+                <SubSection name="Printing to the Standard Out">
 
-                    <p>TBD</p>
+                    <p>
+                        The Flix prelude defines two impure functions: <Code>print</Code> and <Code>println</Code> that
+                        can be used to print a string to standard out.
+                        For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`println("Hello World")`}
+                    </CodeBlock>
+
+                    <p>
+                        The <Code>println</Code> function prints with a newline after the string.
+                        The <Code>print</Code> function can be used to print without this newline.
+                        For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`let name = "Lucky Luke:
+print("Hello");
+print(" ");
+println(name)`}
+                    </CodeBlock>
+
+                    <p>
+                        which prints <Code>Hello Lucky Luke</Code> on one line.
+                    </p>
+
+                    <p>
+                        The <Code>print</Code> and <Code>println</Code> functions can print any value whose type
+                        implements <Code>ToString</Code> type class and consequently can be converted to
+                        a <Code>String</Code>. For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`let o = Some(123);
+let l = 1 :: 2 :: 3;
+println(o);
+println(l)`}
+                    </CodeBlock>
+
+                    <p>
+                        TBD>. Effects.
+                    </p>
 
                 </SubSection>
 
@@ -99,9 +141,7 @@ let y = "World";
 
                 <SubSection name="Pipelines">
 
-                    <CodeBlock>
-                        {`List.range(1, 100) |> List.length`}
-                    </CodeBlock>
+                    TBD
 
                 </SubSection>
 

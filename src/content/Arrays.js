@@ -65,6 +65,28 @@ class Arrays extends React.Component {
 
                 </SubSection>
 
+                <SubSection name="Reading and Writing from Arrays">
+
+                    <p>
+                        Arrays can be accessed and updated using standard syntax. For example:
+                    </p>
+
+                    <CodeBlock>{`let a = [0; 10];
+a[0] = 21;
+a[1] = 42;
+a[0] + a[1]`}</CodeBlock>
+
+                    <p>evaluates to <Code>63</Code>, as expected.</p>
+
+                </SubSection>
+
+                <SubSection name="Array Slicing">
+
+                    <p>
+                        TBD
+                    </p>
+
+                </SubSection>
 
             </Section>
         )

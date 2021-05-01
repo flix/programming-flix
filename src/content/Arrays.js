@@ -5,6 +5,7 @@ import Code from "../components/Code";
 import CodeBlock from "../util/CodeBlock";
 import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
+import Warning from "../components/Warning";
 
 class Arrays extends React.Component {
 
@@ -18,21 +19,32 @@ class Arrays extends React.Component {
             <Section name="Arrays">
 
                 <p>
-                    Flix supports arrays like most programming languages. Flix recommends the use of immutable
-                    data structures such as immutable lists, sets, and maps. However, in specific situations, the use
-                    of arrays may be required for performance reasons. For example, the Flix Datalog engine uses arrays
-                    internally while exposing a purely functional interface. We recommend this style of architecture,
-                    where the use of arrays is hidden as from the programmer.
+                    While Flix recommends the use of immutable data structures (such as immutable lists, sets, and
+                    maps), mutable arrays may be useful for performance critical code.
+                </p>
+
+                <p>
+                    We recommend that arrays are used sparingly and that when possible their use is hidden as an
+                    implementation detail. For example, the Flix Datalog engine uses arrays internally but exposes
+                    a functional (immutable) interface.
                 </p>
 
                 <p>
                     Flix uses monomorphization and consequently primitive arrays are not boxed. For example,
-                    the representation of <Code>Array[Int32]</Code> is very compact and efficient.
+                    the representation of an <Code>Array[Int32]</Code> is compact and efficient.
                 </p>
 
                 <p>
-                    All array operations are impure. As such, all functions that use arrays must be marked
-                    as <Code>Impure</Code> or be casted to <Code>Pure</Code>. (TBD)
+                    All operations on arrays are impure. As such, all functions that use arrays must be marked
+                    as <Code>Impure</Code> or be casted to <Code>Pure</Code>. (Accessing the length of an array
+                    is pure since the size of an array cannot change after it has been created.)
+                </p>
+
+                <p>
+                    Arrays should only be used for low-level code. The <Code>MutList</Code> data structure, available
+                    in the standard library, provides a mutable, dynamically-expanding data structure similar to
+                    <Code>java.util.ArrayList</Code>. Its implementation is backed by an array that is dynamically
+                    resized and it provides amortized O(1) push operations.
                 </p>
 
                 <SubSection name="Array Literals">
@@ -48,19 +60,20 @@ class Arrays extends React.Component {
                     </p>
 
                     <p>
-                        In some cases we want to allocate a large array filled with the same value.
-                        For example, the expression:
+                        In some cases it is useful to allocate a large array filled with the same value.
+                        The expression:
                     </p>
 
                     <CodeBlock>{`["Hello World"; 100]`}</CodeBlock>
 
                     <p>
-                        evaluates to an array of size 100 where every entry contains the string <Code>"Hello
+                        evaluates to an array of length 100 where every entry contains the string <Code>"Hello
                         World"</Code>.
                     </p>
 
                     <DesignNote>
-                        It is not possible to allocate an array without assigning a value to each entry.
+                        Flix does not allow the allocation of an array without assigning a "default value" to
+                        each entry in the array.
                     </DesignNote>
 
                 </SubSection>
@@ -83,7 +96,7 @@ a[0] + a[1]`}</CodeBlock>
                 <SubSection name="Array Slicing">
 
                     <p>
-                        Arrays can be sliced. Slicing an array (shallowly) copies a subrange of an array.
+                        Arrays can be sliced. Slicing an array (shallowly) copies a subrange of the array.
                         For example:
                     </p>
 
@@ -104,7 +117,7 @@ let a1 = [2..]; // evaluates to [3, 4, 5]
 let a2 = [..4]  // evaluates to [1, 2, 3, 4]`}</CodeBlock>
 
                     <p>
-                        If both the start and end index is omitted the entire array is copied. For example:
+                        If both the start and end index are omitted the entire array is copied. For example:
                     </p>
 
 
@@ -119,6 +132,10 @@ a[..]`}</CodeBlock>
                         Slicing an array using the same start and end index returns the empty array.
                         For example, <Code>[0, 1, 2, 3][2..2]</Code> evaluates to <Code>[]</Code>.
                     </DesignNote>
+
+                    <Warning>
+                        Slicing with negative indices is undefined and results in runtime errors.
+                    </Warning>
 
                 </SubSection>
 

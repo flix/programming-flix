@@ -15,7 +15,7 @@ class Welcome extends React.Component {
             <Container style={style}>
                 <div className="title">Programming Flix</div>
 
-                Welcome to this interactive tutorial for the <a href="https://flix.dev">Flix</a> programming language!
+                Welcome to this tutorial for the <a href="https://flix.dev">Flix</a> programming language!
             </Container>)
     }
 }

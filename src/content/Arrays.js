@@ -83,8 +83,42 @@ a[0] + a[1]`}</CodeBlock>
                 <SubSection name="Array Slicing">
 
                     <p>
-                        TBD
+                        Arrays can be sliced. Slicing an array (shallowly) copies a subrange of an array.
+                        For example:
                     </p>
+
+                    <CodeBlock>{`let a = [1, 2, 3, 4, 5];
+a[2..4]
+`}</CodeBlock>
+
+                    <p>
+                        evaluates to the array <Code>[3, 4]</Code>.
+                    </p>
+
+                    <p>
+                        The start or end index may be omitted. For example:
+                    </p>
+
+                    <CodeBlock>{`let a = [1, 2, 3, 4, 5];
+let a1 = [2..]; // evaluates to [3, 4, 5]
+let a2 = [..4]  // evaluates to [1, 2, 3, 4]`}</CodeBlock>
+
+                    <p>
+                        If both the start and end index is omitted the entire array is copied. For example:
+                    </p>
+
+
+                    <CodeBlock>{`let a = [1, 2, 3, 4, 5];
+a[..]`}</CodeBlock>
+
+                    <p>
+                        evaluates to the (copied) array <Code>[1, 2, 3, 4, 5]</Code>.
+                    </p>
+
+                    <DesignNote>
+                        Slicing an array using the same start and end index returns the empty array.
+                        For example, <Code>[0, 1, 2, 3][2..2]</Code> evaluates to <Code>[]</Code>.
+                    </DesignNote>
 
                 </SubSection>
 

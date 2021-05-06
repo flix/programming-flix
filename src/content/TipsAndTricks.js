@@ -22,6 +22,39 @@ class TipsAndTricks extends React.Component {
                     This page documents a few features that make Flix code easier to read and write.
                 </p>
 
+                <SubSection name="Main">
+
+                    <p>
+                        The entry point of any Flix program is the <Code>main</Code> function which <i>must</i> have the
+                        signature:
+                    </p>
+
+                    <CodeBlock>
+                        {`def main(args: Array[String]): Int32 & Impure = ...`}
+                    </CodeBlock>
+
+                    <p>
+                        That is, the main function (i) takes an array of string arguments, (ii) must return
+                        an <Code>Int32</Code> which represents the exit code, and (iii) must be <Code>Impure</Code>.
+                    </p>
+
+                    <p>
+                        Flix does not allow unused function arguments. Thus, if the arguments are not needed the
+                        parameter name must be prefixed with an underscore:
+                    </p>
+
+                    <CodeBlock>
+                        {`def main(_args: Array[String]): Int32 & Impure = ...`}
+                    </CodeBlock>
+
+                    <p>
+                        Flix requires main to be <Code>Impure</Code>. If main was pure there would be no reason to run
+                        the program. Typically the impurity requirement is satisfied because main prints to the console
+                        or has another side-effect.
+                    </p>
+
+                </SubSection>
+
                 <SubSection name="Printing to the Standard Out">
 
                     <p>

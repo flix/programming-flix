@@ -7,6 +7,7 @@ import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
 import Warning from "../components/Warning";
+import CodeBlock from "../util/CodeBlock";
 
 class Fixpoints extends React.Component {
 
@@ -255,6 +256,56 @@ def main2(): #{ LabelEdge[String], LabelPath[String] }  =
                         both <Code>main1</Code> and <Code>main2</Code> to compute the transitive closure of graphs
                         with different types of labels.
                     </p>
+
+                </SubSection>
+
+                <SubSection name="Projecting Facts into Datalog">
+
+                    <p>
+                        Flix provides a flexible mechanism that allows functional data structures (such as lists, sets,
+                        and maps) to be converted into Datalog facts.
+                    </p>
+
+                    <p>
+                        For example, given a Flix list of pairs we can convert it to a collection of Datalog facts:
+                    </p>
+
+                    <CodeBlock>{`let l = (1, 2) :: (2, 3) :: Nil;
+let p = project l into Edge`}</CodeBlock>
+
+                    <p>
+                        where <Code>l</Code> has type <Code>List[(Int32, Int32)]</Code>.
+                        The <Code>project</Code> expression converts <Code>l</Code> into a Datalog constraint
+                        set <Code>p</Code> of type <Code>{"#{ Edge(Int32, Int32) | ...}"}</Code>.
+                    </p>
+
+                    <p>
+                        The <Code>project</Code> expression works with any type that implements
+                        the <Code>Foldable</Code> type class. Consequently, it can be used with lists, sets, maps, and
+                        so forth.
+                    </p>
+
+                    <p>
+                        The <Code>project</Code> expression can operate on multiple collections simultaneously. For
+                        example:
+                    </p>
+
+                    <CodeBlock>{`let names = "Lucky Luke" :: "Luke Skywalker" :: Nil;
+let jedis = "Luke Skywalker" :: Nil;
+let p = project names, jedis into Name, Jedi`}</CodeBlock>
+
+                    <p>
+                        where <Code>p</Code> has type <Code>{"#{ Name(String), Jedi(String) | ...}"}</Code>.
+                    </p>
+
+                </SubSection>
+
+                <SubSection name="Extracting Facts out of Datalog">
+
+                    <p>
+                        TBD
+                    </p>
+
 
                 </SubSection>
 

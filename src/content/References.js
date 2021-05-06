@@ -149,6 +149,41 @@ deref (deref l2)`}</CodeBlock>
                     thread it through the program.
                 </DesignNote>
 
+                <SubSection name="Mutable Tuples and Records">
+
+                    <p>
+                        Flix tuples and records are <i>immutable</i>. However, tuples and records may contain mutable
+                        references.
+                    </p>
+
+                    <p>
+                        For example, here is a pair that contains two mutable references:
+                    </p>
+
+                    <CodeBlock>{`let p = (ref 1, ref 2);
+fst(p) := 123`}</CodeBlock>
+
+                    <p>
+                        The type of the pair is <Code>(Ref[Int32], Ref[Int32])</Code>. The assignment does not change
+                        the pair itself (it is immutable), but rather changes the value of the reference cell in the
+                        first component of the pair.
+                    </p>
+
+                    <p>
+                        Similarly, here is a record that contains two mutable references:
+                    </p>
+
+                    <CodeBlock>{`let r = { fstName = ref "Lucky", lstName = ref "Luke"};
+r.fstName := "Unlucky"`}</CodeBlock>
+
+                    <p>
+                        The type of the record is <Code>{"{ fstName: Ref[String], lstName: Ref[String] }"}</Code>.
+                        Again, the assignment does not change the record itself, but rather changes the value of
+                        the reference cell corresponding to the <Code>fstName</Code> field.
+                    </p>
+
+                </SubSection>
+
             </Section>
         )
     }

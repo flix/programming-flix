@@ -5,6 +5,7 @@ import Code from '../components/Code';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import CodeBlock from "../util/CodeBlock";
+import DesignNote from "../components/DesignNote";
 
 class Functions extends React.Component {
 
@@ -188,19 +189,19 @@ def main(_args: Array[String]): Int32 & Impure =
                     </p>
 
                     <p>
-                        The Flix type and effect system ensures that a pure function returns the same result when given
-                        the same arguments and that it cannot have (observable) side effects.
+                        The Flix type and effect system ensures that a pure function always returns the same result when
+                        given the same arguments and that it cannot have (observable) side effects.
                     </p>
 
                     <p>
-                        In Flix every function is implicitly marked as <Code>Pure</Code>. For example, the function
-                        definition:
+                        In Flix every function definition is <i>implicitly</i> marked as <Code>Pure</Code>. For example,
+                        the function definition:
                     </p>
 
                     <CodeBlock>{`def add(x: Int32, y: Int32): Int32 = x + y`}</CodeBlock>
 
                     <p>
-                        is implicitly understood as:
+                        is actually equivalent to:
                     </p>
 
                     <CodeBlock>{`def add(x: Int32, y: Int32): Int32 & Pure = x + y`}</CodeBlock>
@@ -234,7 +235,7 @@ def main(_args: Array[String]): Int32 & Impure =
                         here the signature of <Code>map</Code> captures that if the function argument <Code>f</Code> has
                         type <Code>a -&gt; b</Code> with effect <Code>e</Code> then the effect
                         of <Code>map</Code> itself is <Code>e</Code>. This means that if <Code>map</Code> is called
-                        with a pure (resp. pure) function argument then the overall expression is pure (resp. impure).
+                        with a pure (resp. impure) function argument then the overall expression is pure (resp. impure).
                         For example:
                     </p>
 
@@ -242,6 +243,13 @@ def main(_args: Array[String]): Int32 & Impure =
                         {`List.map(x -> x + 123, l)    // pure
 List.map(x -> println(x), l) // impure`}
                     </CodeBlock>
+
+                    <DesignNote>
+                        The Flix standard library enforces several program invariants using purity. For example, in
+                        Flix, the <Code>Eq</Code> and <Code>Order</Code> type classes require that their operations are
+                        pure. This ensures that collections, such as lists, sets, and maps, do not leak internal
+                        implementation details.
+                    </DesignNote>
 
                 </SubSection>
 

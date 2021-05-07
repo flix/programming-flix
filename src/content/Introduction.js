@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactGA from "react-ga";
 
-import Editor from '../util/Editor';
 import Section from "../components/Section";
+import CodeBlock from "../util/CodeBlock";
 
 class Introduction extends React.Component {
 
@@ -14,19 +14,31 @@ class Introduction extends React.Component {
     render() {
         return (
             <Section name="Introduction to Flix">
+
                 <p>
-                    Flix is a principled and opinionated functional programming language that takes inspiration from F#,
-                    Go, OCaml, Haskell, Rust, and Scala. Flix visually resembles Scala, but its type system is closer to
-                    that of OCaml and Haskell. Its concurrency model is inspired by Go-style processes and channels.
+                    Flix is a principled functional, logic, and imperative programming language
+                    developed at <a href="https://cs.au.dk/">Aarhus University</a>, at the <a
+                    href="https://uwaterloo.ca/">University of Waterloo</a>, and by a community of <a
+                    href="https://github.com/flix/flix">open source contributors</a>.
                 </p>
 
                 <p>
-                    Here are three different Flix programs to give you and idea of the look and feel of the language.
+                    Flix is inspired by OCaml and Haskell with ideas from Rust and Scala. Flix looks like
+                    Scala, but its type system is based on Hindley-Milner. Two unique features
+                    of Flix are its polymorphic effect system and its support for first-class Datalog
+                    constraints. Flix compiles to efficient JVM bytecode, runs on the Java Virtual Machine, and supports
+                    full tail call elimination.
                 </p>
 
-                <p> This program illustrates the use of algebraic data types and pattern matching: </p>
+                <p>
+                    Here are a few Flix programs to illustrate the look and feel of the language:
+                </p>
 
-                <Editor flix={this.props.flix}>
+                <p>
+                    This program illustrates the use of algebraic data types and pattern matching:
+                </p>
+
+                <CodeBlock>
                     {`/// An algebraic data type for shapes.
 enum Shape {
     case Circle(Int),        // circle radius
@@ -36,36 +48,28 @@ enum Shape {
 
 /// Computes the area of the given shape using
 /// pattern matching and basic arithmetic.
-def area(s: Shape): Int = match s with {
+def area(s: Shape): Int = match s {
     case Circle(r)       => 3 * (r * r)
     case Square(w)       => w * w
     case Rectangle(h, w) => h * w
 }
 
 // Computes the area of a 2 by 4.
-def main(): Int = area(Rectangle(2, 4))
+def main(_: Array[String]): Int32 & Impure = 
+    area(Rectangle(2, 4)) |> println;
+    0
 `}
-                </Editor>
+                </CodeBlock>
 
                 <p>
                     Here is a Flix program using polymorphic records:
                 </p>
 
-                <Editor flix={this.props.flix}>
-                    {`/// Returns the area of the rectangle \`r\`.
-/// The record \`r\` must have \`x\` and \`y\` labels, and no other labels.
-def area(r: {x: Int, y: Int}): Int = r.x * r.y
-
-/// Computes the area of various rectangle records.
-/// Note that the order of labels is immaterial.
-def areas(): List[Int] =
-    area({x = 1, y = 2}) ::
-    area({y = 2, x = 3}) :: Nil
-
-/// Returns the area of the polymorphic record \`r\`.
+                <CodeBlock>
+                    {`/// Returns the area of the polymorphic record \`r\`.
 /// Note that the use of the type variable \`a\` permits the record \`r\`
 /// to have labels other than \`x\` and \`y\`.
-def polyArea[a](r: {x: Int, y: Int | a}): Int = r.x * r.y
+def polyArea[a : Record](r: {x: Int, y: Int | a}): Int = r.x * r.y
 
 /// Computes the area of various rectangle records.
 /// Note that some records have additional fields.
@@ -73,18 +77,20 @@ def polyAreas(): List[Int] =
     polyArea({x = 1, y = 2}) ::
     polyArea({x = 2, y = 3, z = 4}) :: Nil
 
-def main(): List[Int] = polyAreas()
+def main(_args: Array[String]): Int32 & Impure = 
+    polyAreas() |> println;
+    0
 `}
-                </Editor>
+                </CodeBlock>
 
                 <p>
                     and here is one using processes and channels:
                 </p>
 
-                <Editor flix={this.props.flix}>
+                <CodeBlock>
                     {`/// A function that sends every element of a list
 def send(o: Channel[Int], l: List[Int]): Unit & Impure =
-    match l with {
+    match l {
         case Nil     => ()
         case x :: xs => o <- x; send(o, xs)
     }
@@ -92,7 +98,7 @@ def send(o: Channel[Int], l: List[Int]): Unit & Impure =
 /// A function that receives n elements
 /// and collects them into a list.
 def recv(i: Channel[Int], n: Int): List[Int] & Impure =
-    match n with {
+    match n {
         case 0 => Nil
         case _ => (<- i) :: recv(i, n - 1)
     }
@@ -103,15 +109,16 @@ def wait(i: Channel[Int], n: Int, d: Channel[List[Int]]): Unit & Impure =
     ()
 
 /// Spawn a process for send and wait, and print the result.
-def main(): List[Int] & Impure =
+def main(_args: Array[String]): Int32 & Impure =
     let l = 1 :: 2 :: 3 :: Nil;
     let c = chan Int 100;
     let d = chan List[Int] 100;
     spawn send(c, l);
     spawn wait(c, List.length(l), d);
-    <- d
+    println(<- d);
+    0
 `}
-                </Editor>
+                </CodeBlock>
 
             </Section>
         )

@@ -18,7 +18,7 @@ class Functions extends React.Component {
             <Section name="Functions and Higher-Order Functions">
 
                 <p>
-                    Functions and higher-order functions are the key building block of any functional programming
+                    Functions and higher-order functions are the key building block of a functional programming
                     language.
                 </p>
 
@@ -29,13 +29,13 @@ class Functions extends React.Component {
                 </CodeBlock>
 
                 <p>
-                    A function definition consists of the function name followed by an argument list, the return type,
-                    and the function body. Although Flix supports type inference, top-level function definitions
-                    must declare the type of their arguments and their return type.
+                    A definition consists of the function name followed by an argument list, the return type, and the
+                    function body. Although Flix supports type inference, top-level function definitions must declare
+                    the type of their arguments and their return type.
                 </p>
 
                 <p>
-                    In Flix all function arguments and local variables must be used. If a function argument is not used
+                    In Flix, all function arguments and local variables must be used. If a function argument is not used
                     it must be prefixed with an underscore to explicitly mark it as unused.
                 </p>
 
@@ -68,7 +68,7 @@ class Functions extends React.Component {
                     </p>
 
                     <p>
-                        The syntax for lambda expressions that take more than one argument is straightforward:
+                        We can also define a higher-order function that requires a function which takes two arguments:
                     </p>
 
                     <CodeBlock>
@@ -100,7 +100,7 @@ twice(inc, 42)`}
                 <SubSection name="Function Composition">
 
                     <p>
-                        The Flix library supports several operators for function composition and pipelining:
+                        Flix supports several operators for function composition and pipelining:
                     </p>
 
                     <CodeBlock>
@@ -133,7 +133,7 @@ println;`}
                 <SubSection name="Curried by Default">
 
                     <p>
-                        Flix functions are curried by default. A curried function can be called with fewer arguments
+                        Functions are curried by default. A curried function can be called with fewer arguments
                         than it declares returning a new function that takes the remainder of the arguments. For
                         example:
                     </p>
@@ -178,6 +178,70 @@ def main(_args: Array[String]): Int32 & Impure =
                         then supplied by the pipeline operator <Code>|></Code> which, in this case, expects a list and a
                         function that takes a list.
                     </p>
+
+                </SubSection>
+
+                <SubSection name="Pure, Impure, and Effect Polymorphic Functions">
+
+                    <p>
+                        In Flix every function is pure, impure, or effect polymorphic.
+                    </p>
+
+                    <p>
+                        The Flix type and effect system ensures that a pure function returns the same result when given
+                        the same arguments and that it cannot have (observable) side effects.
+                    </p>
+
+                    <p>
+                        In Flix every function is implicitly marked as <Code>Pure</Code>. For example, the function
+                        definition:
+                    </p>
+
+                    <CodeBlock>{`def add(x: Int32, y: Int32): Int32 = x + y`}</CodeBlock>
+
+                    <p>
+                        is implicitly understood as:
+                    </p>
+
+                    <CodeBlock>{`def add(x: Int32, y: Int32): Int32 & Pure = x + y`}</CodeBlock>
+
+                    <p>
+                        A function that prints to the console is <Code>Impure</Code> and must be marked as such:
+                    </p>
+
+                    <CodeBlock>{`def addAndPrint(x: Int32, y: Int32): Int32 & Impure = 
+    let r = x + y;
+    println(r);
+    r`}</CodeBlock>
+
+                    <p>
+                        since the type signature of the library function <Code>println</Code> specifies that it
+                        is <Code>Impure</Code>.
+                    </p>
+
+                    <p>
+                        The purity (or impurity) of a higher-order function may depend on the purity of its argument(s).
+                        For example, whether <Code>List.map</Code> is pure or impure depends on whether function we map
+                        is pure or impure. Fortunately Flix can model such behavior using <i>effect polymorphism</i>.
+                        For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`def map(f: a -> b & e, l: List[a]): List[b] & e = ...`}
+                    </CodeBlock>
+
+                    <p>
+                        here the signature of <Code>map</Code> captures that if the function argument <Code>f</Code> has
+                        type <Code>a -&gt; b</Code> with effect <Code>e</Code> then the effect
+                        of <Code>map</Code> itself is <Code>e</Code>. This means that if <Code>map</Code> is called
+                        with a pure (resp. pure) function argument then the overall expression is pure (resp. impure).
+                        For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`List.map(x -> x + 123, l)    // pure
+List.map(x -> println(x), l) // impure`}
+                    </CodeBlock>
 
                 </SubSection>
 

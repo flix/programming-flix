@@ -2,9 +2,9 @@ import React from 'react'
 import ReactGA from "react-ga";
 
 import Code from '../components/Code';
-import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
+import CodeBlock from "../util/CodeBlock";
 
 class Functions extends React.Component {
 
@@ -22,17 +22,21 @@ class Functions extends React.Component {
                     language.
                 </p>
 
-                <p>In Flix, we can define a top-level function with <Code>def</Code> keyword. For example: </p>
+                <p>In Flix, top-level functions are defined with the <Code>def</Code> keyword. For example: </p>
 
-                <Editor flix={this.props.flix}>
-                    {`def inc(x: Int): Int = x + 1
-def main(): Int = inc(42)`}
-                </Editor>
+                <CodeBlock>
+                    {`def add(x: Int32, y: Int32): Int32 = x + y + 1`}
+                </CodeBlock>
 
                 <p>
                     A function definition consists of the function name followed by an argument list, the return type,
                     and the function body. Although Flix supports type inference, top-level function definitions
                     must declare the type of their arguments and their return type.
+                </p>
+
+                <p>
+                    In Flix all function arguments and local variables must be used. If a function argument is not used
+                    it must be prefixed with an underscore to explicitly mark it as unused.
                 </p>
 
                 <SubSection name="First-Class and Higher-Order Functions">
@@ -42,41 +46,54 @@ def main(): Int = inc(42)`}
                         For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def twice(f: Int -> Int, x: Int): Int = f(f(x))
-def main(): Int = twice(x -> x + 1, 42)`}
-                    </Editor>
+                    <CodeBlock>
+                        {`def twice(f: Int32 -> Int32, x: Int32): Int32 = f(f(x))`}
+                    </CodeBlock>
 
                     <p>
                         Here the <Code>twice</Code> function takes two arguments, a function <Code>f</Code> and an
                         integer <Code>x</Code>, and applies <Code>f</Code> to <Code>x</Code> two times.
-                        The <Code>main</Code> method passes the <i>lambda expression</i> <Code>x
-                        -> x + 1</Code> to <Code>twice</Code> along with the number <Code>42</Code> to produce the
-                        result <Code>44</Code>.
+                    </p>
+
+                    <p>
+                        We can pass a lambda expression to the <Code>twice</Code> function:
+                    </p>
+
+                    <CodeBlock>
+                        {`twice(x -> x + 1, 42)`}
+                    </CodeBlock>
+
+                    <p>
+                        which evaluates to <Code>44</Code> since <Code>42</Code> is incremented twice.
                     </p>
 
                     <p>
                         The syntax for lambda expressions that take more than one argument is straightforward:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def twice(f: (Int, Int) -> Int, x: Int): Int = f(f(x, x), f(x, x))
-def main(): Int = twice((x, y) -> x + y, 42)`}
-                    </Editor>
+                    <CodeBlock>
+                        {`def twice(f: (Int32, Int32) -> Int32, x: Int32): Int32 = f(f(x, x), f(x, x))`}
+                    </CodeBlock>
 
                     <p>
-                        We can also call a higher-order function passing a top-level function. For example:
+                        which can be called as follows:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def inc(x: Int): Int = x
-def twice(f: Int -> Int, x: Int): Int = f(f(x))
-def main(): Int = twice(inc, 42)`}
-                    </Editor>
+                    <CodeBlock>
+                        {`twice((x, y) -> x + y, 42)`}
+                    </CodeBlock>
 
                     <p>
-                        Programming with first-class and higher-order functions is extremely common.
+                        We can call a higher-order function with a top-level function as follows:
                     </p>
+
+                    <CodeBlock>
+                        {`def inc(x: Int32): Int32 = x
+
+def twice(f: Int32 -> Int32, x: Int32): Int32 = f(f(x))
+
+twice(inc, 42)`}
+                    </CodeBlock>
 
                 </SubSection>
 
@@ -86,61 +103,50 @@ def main(): Int = twice(inc, 42)`}
                         The Flix library supports several operators for function composition and pipelining:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Int =
-    let f = x -> x + 1;
-    let g = x -> x * 2;
-    let h = f >> g; // equivalent to x -> g(f(x))
-    let j = f << g; // equivalent to x -> f(g(x))
-    h(1) + j(1)`}
-                    </Editor>
+                    <CodeBlock>
+                        {`let f = x -> x + 1;
+let g = x -> x * 2;
+let h = f >> g;     // equivalent to x -> g(f(x))`}
+                    </CodeBlock>
 
                     <p>
-                        Here <Code>&gt;&gt;</Code> is reverse function composition and <Code>&lt;&lt;</Code> is regular
-                        composition.
+                        Here <Code>&gt;&gt;</Code> is forward function composition.
                     </p>
 
                     <p>
-                        We can also write function application in a pipeline-style:
+                        We can also write function applications using the pipeline operator:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Int =
-    let f = x -> x + 1;
-    1 |> f`}
-                    </Editor>
+                    <CodeBlock>
+                        {`List.range(1, 100) |>
+List.filter(x -> x % 2 == 0) |>
+List.map(x -> x * x) |>
+println;`}
+                    </CodeBlock>
 
                     <p>
                         Here <Code>x |> f</Code> is equivalent to the function application <Code>f(x)</Code>.
                     </p>
-
-                    <p>
-                        Here is why <Code>|></Code> is called the pipeline operator:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool =
-    1 |> (x -> x + 1)
-      |> (x -> x * 2)
-      |> (x -> x == 4)`}
-                    </Editor>
 
                 </SubSection>
 
                 <SubSection name="Curried by Default">
 
                     <p>
-                        Functions in Flix are curried by default. A curried function can be called with fewer arguments
+                        Flix functions are curried by default. A curried function can be called with fewer arguments
                         than it declares returning a new function that takes the remainder of the arguments. For
                         example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def sum(x: Int, y: Int): Int = x + y
-def main(): Int =
+                    <CodeBlock>
+                        {`def sum(x: Int32, y: Int32): Int32 = x + y
+
+def main(_args: Array[String]): Int32 & Impure =
     let inc = sum(1);
-        inc(42)`}
-                    </Editor>
+    inc(42) |> println;
+    0
+`}
+                    </CodeBlock>
 
                     <p>
                         Here the <Code>sum</Code> function takes two arguments, <Code>x</Code> and <Code>y</Code>, but
@@ -158,9 +164,13 @@ def main(): Int =
                         pipeline operator <Code>|></Code> we are able to write:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        def main(): List[Int] = List.range(1, 10) |> List.map(x -> x + 1)
-                    </Editor>
+                    <CodeBlock>
+                        {`def main(_args: Array[String]): Int32 & Impure =
+    List.range(1, 100) |> 
+    List.map(x -> x + 1) |> 
+    println;
+    0`}
+                    </CodeBlock>
 
                     <p>
                         Here the call to <Code>List.map</Code> passes the function <Code>x -> x +

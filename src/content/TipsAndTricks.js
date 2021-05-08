@@ -74,7 +74,7 @@ class TipsAndTricks extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`let name = "Lucky Luke:
+                        {`let name = "Lucky Luke"
 print("Hello");
 print(" ");
 println(name)`}

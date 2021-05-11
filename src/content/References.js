@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactGA from 'react-ga';
 import Section from "../components/Section";
-import Editor from "../util/Editor";
 import Code from "../components/Code";
 import SubSection from "../components/SubSection";
 import CodeBlock from "../util/CodeBlock";
@@ -141,13 +140,13 @@ deref (deref l2)`}</CodeBlock>
                         Evaluates to <Code>42</Code> as expected.
                     </p>
 
-                </SubSection>
+                    <DesignNote>
+                        Flix does not support any notion of global mutable state. If you need to maintain a program-wide
+                        counter (or other mutable state) then you have to allocate it in the main function and explicitly
+                        thread it through the program.
+                    </DesignNote>
 
-                <DesignNote>
-                    Flix does not support any notion of global mutable state. If you need to maintain a program-wide
-                    counter (or other mutable state) then you have to allocate it in the main function and explicitly
-                    thread it through the program.
-                </DesignNote>
+                </SubSection>
 
                 <SubSection name="Mutable Tuples and Records">
 

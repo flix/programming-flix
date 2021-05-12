@@ -75,7 +75,7 @@ p {
 }
 
 #brace-editor .ace_editor {
-    font: 14px/normal "Roboto Mono", monospace;
+    font-family: "Roboto Mono", monospace;
 }
 
 .ace_editor .ace_marker-layer .ace_bracket {

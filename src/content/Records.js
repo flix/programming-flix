@@ -2,8 +2,9 @@ import React from 'react'
 import ReactGA from 'react-ga';
 
 import Section from "../components/Section";
-import Editor from "../util/Editor";
 import Code from "../components/Code";
+import CodeBlock from "../util/CodeBlock";
+import SubSection from "../components/SubSection";
 
 class Records extends React.Component {
 
@@ -14,102 +15,146 @@ class Records extends React.Component {
 
     render() {
         return (
-            <Section name="Programming with Records">
-
-                <p> Flix supports statically-typed polymorphic extensible records. </p>
-
-                <p> A record literal is written with curly braces: </p>
-
-                <Editor flix={this.props.flix}>{`def main(): {x : Int, y: Int} = { x = 1, y = 2 }`}</Editor>
+            <Section name="Records">
 
                 <p>
-                    Here the <Code>main</Code> functions returns a record with two
-                    fields <Code>x</Code> and <Code>y</Code> both of type <Code>Int</Code>. The type of a record is also
-                    written with curly braces, but separating the field name from its type with a colon, mirroring the
-                    syntax of type ascriptions.
+                    Flix supports row polymorphic extensible records.
                 </p>
 
                 <p>
-                    The field order in a record does not matter, hence the above record is equivalent to the record:
+                    Flix records are immutable (but may contain mutable reference cells).
                 </p>
 
-                <Editor flix={this.props.flix}>{`def main(): {x : Int, y: Int} = { y = 2, x = 1 }`}</Editor>
+                <SubSection name="Record Literals">
 
-                <p> We can access a field of a record using the dot: </p>
+                    <p> A record literal is written with curly braces: </p>
 
-                <Editor flix={this.props.flix}>{`def main(): Int = 
-    let p = { x = 1, y = 2 };
-    p.x + p.y`}</Editor>
+                    <CodeBlock>{`{ x = 1, y = 2 }`}</CodeBlock>
 
-                <p>
-                    The Flix type system ensures that we cannot accidentally access a field that does not exist.
-                </p>
+                    <p>
+                        which has the record type <Code>{`{ x : Int32, y : Int32 }`}</Code>.
+                    </p>
 
-                <p>
-                    Records are immutable. A record, once constructed, cannot have the values of any of its fields
-                    changed.
-                </p>
+                    <p>
+                        The order of fields in a record does not matter, hence the above record is equivalent to the
+                        record:
+                    </p>
 
-                <p>
-                    We can, however, construct a new record with updated field values:
-                </p>
+                    <CodeBlock>{`{ y = 2, x = 1 }`}</CodeBlock>
 
-                <Editor flix={this.props.flix}>{`def main(): Int = 
-    let p1 = { x = 1, y = 2 };
-    let p2 = { x = 3 | p1 };
-    p1.x + p2.x`}</Editor>
+                    <p>
+                        which has the record type <Code>{`{ y : Int32, x : Int32 }`}</Code>. This type is equivalent
+                        to the record type <Code>{`{ x : Int32, y : Int32 }`}</Code>. That is, the order of fields
+                        within a record type do not matter.
+                    </p>
 
-                <p>
-                    The expression <Code>{`{ x = 3 | p1 }`}</Code> updates the record <Code>p1</Code> with a new value
-                    of its <Code>x</Code> field. Note that updating a field requires that the field exists on the record
-                    (!) A record cannot be <i>updated</i> with a new field, but it can be <i>extended</i> with a new
-                    field, as we shall see later.
-                </p>
+                </SubSection>
 
-                <p> If we write a function that takes a record we must specify its fields: </p>
+                <SubSection name="Field Access">
 
-                <Editor flix={this.props.flix}>{`def f(r: {x: Int, y: Int}): Int = r.x + r.y`}</Editor>
+                    <p>
+                        We can access the field of a record using the dot:
+                    </p>
 
-                <p>
-                    We can call this function with the
-                    records <Code>{`{ x = 1, y = 2 }`}</Code> or <Code>{`{ y = 2, x = 1 }`}</Code>, but
-                    we <i>cannot</i> call it with the record <Code>{`{ x = 1, y = 2, z = 3 }`}</Code>. The signature
-                    of <Code>f</Code> demands a record with <i>exactly</i> two fields: <Code>x</Code> and <Code>y</Code>.
-                    If we want to less this restriction, we can write a record polymorphic function:
-                </p>
+                    <CodeBlock>{`let p = { x = 1, y = 2 };
+p.x + p.y`}</CodeBlock>
 
-                <Editor flix={this.props.flix}>{`def f[s](r: {x: Int, y: Int | s}): Int = r.x + r.y`}</Editor>
+                    <p>
+                        The Flix type system ensures that we cannot access a field that does not exist.
+                    </p>
 
-                <p>
-                    This function can be called with <i>any</i> record as long as it
-                    has <Code>x</Code> and <Code>y</Code> fields of <Code>Int</Code> type.
-                </p>
+                    <p>
+                        Records are immutable. A record, once constructed, cannot have the values of any of its fields
+                        changed.
+                    </p>
 
-                <p> We can add a new field to an existing record as follows: </p>
+                </SubSection>
 
-                <Editor flix={this.props.flix}>{`def main(): Int = 
-    let p1 = { x = 1, y = 2 };
-    let p2 = { +z = 3 | p1 };
-    p1.x + p1.y + p2.z`}</Editor>
+                <SubSection name="Field Update">
 
-                <p>
-                    Here the expression <Code>{`{ +z = 3 | p1 }`}</Code> extends the record <Code>p1</Code> with a new
-                    field <Code>z</Code> such that the result has three fields: <Code>x</Code>, <Code>y</Code>,
-                    and <Code>z</Code> of <Code>Int</Code> type.
-                </p>
+                    <p>
+                        While records are immutable, we can construct a new record with an updated field value:
+                    </p>
 
-                <p>
-                    Similarly, we can remove a field from a record:
-                </p>
+                    <CodeBlock>{`let p1 = { x = 1, y = 2 };
+let p2 = { x = 3 | p1 };
+p1.x + p2.x`}</CodeBlock>
 
-                <Editor flix={this.props.flix}>{`def main(): Int = 
-    let p1 = { x = 1, y = 2 };
-    let p2 = { -y | p1 };
-    p2.x`}</Editor>
+                    <p>
+                        The expression <Code>{`{ x = 3 | p1 }`}</Code> updates the record <Code>p1</Code> with a new
+                        value of its <Code>x</Code> field. Note that updating a field requires that the field exists on
+                        the record (!) A record cannot be <i>updated</i> with a new field, but it can
+                        be <i>extended</i> with a new field, as we shall see later.
+                    </p>
 
-                <p>
-                    Here the record <Code>p2</Code> is similar to <Code>p1</Code> but without its <Code>y</Code> field.
-                </p>
+                </SubSection>
+
+                <SubSection name="Record Extension">
+
+                    <p>
+                        We can add a new field to an existing record as follows:
+                    </p>
+
+                    <CodeBlock>{`let p1 = { x = 1, y = 2 };
+let p2 = { +z = 3 | p1 };
+p1.x + p1.y + p2.z`}</CodeBlock>
+
+                    <p>
+                        Here the expression <Code>{`{ +z = 3 | p1 }`}</Code> extends the record <Code>p1</Code> with a
+                        new field <Code>z</Code> such that the result has three fields: <Code>x</Code>, <Code>y</Code>,
+                        and <Code>z</Code> all of which are of <Code>Int32</Code> type.
+                    </p>
+
+                </SubSection>
+
+                <SubSection name="Record Restriction">
+
+                    <p>
+                        Similarly to record extension, we can also remove a field from a record:
+                    </p>
+
+                    <CodeBlock>{`let p1 = { x = 1, y = 2 };
+let p2 = { -y | p1 };`}</CodeBlock>
+
+                    <p>
+                        Here the record <Code>p2</Code> has the same fields as <Code>p1</Code> except
+                        that the <Code>y</Code> field has been removed.
+                    </p>
+
+                </SubSection>
+
+                <SubSection name="Row Polymorphism: Open and Closed Records">
+
+                    <p>
+                        A function may specific that it requires a record with two fields:
+                    </p>
+
+                    <CodeBlock>{`def f(r: {x: Int32, y: Int32}): Int32 = r.x + r.y`}</CodeBlock>
+
+                    <p>
+                        We can call this function with the
+                        records <Code>{`{ x = 1, y = 2 }`}</Code> and <Code>{`{ y = 2, x = 1 }`}</Code>, but
+                        we <i>cannot</i> call it with the record <Code>{`{ x = 1, y = 2, z = 3 }`}</Code> since the
+                        signature of <Code>f</Code> demands a record with <i>exactly</i> two
+                        fields: <Code>x</Code> and <Code>y</Code>. We say that the
+                        record <Code>r</Code> is <i>closed</i>.
+                    </p>
+
+                    <p>
+                        We can lift this restriction by using row polymorphism:
+                    </p>
+
+                    <CodeBlock>{`def g(r: {x: Int32, y: Int32 | s}): Int32 = r.x + r.y`}</CodeBlock>
+
+                    <p>
+                        We can call this function with <i>any</i> record as long as it
+                        has <Code>x</Code> and <Code>y</Code> fields which are of type <Code>Int32</Code>. We say that
+                        the record type of <Code>r</Code> is <i>open</i>.
+                    </p>
+
+                </SubSection>
+
+
 
             </Section>
         )

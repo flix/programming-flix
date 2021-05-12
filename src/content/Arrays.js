@@ -120,7 +120,6 @@ let a2 = [..4]  // evaluates to [1, 2, 3, 4]`}</CodeBlock>
                         If both the start and end index are omitted the entire array is copied. For example:
                     </p>
 
-
                     <CodeBlock>{`let a = [1, 2, 3, 4, 5];
 a[..]`}</CodeBlock>
 
@@ -136,6 +135,21 @@ a[..]`}</CodeBlock>
                     <Warning>
                         Slicing with negative indices is undefined and results in runtime errors.
                     </Warning>
+
+                </SubSection>
+
+                <SubSection name="Array Length">
+
+                    <p>
+                        The length of an array is accessed as follows:
+                    </p>
+
+                    <CodeBlock>{`let a = [1, 2, 3, 4, 5];
+a.length`}</CodeBlock>
+
+                    <p>
+                        which evaluates to <Code>5</Code>.
+                    </p>
 
                 </SubSection>
 

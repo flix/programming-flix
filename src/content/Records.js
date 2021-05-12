@@ -154,7 +154,20 @@ let p2 = { -y | p1 };`}</CodeBlock>
 
                 </SubSection>
 
+                <SubSection name="Illegal Record Field: length">
 
+                    <p>
+                        A record field <i>cannot</i> be named <Code>length</Code>. The reason is that the expression:
+                    </p>
+
+                    <CodeBlock>{`a.length`}</CodeBlock>
+
+                    <p>
+                        is understood as accessing the length of the array <Code>a</Code>, <i>not</i> as accessing a
+                        field named <Code>length</Code> on a record <Code>a</Code>.
+                    </p>
+
+                </SubSection>
 
             </Section>
         )

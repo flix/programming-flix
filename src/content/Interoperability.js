@@ -9,6 +9,7 @@ import DesignNote from "../components/DesignNote";
 import {Link} from "react-router-dom";
 import Warning from "../components/Warning";
 import {Table} from "reactstrap";
+import CodeBlock from "../util/CodeBlock";
 
 class Interoperability extends React.Component {
 
@@ -40,35 +41,42 @@ class Interoperability extends React.Component {
                         function to construct a new Java object. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): ##java.io.File & Impure =
-    import new java.io.File(String) as newFile;
-    newFile("helloworld.txt")`}
-                    </Editor>
+                    <CodeBlock>
+                        {`import new java.io.File(String) as newFile;
+newFile("HelloWorld.txt")`}
+                    </CodeBlock>
 
                     <p>
                         Here we import the constructor of the <Code>java.io.File</Code> class and give it the local
                         name <Code>newFile</Code>. The <Code>newFile</Code> function takes a string argument and returns
-                        a fresh Java <Code>File</Code> object. The type of this object is written
-                        as <Code>##java.io.File</Code> where the two hashes <Code>##</Code> designate that it is a Java
-                        type. Constructing a fresh object is impure, hence <Code>main</Code> is marked
+                        a fresh Java <Code>File</Code> object. Constructing a fresh object is impure,
+                        hence <Code>main</Code> is marked
                         as <Code>Impure</Code>.
                     </p>
 
-                    <DesignNote>
-                        At the moment all Java types must be fully-qualified. This may change in the future.
-                    </DesignNote>
+                    <p>
+                        The type of the File object is written as <Code>##java.io.File</Code> where the two
+                        hashes <Code>##</Code> designate that it is a Java type. A common trick is to use a type alias
+                        to make it easier to work with Java types. For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`type alias File = ##java.io.File
+
+def openFile(s: String): File & Impure = 
+    import new java.io.File(String) as newFile;
+    newFile(s)`}
+                    </CodeBlock>
 
                     <p>
                         The <Code>java.io.File</Code> class has another constructor that takes two arguments: one for
                         parent pathname and one for the child pathname. We can use this constructor as follows:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): ##java.io.File & Impure =
-    import new java.io.File(String, String) as newFile;
-    newFile("text", "helloworld.txt")`}
-                    </Editor>
+                    <CodeBlock>
+                        {`import new java.io.File(String, String) as newFile;
+newFile("foo", "HelloWorld.txt")`}
+                    </CodeBlock>
 
                     <p>
                         The import describes the signature of the constructor. We can use this to import any
@@ -85,45 +93,20 @@ class Interoperability extends React.Component {
                         We can use the import mechanism to invoke methods on objects. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool & Impure =
-    import new java.io.File(String) as newFile;
-    import java.io.File.exists();
-    let file = newFile("helloworld.txt");
-    exists(file)`}
-                    </Editor>
+                    <CodeBlock>
+                        {`import new java.io.File(String) as newFile;
+import java.io.File.exists();
+let f = newFile("HelloWorld.txt");
+exists(f)`}
+                    </CodeBlock>
 
                     <p>
-                        Note that in this case the method is imported without an <Code>as</Code> clause, hence its local
-                        name is simply the Java local name: <Code>exists</Code>. Note that Java methods (and fields)
-                        with names that are illegal as Flix names must be imported with the <Code>as</Code> clause using
-                        a legal Flix name. For example, a non-idiomatic Java method may start with an uppercase letter,
+                        In this case the method is imported without an <Code>as</Code> clause, hence its local name is
+                        simply the Java local name: <Code>exists</Code>. Note that Java methods (and fields) with names
+                        that are illegal as Flix names must be imported with the <Code>as</Code> clause using a legal
+                        Flix name. For example, a non-idiomatic Java method may start with an uppercase letter,
                         whereas a Flix function must start with a lowercase letter.
                     </p>
-
-                    <p>
-                        We can use uniform function call syntax (UFCS) to get a Java-style look and feel:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool & Impure =
-    import new java.io.File(String) as newFile;
-    import java.io.File.exists();
-    let file = newFile("helloworld.txt");
-    file.exists()`}
-                    </Editor>
-
-                    <p>
-                        Or, since <Code>newFile</Code> and <Code>exists</Code> are simply functions, we can also use a
-                        more functional style:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool & Impure =
-    import new java.io.File(String) as newFile;
-    import java.io.File.exists();
-    newFile("helloworld.txt") |> exists`}
-                    </Editor>
 
                     <p>
                         All Java operations are marked as impure since Java is an impure language. If you call a
@@ -131,21 +114,21 @@ class Interoperability extends React.Component {
                         example shows:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`pub def startsWith(s1: String, s2: String): Bool =
+                    <CodeBlock>
+                        {`def startsWith(s1: String, s2: String): Bool =
     import java.lang.String.startsWith(String);
     s1.startsWith(s2) as & Pure`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         We can pass arguments to methods as the following example shows:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`pub def charAt(i: Int, s: String): Char =
+                    <CodeBlock>
+                        {`def charAt(i: Int32, s: String): Char =
     import java.lang.String.charAt(Int32);
     s.charAt(i) as & Pure`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         Type signatures should use Flix type names and not Java type names for primitive types.
@@ -162,13 +145,12 @@ class Interoperability extends React.Component {
                         Reading a field of an object is straightforward:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool & Impure =
-    import new flix.test.TestClass() as newObject;
-    import get flix.test.TestClass.boolField as getField;
-    let o = newObject();
-    o.getField() == true`}
-                    </Editor>
+                    <CodeBlock>
+                        {`import new flix.test.TestClass() as newObject;
+import get flix.test.TestClass.boolField as getField;
+let o = newObject();
+getField(o)`}
+                    </CodeBlock>
 
                     <p>
                         Here we assume that <Code>TestClass</Code> is a Java class with an instance field
@@ -184,15 +166,14 @@ class Interoperability extends React.Component {
                         Writing a field of an object is also straightforward:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool & Impure =
-    import new flix.test.TestClass() as newObject;
-    import get flix.test.TestClass.boolField as getField;
-    import set flix.test.TestClass.boolField as setField;
-    let o = newObject();
-    o.setField(false);
-    getField(o) == false`}
-                    </Editor>
+                    <CodeBlock>
+                        {`import new flix.test.TestClass() as newObject;
+import get flix.test.TestClass.boolField as getField;
+import set flix.test.TestClass.boolField as setField;
+let o = newObject();
+setField(o, false);
+getField(o)`}
+                    </CodeBlock>
 
                 </SubSection>
 
@@ -204,11 +185,10 @@ class Interoperability extends React.Component {
                         class name from the static method name:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool & Impure =
-    import java.lang.String:valueOf(Bool);
-    valueOf(true) == "true"`}
-                    </Editor>
+                    <CodeBlock>
+                        {`import java.lang.String:valueOf(Bool);
+valueOf(true)`}
+                    </CodeBlock>
 
                     <p>
                         Note that the fully-qualified name <Code>java.lang.String:valueOf</Code> includes a
@@ -224,11 +204,10 @@ class Interoperability extends React.Component {
                         example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool & Impure =
-    import get java.lang.Integer:MIN_VALUE as getMinValue;
-    getMinValue() == Int32.minValue()`}
-                    </Editor>
+                    <CodeBlock>
+                        {`import get java.lang.Integer:MIN_VALUE as getMinValue;
+getMinValue()`}
+                    </CodeBlock>
 
                     <p>
                         As above, the only difference is to use a colon <Code>:</Code> to indicate that the

@@ -97,8 +97,10 @@ def main(_: Array[String]): Int32 & Impure =
 
                     <Editor flix={this.props.flix}>
                         {`def meow(c: Channel[String]): Unit & Impure = c <- "Meow!"; ()
+                        
 def woof(c: Channel[String]): Unit & Impure = c <- "Woof!"; ()
-def main(): String & Impure =
+
+def main(_: Array[String]): Int32 & Impure =
     let c1 = chan String 1;
     let c2 = chan String 1;
     spawn meow(c1);
@@ -106,18 +108,14 @@ def main(): String & Impure =
     select {
         case m <- c1 => m
         case m <- c2 => m
-    }`}
+    } |> println;
+    0`}
                     </Editor>
 
                     <p>
                         Many important concurrency patterns such as producer-consumer and load balancers can be
                         expressed using the <Code>select</Code> expression.
                     </p>
-
-                    <Warning>
-                        The absence of (manual) locks in Flix does not prevent deadlocks! A process can easily deadlock,
-                        e.g. by reading from a channel that is never written to!
-                    </Warning>
 
                 </SubSection>
 
@@ -129,22 +127,21 @@ def main(): String & Impure =
                         We can achieve this with a <i>default case</i> as shown below:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): String & Impure =
-    let c1 = chan String 1;
-    let c2 = chan String 1;
-    select {
-        case m <- c1 => "one"
-        case m <- c2 => "two"
-        case _       => "default"
-    }`}
-                    </Editor>
+                    <CodeBlock>
+                        {`let c1 = chan String 1;
+let c2 = chan String 1;
+select {
+    case m <- c1 => "one"
+    case m <- c2 => "two"
+    case _       => "default"
+}`}
+                    </CodeBlock>
 
                     <p>
                         Here a message is never sent to <Code>c1</Code> nor <Code>c2</Code>.
-                        The <Code>select</Code> expression tries all cases in order, and if no channel is ready, it
+                        The <Code>select</Code> expression tries all cases, and if no channel is ready, it
                         immediately selects the default case. Hence using a default case prevents
-                        the <Code>select</Code> expression from (potentially) blocking (potentially forever).
+                        the <Code>select</Code> expression from blocking forever.
                     </p>
 
                 </SubSubSection>
@@ -162,33 +159,26 @@ def main(): String & Impure =
                         wait <Code>5</Code> seconds before giving up:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`def slow(c: Channel[String]): Unit & Impure =
     import java.lang.Thread:sleep(Int64);
     sleep(Duration.oneMinute() / 1000000i64);
     c <- "I am very slow";
     ()
 
-def main(): String & Impure =
+def main(_: Array[String]): Int32 & Impure =
     let c = chan String 1;
     spawn slow(c);
     select {
         case m <- c                    => m
         case t <- Timer.seconds(5i64)  => "timeout"
-    }
+    } |> println;
+    0
 `}
-                    </Editor>
-
-                    <DesignNote>
-                        The argument to <Code>Timer.seconds</Code> requires a 64-bit integer, so for now we have to
-                        specify it with the <Code>i64</Code> suffix, since otherwise <Code>5</Code> would be interpreted
-                        as a 32-bit number and we would get a type error. In the future, we plan to have some form of
-                        integer promotion.
-                    </DesignNote>
+                    </CodeBlock>
 
                     <p>
-                        This program returns the string <Code>"timeout"</Code> after five seconds, but terminates after
-                        one minute when the last process terminates (!)
+                        This program prints the string <Code>"timeout"</Code> after five seconds.
                     </p>
 
                     <p>

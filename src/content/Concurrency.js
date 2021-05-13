@@ -9,6 +9,7 @@ import Warning from "../components/Warning";
 import PlannedFeature from "../components/PlannedFeature";
 import SubSubSection from "../components/SubSubSection";
 import DesignNote from "../components/DesignNote";
+import CodeBlock from "../util/CodeBlock";
 
 class Concurrency extends React.Component {
 
@@ -22,16 +23,18 @@ class Concurrency extends React.Component {
             <Section name="Concurrency with Channels and Processes">
 
                 <p>
-                    Flix supports CSP-style concurrency with processes and channels inspired by Go.
+                    Flix supports CSP-style concurrency with channels and processes inspired by Go.
                 </p>
 
                 <SubSection name="Spawning Processes">
 
-                    <p> We can spawn a process with the <Code>spawn</Code> keyword: </p>
+                    <p>
+                        We can spawn a process with the <Code>spawn</Code> keyword:
+                    </p>
 
-                    <Editor flix={this.props.flix}>
-                        def main(): Unit & Impure = spawn (1 + 2)
-                    </Editor>
+                    <CodeBlock>
+                        {`spawn (1 + 2)`}
+                    </CodeBlock>
 
                     <p>
                         This spawns a process that computes <Code>1 + 2</Code> and throws the result away.
@@ -39,14 +42,11 @@ class Concurrency extends React.Component {
                         expression, but we typically spawn functions to run in a new process:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`def sum(x: Int, y: Int): Int = x + y
-def main(): Unit & Impure = spawn sum(1, 2)`}
-                    </Editor>
 
-                    <Warning>
-                        A Flix program does not terminate until <i>all</i> processes have terminated.
-                    </Warning>
+def main(_: Array[String]): Int32 & Impure = spawn sum(1, 2); 0`}
+                    </CodeBlock>
 
                 </SubSection>
 
@@ -71,24 +71,20 @@ def main(): Unit & Impure = spawn sum(1, 2)`}
                         Here is an example of sending and receiving a message over a channel:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`def send(c: Channel[Int]): Unit & Impure = c <- 42; ()
-def main(): Int & Impure =
+
+def main(_: Array[String]): Int32 & Impure =
     let c = chan Int 0;
     spawn send(c);
     <- c`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         Here the <Code>main</Code> function creates an unbuffered channel <Code>c</Code>, spawns
                         the <Code>send</Code> function, and waits for a message from <Code>c</Code>.
                         The <Code>send</Code> function simply puts the value <Code>42</Code> into the channel.
                     </p>
-
-                    <PlannedFeature>
-                        Flix does not currently enforce that messages are immutable, but it is something we are planning
-                        to add in the future.
-                    </PlannedFeature>
 
                 </SubSection>
 

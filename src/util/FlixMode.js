@@ -13,7 +13,7 @@ export class CustomHighlightRules extends window.ace.acequire("ace/mode/text_hig
         );
 
         var builtinFunctions = (
-            "avg"
+            "not|and|or"
         );
 
         var dataTypes = (

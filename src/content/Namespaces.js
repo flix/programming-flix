@@ -7,6 +7,7 @@ import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
 import Warning from "../components/Warning";
+import CodeBlock from "../util/CodeBlock";
 
 class Namespaces extends React.Component {
 
@@ -29,42 +30,42 @@ class Namespaces extends React.Component {
                         We can declare a namespace to nest definitions and types within it. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`namespace Math {
-    def sum(x: Int, y: Int): Int = x + y
+    def sum(x: Int32, y: Int32): Int32 = x + y
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         Namespaces are hierarchical, so we can declare a deeper namespace:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`namespace Core/Math {
-    def sum(x: Int, y: Int): Int = x + y
+    def sum(x: Int32, y32: Int): Int32 = x + y
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         Note that the fragments of a namespace are separated by <Code>/</Code>.
                     </p>
 
                     <p>
-                        We can nest namespaces freely. For example:
+                        We can freely nest namespaces. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`namespace Core {
     namespace Math {
         
-        def sum(x: Int, y: Int): Int = x + y    
+        def sum(x: Int32, y: Int32): Int32 = x + y    
         
         namespace Stats {
-            def median(xs: List[Int]): Int = ???
+            def median(xs: List[Int32]): Int32 = ???
         }
     }
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                 </SubSection>
 
@@ -74,18 +75,18 @@ class Namespaces extends React.Component {
                         We can refer to definitions from a namespace by their fully-qualified name. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Int = Core/Math.sum(21, 42)
+                    <CodeBlock>
+                        {`namespace Core/Math {
+    pub def sum(x: Int32, y: Int32): Int32 = x + y
+}
 
-namespace Core/Math {
-    pub def sum(x: Int, y: Int): Int = x + y
-}`}
-                    </Editor>
+def main(_: Array[String]): Int32 & Impure = Core/Math.sum(21, 42) |> println; 0`}
+                    </CodeBlock>
 
-                    <Warning>
-                        We must declare <Code>sum</Code> as public (<Code>pub</Code>) to allow access to it from outside
-                        its own namespace.
-                    </Warning>
+                    <p>
+                        Note that we must declare <Code>sum</Code> as public (<Code>pub</Code>) to allow access to it
+                        from outside its own namespace.
+                    </p>
 
                     <p>
                         It can quickly get tedious to refer to definitions by their fully-qualified name.
@@ -95,72 +96,77 @@ namespace Core/Math {
                         The <Code>use</Code> construct allows us to "import" definitions from another namespace:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Int = 
-    use Core/Math.sum;
-    sum(21, 42)
+                    <CodeBlock>
+                        {`namespace Core/Math {
+    pub def sum(x: Int32, y: Int32): Int32 = x + y
+}
 
-namespace Core/Math {
-    pub def sum(x: Int, y: Int): Int = x + y
-}`}
-                    </Editor>
+def main(_: Array[String]): Int32 & Impure = 
+    use Core/Math.sum;
+    sum(21, 42) |> println; 
+    0`}
+                    </CodeBlock>
 
                     <p>
                         Here the <Code>use</Code> is local to the <Code>main</Code> function. A <Code>use</Code> can
                         also appear at the top of a file:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`use Core/Math.sum;
 
-def main(): Int = 
-    sum(21, 42)
-
+def main(_: Array[String]): Int32 & Impure = 
+    sum(21, 42) |> println; 
+    0
+    
 namespace Core/Math {
-    pub def sum(x: Int, y: Int): Int = x + y
-}`}
-                    </Editor>
+    pub def sum(x: Int32, y: Int32): Int32 = x + y
+}
+`}
+                    </CodeBlock>
 
                 </SubSection>
 
                 <SubSection name="Using Multiple Definitions from a Namespaces">
 
                     <p>
-                        We can use multiple definitions from a namespace:
+                        We can also use multiple definitions from a namespace:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`use Core/Math.sum;
 use Core/Math.mul;
 
-def main(): Int = 
-    sum(21, mul(42, 84))
+def main(_: Array[String]): Int32 & Impure = 
+    sum(21, mul(42, 84)) |> println;
+    0
 
 namespace Core/Math {
-    pub def sum(x: Int, y: Int): Int = x + y
-    pub def mul(x: Int, y: Int): Int = x * y
+    pub def sum(x: Int32, y: Int32): Int32 = x + y
+    pub def mul(x: Int32, y: Int32): Int32 = x * y
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         Multiple such uses can be grouped together:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`use Core/Math.{sum, mul};
 
-def main(): Int = 
-    sum(21, mul(42, 84))
+def main(_: Array[String]): Int32 & Impure = 
+    sum(21, mul(42, 84)) |> println;
+    0
 
 namespace Core/Math {
-    pub def sum(x: Int, y: Int): Int = x + y
-    pub def mul(x: Int, y: Int): Int = x * y
+    pub def sum(x: Int32, y: Int32): Int32 = x + y
+    pub def mul(x: Int32, y: Int32): Int32 = x * y
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <DesignNote>
-                        Flix does not support <i>wildcard</i> uses. We may add this in the future, but for the moment we
-                        feel that there are significant ambiguity issues.
+                        Flix does not support <i>wildcard</i> uses because they are inherently ambiguous and may lead to
+                        subtle errors during refactoring.
                     </DesignNote>
 
                 </SubSection>
@@ -171,21 +177,22 @@ namespace Core/Math {
                         We can use renaming to avoid name clashes between identically named definitions. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`use A.{concat => stringConcat};
 use B.{concat => listConcat};
 
-def main(): String = 
-    stringConcat("Hello", " World!")
+def main(_: Array[String]): Int32 & Impure = 
+    stringConcat("Hello", " World!") |> println;
+    0
 
 namespace A {
     pub def concat(x: String, y: String): String = x + y
 }
 
 namespace B {
-    pub def concat(xs: List[Int], ys: List[Int]): List[Int] = xs ::: ys
+    pub def concat(xs: List[Int32], ys: List[Int32]): List[Int32] = xs ::: ys
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         Note: In many cases a better approach is to use a <i>local</i> <Code>use</Code> to avoid the
@@ -200,27 +207,27 @@ namespace B {
                         We can use types from a namespace in the same way as definitions. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`use A/B.Color;
 
-def main(): Color = Color.Red
+def redColor(): Color = Color.Red
 
 namespace A/B {
     pub enum Color {
         case Red, Blu
     }
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         We can also use <i>opaque types</i> and <i>type aliases</i> in the same way:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`use A/B.Color;
 use A/B.Hue;
 
-def main(): Hue = Color.Blu
+def bluColor(): Hue = Color.Blu
 
 namespace A/B {
     pub enum Color {
@@ -228,7 +235,7 @@ namespace A/B {
     }
     type alias Hue = Color
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                 </SubSection>
 
@@ -238,17 +245,17 @@ namespace A/B {
                         We can use enumerated types from a namespace. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`def main(): Bool = 
-  use A/B.Color.{Red, Blu};
-  Red != Blu
+                    <CodeBlock>
+                        {`def bluIsRed(): Bool = 
+  use A/B.Color.{Blu, Red};
+  Blue != Red
 
 namespace A/B {
     pub enum Color {
         case Red, Blu
     }
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         Note that <Code>A/B.Color</Code> is the fully-qualified name of

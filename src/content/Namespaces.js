@@ -2,11 +2,9 @@ import React from 'react'
 import ReactGA from "react-ga";
 
 import Code from '../components/Code';
-import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
-import Warning from "../components/Warning";
 import CodeBlock from "../util/CodeBlock";
 
 class Namespaces extends React.Component {
@@ -80,7 +78,7 @@ class Namespaces extends React.Component {
     pub def sum(x: Int32, y: Int32): Int32 = x + y
 }
 
-def main(_: Array[String]): Int32 & Impure = Core/Math.sum(21, 42) |> println; 0`}
+def main(_args: Array[String]): Int32 & Impure = Core/Math.sum(21, 42) |> println; 0`}
                     </CodeBlock>
 
                     <p>
@@ -101,7 +99,7 @@ def main(_: Array[String]): Int32 & Impure = Core/Math.sum(21, 42) |> println; 0
     pub def sum(x: Int32, y: Int32): Int32 = x + y
 }
 
-def main(_: Array[String]): Int32 & Impure = 
+def main(_args: Array[String]): Int32 & Impure = 
     use Core/Math.sum;
     sum(21, 42) |> println; 
     0`}
@@ -115,7 +113,7 @@ def main(_: Array[String]): Int32 & Impure =
                     <CodeBlock>
                         {`use Core/Math.sum;
 
-def main(_: Array[String]): Int32 & Impure = 
+def main(_args: Array[String]): Int32 & Impure = 
     sum(21, 42) |> println; 
     0
     
@@ -137,7 +135,7 @@ namespace Core/Math {
                         {`use Core/Math.sum;
 use Core/Math.mul;
 
-def main(_: Array[String]): Int32 & Impure = 
+def main(_args: Array[String]): Int32 & Impure = 
     sum(21, mul(42, 84)) |> println;
     0
 
@@ -154,7 +152,7 @@ namespace Core/Math {
                     <CodeBlock>
                         {`use Core/Math.{sum, mul};
 
-def main(_: Array[String]): Int32 & Impure = 
+def main(_args: Array[String]): Int32 & Impure = 
     sum(21, mul(42, 84)) |> println;
     0
 
@@ -181,7 +179,7 @@ namespace Core/Math {
                         {`use A.{concat => stringConcat};
 use B.{concat => listConcat};
 
-def main(_: Array[String]): Int32 & Impure = 
+def main(_args: Array[String]): Int32 & Impure = 
     stringConcat("Hello", " World!") |> println;
     0
 

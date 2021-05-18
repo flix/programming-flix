@@ -45,7 +45,7 @@ class Concurrency extends React.Component {
                     <CodeBlock>
                         {`def sum(x: Int, y: Int): Int = x + y
 
-def main(_: Array[String]): Int32 & Impure = spawn sum(1, 2); 0`}
+def main(_args: Array[String]): Int32 & Impure = spawn sum(1, 2); 0`}
                     </CodeBlock>
 
                 </SubSection>
@@ -74,7 +74,7 @@ def main(_: Array[String]): Int32 & Impure = spawn sum(1, 2); 0`}
                     <CodeBlock>
                         {`def send(c: Channel[Int]): Unit & Impure = c <- 42; ()
 
-def main(_: Array[String]): Int32 & Impure =
+def main(_args: Array[String]): Int32 & Impure =
     let c = chan Int 0;
     spawn send(c);
     <- c`}
@@ -100,7 +100,7 @@ def main(_: Array[String]): Int32 & Impure =
                         
 def woof(c: Channel[String]): Unit & Impure = c <- "Woof!"; ()
 
-def main(_: Array[String]): Int32 & Impure =
+def main(_args: Array[String]): Int32 & Impure =
     let c1 = chan String 1;
     let c2 = chan String 1;
     spawn meow(c1);
@@ -166,7 +166,7 @@ select {
     c <- "I am very slow";
     ()
 
-def main(_: Array[String]): Int32 & Impure =
+def main(_args: Array[String]): Int32 & Impure =
     let c = chan String 1;
     spawn slow(c);
     select {

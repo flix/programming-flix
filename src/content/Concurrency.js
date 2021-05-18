@@ -2,13 +2,10 @@ import React from 'react'
 import ReactGA from "react-ga";
 
 import Code from '../components/Code';
-import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
-import Warning from "../components/Warning";
 import PlannedFeature from "../components/PlannedFeature";
 import SubSubSection from "../components/SubSubSection";
-import DesignNote from "../components/DesignNote";
 import CodeBlock from "../util/CodeBlock";
 
 class Concurrency extends React.Component {
@@ -95,7 +92,7 @@ def main(_args: Array[String]): Int32 & Impure =
                         channels. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`def meow(c: Channel[String]): Unit & Impure = c <- "Meow!"; ()
                         
 def woof(c: Channel[String]): Unit & Impure = c <- "Woof!"; ()
@@ -110,7 +107,7 @@ def main(_args: Array[String]): Int32 & Impure =
         case m <- c2 => m
     } |> println;
     0`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         Many important concurrency patterns such as producer-consumer and load balancers can be

@@ -79,8 +79,8 @@ def foreach(f: a ~> Unit, l: List[a]): Unit & Impure`}
                 </p>
 
                 <p>
-                    The type and effect is sound, but not complete. That is, if a function is pure then it cannot cause
-                    an effect, whereas if a function is impure then it may, but not necessarily, cause an effect. For
+                    The type and effect system is sound, but not complete. That is, if a function is pure then it cannot cause
+                    an effect, whereas if a function is impure then it may, but does not necessarily, cause an effect. For
                     example, the following expression is impure even though it cannot produce an effect at run-time:
                 </p>
 

@@ -25,45 +25,72 @@ class Fixpoints extends React.Component {
                     relations</i> and <i>constraint on lattices</i>.
                 </p>
 
+                <p>
+                    We assume that the reader is already familiar with Datalog and focus on the Flix specific features.
+                </p>
+
                 <SubSection name="Using Flix to Solve Constraints on Relations">
 
                     <p>
-                        We can use Flix to solve fixpoints on relational constraints written at the top-level:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`/// Declare two predicate symbols.
-rel DirectedEdge(x: Int, y: Int)
-rel Connected(x: Int, y: Int)
-
-/// Declare some edge facts.
-DirectedEdge(1, 2).
-DirectedEdge(2, 3).
-DirectedEdge(2, 4).
-DirectedEdge(3, 5).
-
-// Declare some constraints.
-Connected(x, y) :- DirectedEdge(x, y).
-Connected(x, z) :- Connected(x, y), DirectedEdge(y, z).`}
-                    </Editor>
-
-                    <p>
-                        Here we begin by declaring two predicate symbols:
-                        <Code>DirectedEdge</Code> and <Code>Connected</Code> together with the types of their terms. The
-                        program itself consists of four facts and two rules. The facts define a directed graph. The two
-                        rules specify that for <Code>x</Code> and <Code>y</Code> to be connected there must be a direct
-                        edge between them. Alternatively, for <Code>x</Code> and <Code>z</Code> to be
-                        connected <Code>x</Code> and <Code>y</Code> must be connected and there must be a direct edge
-                        from <Code>y</Code> to <Code>z</Code>.
+                        We can use Flix to solve a fixpoint computation inside a function.
                     </p>
 
                     <p>
-                        The above program demonstrates that Flix can be used as an ordinary Datalog solver.
+                        For example, given a set of edges <Code>s</Code>, a <Code>src</Code> node,
+                        and <Code>dst</Code> node, compute if there is a path from <Code>src</Code> to <Code>dst</Code>.
+                        We can elegantly solve this problem as follows:
                     </p>
 
-                    <DesignNote>
-                        In Flix, all predicate symbols must be declared before they can be used.
-                    </DesignNote>
+                    <CodeBlock>
+                        {`def isConnected(s: Set[(Int32, Int32)], src: Int32, dst: Int32): Bool =
+    let rules = #{
+        Path(x, y) :- Edge(x, y).
+        Path(x, z) :- Path(x, y), Edge(y, z).
+    };
+    let edges = project s into Edge;
+    let paths = query edges, rules select true from Path(src, dst);
+    not (paths |> Array.isEmpty)
+
+def main(_args: Array[String]): Int32 & Impure =
+    let s = Set#{(1, 2), (2, 3), (3, 4), (4, 5)};
+    let src = 1;
+    let dst = 5;
+    if (isConnected(s, src, dst)) {
+        println("Found a path between \${src} and \${dst}!")
+    } else {
+        println("Did not find a path between \${src} and \${dst}!")
+    };
+    0`}
+                    </CodeBlock>
+
+                    <p>
+                        The <Code>isConnected</Code> function behaves like any other function: We can call it with a
+                        set of edges (<Code>Int32</Code>-pairs), an <Code>Int32</Code> source node, and
+                        an <Code>Int32</Code> destination node. What is interesting about <Code>isConnected</Code> is
+                        that its implementation uses a small Datalog program to solve the task at hand.
+                    </p>
+
+                    <p>
+                        In the <Code>isConnected</Code> function, the local variable <Code>rules</Code> holds a Datalog
+                        program fragment that consists of two rules which define the <Code>Path</Code> relation. Note
+                        that the predicate symbols, <Code>Edge</Code> and <Code>Path</Code> do not have to be
+                        explicitly introduced; they are simply used. The local variable <Code>edges</Code> holds a
+                        collection of edge facts that are obtained by taking all the tuples in the set <Code>s</Code>
+                        and turning them into <Code>Edge</Code> facts. Next, the local variable <Code>paths</Code>
+                        holds the result of computing the fixpoint of the facts and rules
+                        (<Code>edges</Code> and <Code>rules</Code>) and selecting the Boolean <Code>true</Code>
+                        <i>if</i> there is a <Code>Path(src, dst)</Code> fact. Note that here <Code>src</Code>
+                        and <Code>dst</Code> are the lexically-bound function parameters. Thus, <Code>paths</Code>
+                        is either an empty array (no paths were found) or a one-element array (a path was found),
+                        and we simply return this fact.
+                    </p>
+
+                    <p>
+                        Flix is strongly typed. Any attempt to use predicate symbol with terms of the wrong type (or
+                        with the wrong arity) is caught by the type checker. Note also that Flix supports type
+                        inference, hence we did not have to declare the type of <Code>Edge</Code> nor
+                        of <Code>Path</Code>.
+                    </p>
 
                 </SubSection>
 

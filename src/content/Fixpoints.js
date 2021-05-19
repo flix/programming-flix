@@ -2,7 +2,6 @@ import React from 'react'
 import ReactGA from "react-ga";
 
 import Code from '../components/Code';
-import Editor from '../util/Editor';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import DesignNote from "../components/DesignNote";
@@ -375,88 +374,165 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
                         Flix supports not only <i>constraints on relations</i>, but also <i>constraints on lattices</i>.
                         To create such constraints, we must first define the lattice operations (the partial order,
                         the least upper bound, and so on) as functions, associate them with a type, and then declare the
-                        predicate symbols that have lattice semantics. For example:
+                        predicate symbols that have lattice semantics.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <p>
+                        We begin with the definition of the <Code>Sign</Code> data type:
+                    </p>
+
+                    <CodeBlock>
                         {`enum Sign {
               case Top,
 
     case Neg, case Zer, case Pos,
 
               case Bot
+}`}
+                    </CodeBlock>
+
+                    <p>
+                        We need to define the usual <Code>Eq</Code>, <Code>Order</Code>,
+                        and <Code>ToString</Code> instances for this new type. (The order instance is unrelated to the
+                        partial order instance we will later define, and is simply used to sort elements for pretty
+                        printing etc.)
+                    </p>
+
+                    <CodeBlock>
+                        {`instance Eq[Sign] {
+    pub def eq(x: Sign, y: Sign): Bool = match (x, y) {
+        case (Bot, Bot) => true
+        case (Neg, Neg) => true
+        case (Zer, Zer) => true
+        case (Pos, Pos) => true
+        case (Top, Top) => true
+        case _          => false
+    }
 }
 
-def equ(e1: Sign, e2: Sign): Bool = e1 == e2
-
-def leq(e1: Sign, e2: Sign): Bool = match (e1, e2) with {
-    case (Bot, _)   => true
-    case (Neg, Neg) => true
-    case (Zer, Zer) => true
-    case (Pos, Pos) => true
-    case (_, Top)   => true
-    case _          => false
+instance Order[Sign] {
+    pub def compare(x: Sign, y: Sign): Comparison = 
+        let num = w -> match w {
+            case Bot => 0
+            case Neg => 1
+            case Zer => 2
+            case Pos => 3
+            case Top => 4
+        };
+        num(x) <=> num(y)
 }
 
-def lub(e1: Sign, e2: Sign): Sign = match (e1, e2) with {
-    case (Bot, x)   => x
-    case (x, Bot)   => x
-    case (Neg, Neg) => Neg
+instance ToString[Sign] {
+    pub def toString(x: Sign): String = match x {
+        case Bot => "Bot"
+        case Neg => "Neg"
+        case Zer => "Zer"
+        case Pos => "Pos"
+        case Top => "Top"
+    }
+}`}
+                    </CodeBlock>
+
+                    <p>
+                        With these type class instances in place, we can now define the lattice operations
+                        on <Code>Sign</Code>.
+                    </p>
+
+                    <p>
+                        We define the bottom element and the partial order:
+                    </p>
+
+                    <CodeBlock>
+                        {`instance LowerBound[Sign] {
+    pub def minValue(): Sign = Bot
+}
+
+instance PartialOrder[Sign] {
+    pub def partialCompare(x: Sign, y: Sign): Bool = 
+        match (x, y) {
+            case (Bot, _)   => true
+            case (Neg, Neg) => true
+            case (Zer, Zer) => true
+            case (Pos, Pos) => true
+            case (_, Top)   => true
+            case _          => false
+        }
+}`}
+                    </CodeBlock>
+
+                    <p>
+                        Next, we define the least upper bound and greatest lower bound:
+                    </p>
+
+                    <CodeBlock>
+                        {`
+instance JoinLattice[Sign] {
+    pub def leastUpperBound(x: Sign, y: Sign): Sign = 
+        match (x, y) {
+            case (Bot, _)   => y
+            case (_, Bot)   => x
+            case (Neg, Neg) => Neg
+            case (Zer, Zer) => Zer
+            case (Pos, Pos) => Pos
+            case _          => Top
+        }
+}
+
+instance MeetLattice[Sign] {
+    pub def greatestLowerBound(x: Sign, y: Sign): Sign = 
+        match (x, y) {
+            case (Top, _)   => y
+            case (_, Top)   => x
+            case (Neg, Neg) => Neg
+            case (Zer, Zer) => Zer
+            case (Pos, Pos) => Pos
+            case _          => Bot
+        }
+}
+`}
+                    </CodeBlock>
+
+                    <p>
+                        With all of these definitions we are ready to write Datalog constraints with lattice semantics.
+                        But before we proceed, let us also write a single monotone function:
+                    </p>
+
+                    <CodeBlock>
+                        {`def sum(x: Sign, y: Sign): Sign = match (x, y) {
+    case (Bot, _)   => Bot
+    case (_, Bot)   => Bot
+    case (Neg, Zer) => Neg
+    case (Zer, Neg) => Neg
     case (Zer, Zer) => Zer
+    case (Zer, Pos) => Pos
+    case (Pos, Zer) => Pos
     case (Pos, Pos) => Pos
     case _          => Top
-}
+}`}
+                    </CodeBlock>
 
-def glb(e1: Sign, e2: Sign): Sign = match (e1, e2) with {
-    case (Top, x)   => x
-    case (x, Top)   => x
-    case (Neg, Neg) => Neg
-    case (Zer, Zer) => Zer
-    case (Pos, Pos) => Pos
-    case _          => Bot
-}
+                    <p>
+                        We can now finally put everything to use:
+                    </p>
 
-let Sign<> = (Bot, Top, equ, leq, lub, glb)
-
-lat A(x: String, s: Sign)
-lat B(x: String, s: Sign)
-lat R(x: String, s: Sign)
-
-A("a"; Pos).
-B("a"; Top).
-A("b"; Neg).
-
-R("c"; s) :- A("a"; s).
-R("c"; s) :- A("b"; s).
-R("d"; s) :- A(x; s), B(x; s).
+                    <CodeBlock>
+                        {`pub def main(_: Array[String]): Int32 & Impure = 
+    let p = #{
+        LocalVar("x"; Pos).
+        LocalVar("y"; Zer).
+        LocalVar("z"; Neg).
+        AddStm("r1", "x", "y").
+        AddStm("r2", "x", "z").
+        LocalVar(r; sum(v1, v2)) :- 
+            AddStm(r, x, y), LocalVar(x; v1), LocalVar(y; v2).
+    };
+    query p select (r, v) from LocalVar(r, v) |> println;
+    0
 `}
-                    </Editor>
-
-                    <p>
-                        The program above defines an enum for the elements of the sign lattice and then defines each of
-                        the lattice operations as functions. Here <Code>equ</Code> is equality, <Code>leq</Code> is the
-                        partial order, <Code>lub</Code> is the least upper bound, and <Code>glb</Code> is the greatest
-                        lower bound.
-                    </p>
-
-                    <p>Next the program associates the <Code>Sign</Code> type with the lattice components.</p>
-
-                    <p>
-                        Finally, the program defines three predicate symbols <Code>A</Code>, <Code>B</Code>,
-                        and <Code>C</Code> with lattice interpretations. The program then defines three facts and three
-                        rules. The two first rules require that in the fact <Code>R("c",
-                        s)</Code> the <Code>s</Code> element must be at least the least upper bound
-                        of <Code>s1</Code> and <Code>s2</Code> for any facts <Code>A("a", s1)</Code> and <Code>A("b",
-                        s2)</Code>. Thus we compute the fact <Code>R("c", Top)</Code>. The last rule, on the other hand
-                        requires that in the fact <Code>R("d", s)</Code> s must be the greatest lower bound
-                        of <Code>s1</Code> and <Code>s2</Code> for any facts <Code>A(x, s1)</Code> and <Code>B(x,
-                        s2)</Code>. Thus we compute the fact <Code>R("d", Pos)</Code>.
-                    </p>
+                    </CodeBlock>
 
                     <Warning>
-                        The syntax <Code>let Sign&lt;&gt; = (Bot, Top, equ, leq, lub, glb)</Code> used to associate
-                        the <Code>Sign</Code> type with lattice operations will be deprecated in the future, once we add
-                        type classes.
+                        Note the careful use of <Code>;</Code> to designate lattice semantics.
                     </Warning>
 
                 </SubSection>

@@ -155,47 +155,48 @@ def main(_args: Array[String]): Int32 & Impure =
                     </p>
 
                     <p>
-                        For a concrete example, consider the program below:
+                        For example:
                     </p>
 
-
-                    <Editor flix={this.props.flix}>
-                        {`rel ParentOf(x: String, y: String)
-rel AncestorOf(x: String, y: String)
-rel AdoptedBy(x: String, y: String)
-
-def getParents[r](): #{ ParentOf | r } = #{
+                    <CodeBlock>
+                        {`def getParents(): #{ ParentOf(String, String) | r } = #{
     ParentOf("Pompey", "Strabo").
     ParentOf("Gnaeus", "Pompey").
     ParentOf("Pompeia", "Pompey").
     ParentOf("Sextus", "Pompey").
 }
 
-def getAdoptions[r](): #{ AdoptedBy | r } = #{
+def getAdoptions(): #{ AdoptedBy(String, String) | r } = #{
     AdoptedBy("Augustus", "Caesar").
     AdoptedBy("Tiberius", "Augustus").
 }
 
-def withAncestors[r](): #{ ParentOf, AncestorOf | r } = #{
+def withAncestors(): #{ ParentOf(String, String), 
+                        AncestorOf(String, String) | r } = #{
     AncestorOf(x, y) :- ParentOf(x, y).
     AncestorOf(x, z) :- AncestorOf(x, y), AncestorOf(y, z).
 }
 
-def withAdoptions[r](): #{ AdoptedBy, AncestorOf | r } = #{
-    AncestorOf(x, y) :- AdoptedBy(y, x).
+def withAdoptions(): #{ AdoptedBy(String, String), 
+                        AncestorOf(String, String) | r } = #{
+    AncestorOf(x, y) :- AdoptedBy(x, y).
 }
 
-def main(): #{ ParentOf, AncestorOf, AdoptedBy } =
-    let b = false;
-    let c = getParents() <+> withAncestors();
-    if (b)
-        solve c
-    else
-        solve c <+> getAdoptions() <+> withAdoptions()`}
-                    </Editor>
+def main(_args: Array[String]): Int32 & Impure =
+    let c = false;
+    if (c) {
+        query getParents(), getAdoptions(), withAncestors() 
+            select (x, y) from AncestorOf(x, y) |> println
+    } else {
+        query getParents(), getAdoptions(), withAncestors(), withAdoptions()
+            select (x, y) from AncestorOf(x, y) |> println
+    };
+    0
+`}
+                    </CodeBlock>
 
                     <p>
-                        The program defines three predicate symbols: <Code>ParentOf</Code>, <Code>AncestorOf</Code>,
+                        The program uses three predicate symbols: <Code>ParentOf</Code>, <Code>AncestorOf</Code>,
                         and <Code>AdoptedBy</Code>. The <Code>getParents</Code> function returns a collection of facts
                         that represent biological parents, whereas the <Code>getAdoptions</Code> function returns
                         a collection of facts that represent adoptions. The <Code>withAncestors</Code> function
@@ -205,16 +206,13 @@ def main(): #{ ParentOf, AncestorOf, AdoptedBy } =
                     </p>
 
                     <p>
-                        In the <Code>main</Code> function the boolean <Code>b</Code> controls whether we solve a program
-                        that only considers biological parents or if we include adoptions. This implemented by computing
-                        the composition of the result of <Code>getParents</Code> with <Code>withAncestors</Code>, and
-                        then branching on the boolean to decide whether to include the results
-                        of <Code>getAdoptions</Code> and <Code>withAdoptions</Code>.
+                        In the <Code>main</Code> function the local variable <Code>c</Code> controls whether we query a
+                        Datalog program that only considers biological parents or if we include adoptions.
                     </p>
 
                     <p>
                         As can be seen, the types the functions are row-polymorphic. For example, the signature
-                        of <Code>getParents</Code> is <Code>def getParents[r]():
+                        of <Code>getParents</Code> is <Code>def getParents():
                         #{"{ ParentOf | r }"}</Code> where <Code>r</Code> is row polymorphic type variable that
                         represent the rest of the predicates that the result of the function can be composed with.
                     </p>
@@ -222,9 +220,10 @@ def main(): #{ ParentOf, AncestorOf, AdoptedBy } =
                     <DesignNote>
                         The row polymorphic types are best understood as an over-approximation of the predicates that
                         may occur in a constraint system. For example, if a constraint system has
-                        type <Code>{"#{ P }"}</Code> that does necessarily mean that it will refer to the
-                        predicate symbol <Code>P</Code>, but it does guarantee that it will refer to no other predicate
-                        symbols.
+                        type <Code>{"#{ A(String), B(Int32, Int32) }"}</Code> that does necessarily mean that it will
+                        contain facts or rules that use the predicate symbols <Code>A</Code> or <Code>B</Code>, but it
+                        does guarantee that it will not contain any fact or rule that refer to a predicate
+                        symbol <Code>C</Code>.
                     </DesignNote>
 
                 </SubSection>

@@ -236,46 +236,53 @@ def main(_args: Array[String]): Int32 & Impure =
                         constraints are polymorphic in their term types. For example:
                     </p>
 
-
-                    <Editor flix={this.props.flix}>
-                        {`rel LabelEdge[l](x: String, l: l, y: String)
-rel LabelPath[l](x: String, l: l, y: String)
-
-def getEdgesWithNumbers[r](): #{ LabelEdge[Int] | r } = #{
-    LabelEdge("a", 1, "b").
-    LabelEdge("b", 1, "c").
-    LabelEdge("c", 2, "d").
+                    <CodeBlock>
+                        {`def edgesWithNumbers(): #{ LabelledEdge(String, Int, String) | r } = #{
+    LabelledEdge("a", 1, "b").
+    LabelledEdge("b", 1, "c").
+    LabelledEdge("c", 2, "d").
 }
 
-def getEdgesWithColor[r](): #{ LabelEdge[String] | r } = #{
-    LabelEdge("a", "red", "b").
-    LabelEdge("b", "red", "c").
-    LabelEdge("c", "blu", "d").
+def edgesWithColor(): #{ LabelledEdge(String, String, String) | r } = #{
+    LabelledEdge("a", "red", "b").
+    LabelledEdge("b", "red", "c").
+    LabelledEdge("c", "blu", "d").
 }
 
-def getRules[l](): #{ LabelEdge[l], LabelPath[l] } = #{
-    LabelPath(x, l, y) :- LabelEdge(x, l, y).
-    LabelPath(x, l, z) :- LabelPath(x, l, y), LabelPath(y, l, z).
+def closure(): #{ LabelledEdge(String, l, String), 
+                  LabelledPath(String, l, String) } with Boxable[l] = #{
+    LabelledPath(x, l, y) :- LabelledEdge(x, l, y).
+    LabelledPath(x, l, z) :- LabelledPath(x, l, y), LabelledPath(y, l, z).
 }
 
-def main1(): #{ LabelEdge[Int], LabelPath[Int] }  =
-    solve getEdgesWithNumbers() <+> getRules()
-
-def main2(): #{ LabelEdge[String], LabelPath[String] }  =
-    solve getEdgesWithColor() <+> getRules()`}
-                    </Editor>
+def main(_: Array[String]): Int32 & Impure =
+    query edgesWithNumbers(), closure() 
+        select (x, l, z) from LabelledPath(x, l, z) |> println;
+    query edgesWithColor(), closure() 
+        select (x, l, z) from LabelledPath(x, l, z) |> println;
+    0
+`}
+                    </CodeBlock>
 
                     <p>
-                        Here we declare two predicate symbols: <Code>LabelEdge</Code> and <Code>LabelPath</Code>.
+                        Here we use two predicate symbols: <Code>LabelledEdge</Code> and <Code>LabelledPath</Code>.
                         Each predicate has a type parameter named <Code>l</Code> and is polymorphic in the "label"
-                        type associated with the edge/path. Note how <Code>getEdgesWithNumbers</Code> returns a
+                        type associated with the edge/path. Note how <Code>edgesWithNumbers</Code> returns a
                         collection of edge facts where the labels are integers,
-                        whereas <Code>getEdgesWithColor</Code> returns a collection of facts where the labels are
-                        strings. The <Code>getRules</Code> function is polymorphic and returns two rules that
-                        compute the transitive closure of edges that have the same label. This function is used by
-                        both <Code>main1</Code> and <Code>main2</Code> to compute the transitive closure of graphs
-                        with different types of labels.
+                        whereas <Code>edgesWithColor</Code> returns a collection of facts where the labels are
+                        strings. The <Code>closure</Code> function is polymorphic and returns two rules that
+                        compute the transitive closure of edges that have the same label.
                     </p>
+
+                    <p>
+                        The Flix type system ensures that we cannot accidentally mix edges (or paths) with different
+                        types of labels.
+                    </p>
+
+                    <DesignNote>
+                        The <Code>Boxable</Code> type class constraint simply requires that each label type
+                        has <Code>Eq</Code>, <Code>Order</Code>, and <Code>ToString</Code> instances.
+                    </DesignNote>
 
                 </SubSection>
 

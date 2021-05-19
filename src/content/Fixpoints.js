@@ -337,15 +337,12 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
                         fixpoint computation into another fixpoint computation. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`rel ColorEdge(x: Int, c: String, y: Int)
-rel ColorPath(x: Int, c: String, y: Int)
-rel ColorlessPath(x: Int, y: Int)
-
-def main(): Bool =
+                    <CodeBlock>
+                        {`def main(_: Array[String]): Int32 & Impure =
     let f1 = #{
         ColorEdge(1, "blue", 2).
         ColorEdge(2, "blue", 3).
+        ColorEdge(3, "red", 4).
     };
     let r1 = #{
         ColorPath(x, c, y) :- ColorEdge(x, c, y).
@@ -354,27 +351,22 @@ def main(): Bool =
     let r2 = #{
         ColorlessPath(x, y) :- ColorPath(x, _, y).
     };
-    let m1 = solve (f1 <+> r1);
-    let m2 = solve (m1 <+> r2);
-    m2 |= ColorlessPath(1, 3).`}
-                    </Editor>
+    let m = solve f1, r1 project ColorPath;
+    query m, r2 select (x, y) from ColorlessPath(x, y) |> println;
+    0
+`}
+                    </CodeBlock>
 
                     <p>
-                        The program declares three predicates: <Code>ColorEdge</Code>, <Code>ColorPath</Code>,
+                        The program uses three predicates: <Code>ColorEdge</Code>, <Code>ColorPath</Code>,
                         and <Code>ColorlessPath</Code>. Our goal is to compute the transitive closure of the
-                        colored edges and then afterwards construct a graph where the edges have no color. The program
-                        defines two edge facts <Code>f1</Code>, then two rules to compute the transitive
-                        closure <Code>r1</Code>, and finally a rule <Code>r2</Code> to copy all color path facts to
-                        colorless path facts.
+                        colored edges and then afterwards construct a graph where the edges have no color.
                     </p>
 
                     <p>
-                        The program first computes the fixpoint of <Code>f1</Code> and <Code>r1</Code> which yields
-                        the transitive closure of the colored graph. Next, the program takes that result, composes it
-                        with the rule <Code>r2</Code>, and computes its fixpoint. The result is another constraint
-                        system with (i) the original colored edge facts, (ii) the colored path facts, and (iii) the
-                        colorless path facts. Finally, we ask if this constraint system contains the fact <Code>ColorlessPath(1,
-                        3)</Code>.
+                        The program first computes the fixpoint of <Code>f1</Code> and <Code>r1</Code> and projects out
+                        the <Code>ColorPath</Code> fact. The result is stored in <Code>m</Code>. Next, the program
+                        queries <Code>m</Code> and <Code>r2</Code>, and selects all <Code>ColorlessPath</Code> facts.
                     </p>
 
                 </SubSection>

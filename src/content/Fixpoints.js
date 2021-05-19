@@ -526,7 +526,7 @@ instance MeetLattice[Sign] {
         LocalVar(r; sum(v1, v2)) :- 
             AddStm(r, x, y), LocalVar(x; v1), LocalVar(y; v2).
     };
-    query p select (r, v) from LocalVar(r, v) |> println;
+    query p select (r; v) from LocalVar(r; v) |> println;
     0
 `}
                     </CodeBlock>

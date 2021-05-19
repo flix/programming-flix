@@ -320,15 +320,6 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
 
                 </SubSection>
 
-                <SubSection name="Extracting Facts out of Datalog">
-
-                    <p>
-                        TBD
-                    </p>
-
-
-                </SubSection>
-
                 <SubSection name="Pipelines of Fixpoint Computations">
 
                     <p>

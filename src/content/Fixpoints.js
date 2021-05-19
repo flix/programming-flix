@@ -101,53 +101,47 @@ def main(_args: Array[String]): Int32 & Impure =
                         bodies. For example:
                     </p>
 
-                    <Editor flix={this.props.flix}>
-                        {`rel Movie(title: String)
-rel StarringIn(title: String, name: String)
-rel DirectedBy(title: String, name: String)
-rel DirectorNotInMovie(title: String)
-
-Movie("The Hateful Eight").
-Movie("Interstellar").
-
-StarringIn("The Hateful Eight", "Samuel L. Jackson").
-StarringIn("The Hateful Eight", "Kurt Russel").
-StarringIn("The Hateful Eight", "Quentin Tarantino").
-StarringIn("Interstellar", "Matthew McConaughey").
-StarringIn("Interstellar", "Anne Hathaway").
-
-DirectedBy("The Hateful Eight", "Quentin Tarantino").
-DirectedBy("Interstellar", "Christopher Nolan").
-
-DirectorNotInMovie(title) :-
-    Movie(title), DirectedBy(title, name), not StarringIn(title, name).`}
-                    </Editor>
+                    <CodeBlock>
+                        {`def main(_args: Array[String]): Int32 & Impure = 
+    let movies = #{
+        Movie("The Hateful Eight").
+        Movie("Interstellar").
+    };
+    let actors = #{
+        StarringIn("The Hateful Eight", "Samuel L. Jackson").
+        StarringIn("The Hateful Eight", "Kurt Russel").
+        StarringIn("The Hateful Eight", "Quentin Tarantino").
+        StarringIn("Interstellar", "Matthew McConaughey").
+        StarringIn("Interstellar", "Anne Hathaway").
+    };
+    let directors = #{
+        DirectedBy("The Hateful Eight", "Quentin Tarantino").
+        DirectedBy("Interstellar", "Christopher Nolan").
+    };
+    let rule = #{
+        MovieWithoutDirector(title) :- 
+            Movie(title), 
+            DirectedBy(title, name), 
+            not StarringIn(title, name).
+    };
+    query movies, actors, directors, rule 
+        select title from MovieWithoutDirector(title) |> println;
+    0
+`}
+                    </CodeBlock>
 
                     <p>
-                        The program defines four
-                        predicates: <Code>Movie</Code>, <Code>StarringIn</Code>, <Code>DirectedBy</Code>,
-                        and <Code>DirectorNotInMovie</Code>. It then provides several facts for the movies "The
-                        Hateful Eight" and "Interstellar". The constraint, at the bottom, uses negation to select those
-                        movies where the director has not appeared as a cast member.
+                        The program defines three local variables that contain information about movies, actors, and
+                        directors. The local variable <Code>rule</Code> contains a rule that captures all movies where
+                        the director does not start in the movie. Note the use negation in this rule. The query returns
+                        an array with the string <Code>"Interstellar"</Code> because Christopher Nolan did not
+                        star in that movie.
                     </p>
 
-                    <Warning>
+                    <DesignNote>
                         Flix enforces that programs are stratified, i.e. a program must not have recursive dependencies
                         that form on which there is use of negation. If there is, the Flix compiler rejects the program.
-                    </Warning>
-
-                    <p>
-                        The example below is <i>not</i> stratified and hence is rejected:
-                    </p>
-
-                    <Editor flix={this.props.flix}>
-                        {`rel A(x: Int)
-rel B(x: Int)
-rel C(x: Int)
-
-A(x) :- B(x).
-B(x) :- not A(x), C(x).`}
-                    </Editor>
+                    </DesignNote>
 
                 </SubSection>
 

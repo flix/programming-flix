@@ -19,6 +19,7 @@ import Effects from "./content/Effects";
 import TipsAndTricks from "./content/TipsAndTricks";
 import References from "./content/References";
 import Arrays from "./content/Arrays";
+import TypeClasses from "./content/TypeClasses";
 
 const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
@@ -120,6 +121,10 @@ class App extends React.Component {
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/typeclasses/">Type Classes</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/interoperability/">Interoperability</NavLink>
                         </NavItem>
 
@@ -143,6 +148,7 @@ class App extends React.Component {
                     <Route path="/concurrency/" render={() => <Concurrency flix={this.getFlix()}/>}/>
                     <Route path="/effects/" render={() => <Effects flix={this.getFlix()}/>}/>
                     <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
+                    <Route path="/typeclasses/" render={() => <TypeClasses flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
                     <Route path="/tipstricks/" render={() => <TipsAndTricks/>}/>
 

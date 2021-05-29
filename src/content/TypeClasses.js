@@ -17,16 +17,32 @@ class TypeClasses extends React.Component {
             <Section name="Type Classes">
 
                 <p>
-                    TODO this section is all about type classes
+                    Similar to Haskell, Flix supports type classes in order to allow for highly generic code.
+                    A type class can be seen as a contract: 
+                    in order for a type to be considered a member of the class, it must fulfill certain requirements.
                 </p>
 
                 <Editor flix={this.props.flix}>
-                    {`here I will put some flix code
-the second line has to start all the way over here`}
+                    {`pub class Eq[a] {
+    pub def eq(x: a, y: a): Bool
+
+    pub def neq(x: a, y: a): Bool = not Eq.eq(x, y)
+
+    law reflexivity: forall(x: a). x == x}
+
+    /* ...additional laws... */
+}`}
                 </Editor>
 
+                <p>MATT: Eq is a bad example because we can't pull this into try.flix.dev (already defined)</p>
                 <p>
-                    I can also put <Code>code in the paragraph</Code>
+                    The <Code>Eq</Code> class defines the operators <Code>==</Code> and <Code>!=</Code>.
+                    The contract imposed by this class includes 
+                    a definition <Code>eq</Code> of equality,
+                    a definition <Code>neq</Code> of inequality,
+                    and fulfillment of the law <Code>reflexivity</Code>.
+
+                    In order to show that a type fulfills this contract, an instance must be created.
                 </p>
 
             </Section>

@@ -126,7 +126,7 @@ let p2 = { -y | p1 };`}</CodeBlock>
                 <SubSection name="Row Polymorphism: Open and Closed Records">
 
                     <p>
-                        A function may specific that it requires a record with two fields:
+                        A function may specify that it requires a record with two fields:
                     </p>
 
                     <CodeBlock>{`def f(r: {x: Int32, y: Int32}): Int32 = r.x + r.y`}</CodeBlock>

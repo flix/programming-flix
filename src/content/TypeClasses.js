@@ -23,23 +23,17 @@ class TypeClasses extends React.Component {
                 </p>
 
                 <Editor flix={this.props.flix}>
-                    {`pub class Eq[a] {
-    pub def eq(x: a, y: a): Bool
+                    {`pub class Length[a] {
+    pub def length(x: a): Int
 
-    pub def neq(x: a, y: a): Bool = not Eq.eq(x, y)
-
-    law reflexivity: forall(x: a). x == x}
-
-    /* ...additional laws... */
+    law nonnegative: forall(x: a) . Length.length(x) >= 0
 }`}
                 </Editor>
 
-                <p>MATT: Eq is a bad example because we can't pull this into try.flix.dev (already defined)</p>
                 <p>
-                    The <Code>Eq</Code> class defines the operators <Code>==</Code> and <Code>!=</Code>.
-                    The contract imposed by this class includes 
-                    a definition <Code>eq</Code> of equality,
-                    a definition <Code>neq</Code> of inequality,
+                    The <Code>Length</Code> class defines the function <Code>length</Code>.
+                    The contract imposed by this class includes
+                    the definition of this <Code>length</Code> function
                     and fulfillment of the law <Code>reflexivity</Code>.
 
                     In order to show that a type fulfills this contract, an instance must be created.

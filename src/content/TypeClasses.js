@@ -28,12 +28,16 @@ class TypeClasses extends React.Component {
                     6. isSingleton inefficient: add sig to Length and override to List instance
                         -- overrides must have same semantics
                     7. Length[String] uses default impl
-                    
+
                     Laws:
                     1. nonnegative from Length class
                         -- planned feature: quickcheck
                     2. unlawful instances
                     3. lawless classes
+
+                    Type constraints
+                    1. on type classes 
+                    2. on instances (DeepLength)
 
                     Sealed:
                     1. some example?
@@ -43,6 +47,61 @@ class TypeClasses extends React.Component {
                     2. kind discussion
                 */
                 }
+
+                <Editor flix={this.props.flix}>
+                    {`def isSingleton(l: List[a]): Bool = List.length(l) == 1`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`def isSingleton(l: a): Bool with Length[a] = {
+    Length.length(l) == 1
+}`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`pub class Length[a] {
+    pub def length(x: a): Int
+
+    law nonnegative: forall(x: a) . Length.length(x) >= 0
+}`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`isSingleton(1 :: 2 :: Nil)`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`instance Length[List[a]] {
+    pub def length(x: List[a]): Int = List.length(x)
+}`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`pub class Length[a] {
+    pub def length(x: a): Int
+
+    pub def isSingleton(x: a): Bool = length(x) == 1
+
+    law nonnegative: forall(x: a) . Length.length(x) >= 0
+
+    law singletonMeansOne(x: a): forall(x: a) . Length.length(x) == 1 <==> Length.isSingleton(x)
+}
+
+instance Length[List[a]] {
+    pub def length(x: List[a]): Int = List.length(x)
+
+    override pub def isSingleton(x: List[a]): Bool = match x {
+        case _hd :: Nil => true
+        case _ => false
+    }
+}`}
+                </Editor>
+
+                <Editor flix={this.props.flix}>
+                    {`instance Length[String] {
+    pub def length(x: String): Int = String.length(x)
+}`}
+                </Editor>
                 <p>
                     Similar to Haskell, Flix supports type classes in order to allow for highly generic code.
                     A type class can be seen as a contract: 

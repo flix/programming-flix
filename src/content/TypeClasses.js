@@ -79,6 +79,14 @@ class TypeClasses extends React.Component {
 }`}
                 </Editor>
 
+                <p>
+                    The type class declaration <Code>Length</Code> specifies what can be done with its members.
+                    In this case, there is only one function: <Code>Length.length</Code>,
+                    which takes the member type as an argument and returns an integer.
+                    The law <Code>nonnegative</Code> is also defined as part of the class.
+                    Laws will be further explored in section TK.
+                </p>
+
                 <Editor flix={this.props.flix}>
                     {`pub class Length[a] {
     pub def length(x: a): Int
@@ -87,15 +95,37 @@ class TypeClasses extends React.Component {
 }`}
                 </Editor>
 
+                <p>
+                    If we try to use the new <Code>isSingleton</Code> function,
+                    we will see that it fails to compile:
+                </p>
+
                 <Editor flix={this.props.flix}>
                     {`isSingleton(1 :: 2 :: Nil)`}
                 </Editor>
+
+                <p>
+                    While we know that a list has a length, we haven't proven this to the compiler.
+                    To do this, we introduce an <Code>instance</Code> of the type class for the generic type <Code>List[a]</Code>.
+                </p>
 
                 <Editor flix={this.props.flix}>
                     {`instance Length[List[a]] {
     pub def length(x: List[a]): Int = List.length(x)
 }`}
                 </Editor>
+
+                <p>
+                    This instance simply states that in order to  get the length of the list,
+                    we just use the <Code>List.length</Code> function from the standard library.
+                    With this instance around, the call to the <Code>isSingleton</Code> function will compile.
+                    However, you may have noticed that our implementation is inefficient.
+                    While comparing the length to 1 is a correct solution generally,
+                    for lists specifically the solution has a greater runtime complexity than necessary.
+                    In order to preserve the general solution while allowing for optimizations where needed,
+                    we can use a default implementation in the type class
+                    and an override implementation in the instance.
+                </p>
 
                 <Editor flix={this.props.flix}>
                     {`pub class Length[a] {
@@ -118,32 +148,15 @@ instance Length[List[a]] {
 }`}
                 </Editor>
 
-                <Editor flix={this.props.flix}>
-                    {`instance Length[String] {
-    pub def length(x: String): Int = String.length(x)
-}`}
-                </Editor>
                 <p>
-                    Similar to Haskell, Flix supports type classes in order to allow for highly generic code.
-                    A type class can be seen as a contract: 
-                    in order for a type to be considered a member of the class, it must fulfill certain requirements.
-                </p>
-                {/* TODO something like isSingleton (with Length) */}
-
-                <Editor flix={this.props.flix}>
-                    {`pub class Length[a] {
-    pub def length(x: a): Int
-
-    law nonnegative: forall(x: a) . Length.length(x) >= 0
-}`}
-                </Editor>
-
-                <p>
-                    The <Code>Length</Code> class defines the function <Code>length</Code>.
-                    The contract imposed by this class includes
-                    the definition of this <Code>length</Code> function
-                    and fulfillment of the law <Code>nonnegative</Code>. {/* TODO something something we will discuss laws later */}
-                    In order to show that a type fulfills this contract, an instance must be created.
+                    We have added the <Code>isSingleton</Code> function to the <Code>Length</Code> type class,
+                    with a default implementation that works in general.
+                    (We also added a new law <Code>singletonMeansOne</Code>; see section TK.)
+                    We have added an efficient <Code>override</Code> implementation of <Code>isSingleton</Code>
+                    to the <Code>Length</Code> instance for <Code>List[a]</Code>.
+                    The advantage of the default implementation is that if there's no special
+                    behavior needed for a type, the default is assumed.
+                    The function does not have to be implemented.
                 </p>
 
                 <Editor flix={this.props.flix}>
@@ -153,9 +166,8 @@ instance Length[List[a]] {
                 </Editor>
 
                 <p>
-                    Here we have defined an instance of the class <Code>Length</Code> for the type <Code>String</Code>.
-                    Since the standard library already contains a function for getting the length of a string,
-                    we can simply use this as the implementation.
+                    The instance <Code>Length[String]</Code> simply uses the default implementation 
+                    of the <Code>isSingleton</Code> function.
                 </p>
 
             </Section>

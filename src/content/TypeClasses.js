@@ -48,9 +48,30 @@ class TypeClasses extends React.Component {
                 */
                 }
 
+                <p>
+                    Type classes are one of the ways to support
+                    a high level of genericity in functional programming.
+                    Flix's type classes largely follow the style of those of Haskell,
+                    with some additional principles.
+                </p>
+
+                <p>
+                    The function <Code>isSingleton</Code> naively determines whether a list has exactly one element.
+                    However, it only works with lists.
+                    Although checking the length of a collection like this is possible for all standard collections,
+                    we have to implement a separate <Code>isSingleton</Code> function for each of them.
+                </p>
+
                 <Editor flix={this.props.flix}>
                     {`def isSingleton(l: List[a]): Bool = List.length(l) == 1`}
                 </Editor>
+
+                <p>
+                    We can generalize this behavior by using a type class constraint.
+                    Rather than requiring the argument to be a list,
+                    we use a type variable <Code>a</Code> and constrain it with to the type class <Code>Length</Code>,
+                    which means that the function <Code>Length.length</Code> can be applied to the argument.
+                </p>
 
                 <Editor flix={this.props.flix}>
                     {`def isSingleton(l: a): Bool with Length[a] = {

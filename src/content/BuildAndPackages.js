@@ -227,9 +227,33 @@ README.md`}
 
                 <SubSection name="Building a Flix Project File (fpkg)">
 
-                    <p className="text-danger">
-                        TODO
+                    <p>
+                        We can compile a project to a Flix package file (fpkg) with the <Code>build-pkg</Code> command:
                     </p>
+
+                    <CodeBlock>
+                        {`$ java -jar path/to/flix.jar build-pkg`}
+                    </CodeBlock>
+
+                    <p>
+                        which will produce a <Code>myproject.fpkg</Code> package.
+                    </p>
+
+                    <p>
+                        A Flix package file is essentially a zip-file of the project source code. A Flix package file
+                        can be reused in another project by placing it into the <Code>lib/</Code> directory.
+                    </p>
+
+                    <p>
+                        Its recommended to include the semantic version in the filename of the package,
+                        e.g. <Code>foo-1.2.1.fpkg</Code>.
+                    </p>
+
+                    <DesignNote>
+                        Flix does not compile to an intermediate format, but instead relies on packages to contain
+                        source code. This means that the Flix compiler does not lose any information about a package
+                        and can perform cross-package optimizations.
+                    </DesignNote>
 
                 </SubSection>
 

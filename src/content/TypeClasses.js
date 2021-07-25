@@ -3,7 +3,7 @@ import React from 'react'
 import ReactGA from 'react-ga';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
-import Editor from "../util/Editor";
+import CodeBlock from "../util/CodeBlock";
 import Code from "../components/Code";
 import PlannedFeature from '../components/PlannedFeature';
 
@@ -65,9 +65,9 @@ class TypeClasses extends React.Component {
                         we have to implement a separate <Code>isSingleton</Code> function for each of them.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`def isSingleton(l: List[a]): Bool = List.length(l) == 1`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         We can generalize this behavior by using a type class constraint.
@@ -76,11 +76,11 @@ class TypeClasses extends React.Component {
                         which means that the function <Code>Length.length</Code> can be applied to the argument.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                     {`def isSingleton(l: a): Bool with Length[a] = {
     Length.length(l) == 1
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         The type class declaration <Code>Length</Code> specifies what can be done with its members.
@@ -90,33 +90,33 @@ class TypeClasses extends React.Component {
                         Laws will be further explored in section TK.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                     {`pub class Length[a] {
     pub def length(x: a): Int
 
     law nonnegative: forall(x: a) . Length.length(x) >= 0
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         If we try to use the new <Code>isSingleton</Code> function,
                         we will see that it fails to compile:
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`isSingleton(1 :: 2 :: Nil)`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         While we know that a list has a length, we haven't proven this to the compiler.
                         To do this, we introduce an <Code>instance</Code> of the type class for the generic type <Code>List[a]</Code>.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                     {`instance Length[List[a]] {
     pub def length(x: List[a]): Int = List.length(x)
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         This instance simply states that in order to  get the length of the list,
@@ -130,7 +130,7 @@ class TypeClasses extends React.Component {
                         and an override implementation in the instance.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                     {`pub class Length[a] {
     pub def length(x: a): Int
 
@@ -149,7 +149,7 @@ instance Length[List[a]] {
         case _ => false
     }
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         We have added the <Code>isSingleton</Code> function to the <Code>Length</Code> type class,
@@ -162,11 +162,11 @@ instance Length[List[a]] {
                         The function does not have to be implemented.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                     {`instance Length[String] {
     pub def length(x: String): Int = String.length(x)
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         The instance <Code>Length[String]</Code> simply uses the default implementation 
@@ -180,13 +180,13 @@ instance Length[List[a]] {
                         type classes have laws that govern how the functions may be implemented.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                     {`pub class Length[a] {
     pub def length(x: a): Int
 
     law nonnegative: forall(x: a) . Length.length(x) >= 0
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         The <code>nonnegative</code> law asserts that
@@ -204,13 +204,13 @@ instance Length[List[a]] {
                         which does not fulfill the requirements set out by the laws.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`unlawful instance Length[AntiList[a]] {
     pub def length(x: a): Int = match x {
         case AntiList(list) => -List.Length(list)
     }
 }`}
-                    </Editor>
+                    </CodeBlock>
 
                     <p>
                         An <Code>AntiList</Code> may have negative length,
@@ -223,11 +223,11 @@ instance Length[List[a]] {
                         removing the requirement that each definition be featured in a law.
                     </p>
 
-                    <Editor flix={this.props.flix}>
+                    <CodeBlock>
                         {`lawless class DoNothing[a] {
     pub def doNothing(x: a): Unit = ()
 }`}
-                    </Editor>
+                    </CodeBlock>
 
 
                 </SubSection>

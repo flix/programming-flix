@@ -2,6 +2,7 @@
 import React from 'react'
 import ReactGA from 'react-ga';
 import Section from "../components/Section";
+import SubSection from "../components/SubSection";
 import Editor from "../util/Editor";
 import Code from "../components/Code";
 import PlannedFeature from '../components/PlannedFeature';
@@ -55,7 +56,7 @@ class TypeClasses extends React.Component {
                     with some additional principles.
                 </p>
                 
-                <Subsection name="Essentials">
+                <SubSection name="Essentials">
 
                     <p>
                         The function <Code>isSingleton</Code> naively determines whether a list has exactly one element.
@@ -171,9 +172,9 @@ instance Length[List[a]] {
                         The instance <Code>Length[String]</Code> simply uses the default implementation 
                         of the <Code>isSingleton</Code> function.
                     </p>
-                </Subsection>
+                </SubSection>
 
-                <Subsection name="Laws">
+                <SubSection name="Laws">
                     <p>
                         In addition to the functions forming part of their contract,
                         type classes have laws that govern how the functions may be implemented.
@@ -229,7 +230,7 @@ instance Length[List[a]] {
                     </Editor>
 
 
-                </Subsection>
+                </SubSection>
             </Section>
         )
     }

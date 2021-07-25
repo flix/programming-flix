@@ -4,6 +4,7 @@ import ReactGA from 'react-ga';
 import Section from "../components/Section";
 import Editor from "../util/Editor";
 import Code from "../components/Code";
+import PlannedFeature from '../components/PlannedFeature';
 
 class TypeClasses extends React.Component {
 
@@ -47,87 +48,88 @@ class TypeClasses extends React.Component {
                     2. kind discussion
                 */
                 }
-
                 <p>
                     Type classes are one of the ways to support
                     a high level of genericity in functional programming.
                     Flix's type classes largely follow the style of those of Haskell,
                     with some additional principles.
                 </p>
+                
+                <Subsection name="Essentials">
 
-                <p>
-                    The function <Code>isSingleton</Code> naively determines whether a list has exactly one element.
-                    However, it only works with lists.
-                    Although checking the length of a collection like this is possible for all standard collections,
-                    we have to implement a separate <Code>isSingleton</Code> function for each of them.
-                </p>
+                    <p>
+                        The function <Code>isSingleton</Code> naively determines whether a list has exactly one element.
+                        However, it only works with lists.
+                        Although checking the length of a collection like this is possible for all standard collections,
+                        we have to implement a separate <Code>isSingleton</Code> function for each of them.
+                    </p>
 
-                <Editor flix={this.props.flix}>
-                    {`def isSingleton(l: List[a]): Bool = List.length(l) == 1`}
-                </Editor>
+                    <Editor flix={this.props.flix}>
+                        {`def isSingleton(l: List[a]): Bool = List.length(l) == 1`}
+                    </Editor>
 
-                <p>
-                    We can generalize this behavior by using a type class constraint.
-                    Rather than requiring the argument to be a list,
-                    we use a type variable <Code>a</Code> and constrain it with to the type class <Code>Length</Code>,
-                    which means that the function <Code>Length.length</Code> can be applied to the argument.
-                </p>
+                    <p>
+                        We can generalize this behavior by using a type class constraint.
+                        Rather than requiring the argument to be a list,
+                        we use a type variable <Code>a</Code> and constrain it with to the type class <Code>Length</Code>,
+                        which means that the function <Code>Length.length</Code> can be applied to the argument.
+                    </p>
 
-                <Editor flix={this.props.flix}>
+                    <Editor flix={this.props.flix}>
                     {`def isSingleton(l: a): Bool with Length[a] = {
     Length.length(l) == 1
 }`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    The type class declaration <Code>Length</Code> specifies what can be done with its members.
-                    In this case, there is only one function: <Code>Length.length</Code>,
-                    which takes the member type as an argument and returns an integer.
-                    The law <Code>nonnegative</Code> is also defined as part of the class.
-                    Laws will be further explored in section TK.
-                </p>
+                    <p>
+                        The type class declaration <Code>Length</Code> specifies what can be done with its members.
+                        In this case, there is only one function: <Code>Length.length</Code>,
+                        which takes the member type as an argument and returns an integer.
+                        The law <Code>nonnegative</Code> is also defined as part of the class.
+                        Laws will be further explored in section TK.
+                    </p>
 
-                <Editor flix={this.props.flix}>
+                    <Editor flix={this.props.flix}>
                     {`pub class Length[a] {
     pub def length(x: a): Int
 
     law nonnegative: forall(x: a) . Length.length(x) >= 0
 }`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    If we try to use the new <Code>isSingleton</Code> function,
-                    we will see that it fails to compile:
-                </p>
+                    <p>
+                        If we try to use the new <Code>isSingleton</Code> function,
+                        we will see that it fails to compile:
+                    </p>
 
-                <Editor flix={this.props.flix}>
-                    {`isSingleton(1 :: 2 :: Nil)`}
-                </Editor>
+                    <Editor flix={this.props.flix}>
+                        {`isSingleton(1 :: 2 :: Nil)`}
+                    </Editor>
 
-                <p>
-                    While we know that a list has a length, we haven't proven this to the compiler.
-                    To do this, we introduce an <Code>instance</Code> of the type class for the generic type <Code>List[a]</Code>.
-                </p>
+                    <p>
+                        While we know that a list has a length, we haven't proven this to the compiler.
+                        To do this, we introduce an <Code>instance</Code> of the type class for the generic type <Code>List[a]</Code>.
+                    </p>
 
-                <Editor flix={this.props.flix}>
+                    <Editor flix={this.props.flix}>
                     {`instance Length[List[a]] {
     pub def length(x: List[a]): Int = List.length(x)
 }`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    This instance simply states that in order to  get the length of the list,
-                    we just use the <Code>List.length</Code> function from the standard library.
-                    With this instance around, the call to the <Code>isSingleton</Code> function will compile.
-                    However, you may have noticed that our implementation is inefficient.
-                    While comparing the length to 1 is a correct solution generally,
-                    for lists specifically the solution has a greater runtime complexity than necessary.
-                    In order to preserve the general solution while allowing for optimizations where needed,
-                    we can use a default implementation in the type class
-                    and an override implementation in the instance.
-                </p>
+                    <p>
+                        This instance simply states that in order to  get the length of the list,
+                        we just use the <Code>List.length</Code> function from the standard library.
+                        With this instance around, the call to the <Code>isSingleton</Code> function will compile.
+                        However, you may have noticed that our implementation is inefficient.
+                        While comparing the length to 1 is a correct solution generally,
+                        for lists specifically the solution has a greater runtime complexity than necessary.
+                        In order to preserve the general solution while allowing for optimizations where needed,
+                        we can use a default implementation in the type class
+                        and an override implementation in the instance.
+                    </p>
 
-                <Editor flix={this.props.flix}>
+                    <Editor flix={this.props.flix}>
                     {`pub class Length[a] {
     pub def length(x: a): Int
 
@@ -146,30 +148,88 @@ instance Length[List[a]] {
         case _ => false
     }
 }`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    We have added the <Code>isSingleton</Code> function to the <Code>Length</Code> type class,
-                    with a default implementation that works in general.
-                    (We also added a new law <Code>singletonMeansOne</Code>; see section TK.)
-                    We have added an efficient <Code>override</Code> implementation of <Code>isSingleton</Code>
-                    to the <Code>Length</Code> instance for <Code>List[a]</Code>.
-                    The advantage of the default implementation is that if there's no special
-                    behavior needed for a type, the default is assumed.
-                    The function does not have to be implemented.
-                </p>
+                    <p>
+                        We have added the <Code>isSingleton</Code> function to the <Code>Length</Code> type class,
+                        with a default implementation that works in general.
+                        (We also added a new law <Code>singletonMeansOne</Code>; see section TK.)
+                        We have added an efficient <Code>override</Code> implementation of <Code>isSingleton</Code>
+                        to the <Code>Length</Code> instance for <Code>List[a]</Code>.
+                        The advantage of the default implementation is that if there's no special
+                        behavior needed for a type, the default is assumed.
+                        The function does not have to be implemented.
+                    </p>
 
-                <Editor flix={this.props.flix}>
+                    <Editor flix={this.props.flix}>
                     {`instance Length[String] {
     pub def length(x: String): Int = String.length(x)
 }`}
-                </Editor>
+                    </Editor>
 
-                <p>
-                    The instance <Code>Length[String]</Code> simply uses the default implementation 
-                    of the <Code>isSingleton</Code> function.
-                </p>
+                    <p>
+                        The instance <Code>Length[String]</Code> simply uses the default implementation 
+                        of the <Code>isSingleton</Code> function.
+                    </p>
+                </Subsection>
 
+                <Subsection name="Laws">
+                    <p>
+                        In addition to the functions forming part of their contract,
+                        type classes have laws that govern how the functions may be implemented.
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                    {`pub class Length[a] {
+    pub def length(x: a): Int
+
+    law nonnegative: forall(x: a) . Length.length(x) >= 0
+}`}
+                    </Editor>
+
+                    <p>
+                        The <code>nonnegative</code> law asserts that
+                        the length of something can never be negative.
+                    </p>
+
+                    <PlannedFeature>
+                        We plan to implement a quickcheck framework to verify that these laws hold.
+                        For now, however, they only serve as a form of documentation.
+                    </PlannedFeature>
+
+                    <p>
+                        In general, instances must follow all the laws in their corresponding type classes.
+                        Occasionally, however, an <Code>unlawful</Code> instance may be desired,
+                        which does not fulfill the requirements set out by the laws.
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`unlawful instance Length[AntiList[a]] {
+    pub def length(x: a): Int = match x {
+        case AntiList(list) => -List.Length(list)
+    }
+}`}
+                    </Editor>
+
+                    <p>
+                        An <Code>AntiList</Code> may have negative length,
+                        so it breaks the <Code>nonnegative</Code> law.
+                    </p>
+
+                    <p>
+                        It might also be that laws don't make sense for a particular type class.
+                        In this case, the type class may be defined as <Code>lawless</Code>,
+                        removing the requirement that each definition be featured in a law.
+                    </p>
+
+                    <Editor flix={this.props.flix}>
+                        {`lawless class DoNothing[a] {
+    pub def doNothing(x: a): Unit = ()
+}`}
+                    </Editor>
+
+
+                </Subsection>
             </Section>
         )
     }

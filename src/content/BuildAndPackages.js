@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import Code from "../components/Code";
-import Table from "reactstrap";
+import {Table} from "reactstrap";
 import Warning from "../components/Warning";
 import CodeBlock from "../util/CodeBlock";
 

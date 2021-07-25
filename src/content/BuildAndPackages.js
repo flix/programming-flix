@@ -23,13 +23,14 @@ class BuildAndPackages extends React.Component {
                 <p>
                     Flix has a nascent build system and package manager. The package manager does not yet support <i>dependency
                     resolution</i>, but the system is sufficient to build and share packages. There is no central
-                    package registry, so versioning must be handled manually. We propose that the semantic version of
-                    a package is included as part of its name, e.g. <Code>foo-1.2.1.fpkg</Code>.
+                    package registry, so distribution and versioning must be handled manually for the moment. We propose
+                    that the semantic version of a package is included as part of its name,
+                    e.g. <Code>foo-1.2.1.fpkg</Code>.
                 </p>
 
                 <p>
                     The Flix build system makes it easy to create a new Flix project, to compile a project, to run
-                    a project, to run all tests in a project, to package a project into a Flix package, and to compile
+                    a project, to run all tests in a project, to bundle a project into a Flix package, and to compile
                     a project to a JAR-file.
                 </p>
 
@@ -142,14 +143,8 @@ README.md`}
 
                     <p>
                         The <Code>lib/</Code> directory is intended to hold Flix package files (<Code>.fpkg</Code>-files).
-                        The build system and the Visual Studio Code extension will both automatically load Flix package
+                        The build system and the Visual Studio Code extension will automatically load Flix package
                         files from the <Code>lib/</Code> directory.
-                    </p>
-
-                    <p>
-                        In addition to the above directories, the Flix compiler will automatically create
-                        a <Code>target/</Code> directory to hold the generated <Code>.class</Code> files. This directory
-                        is safe to delete and can be recreated by building the project.
                     </p>
 
                 </SubSection>
@@ -168,7 +163,7 @@ README.md`}
 
                     <p>
                         Checking a project is equivalent to building a project, except no code is generated, and
-                        consequently the process is significantly faster.
+                        consequently the process is significantly faster than a full compilation run.
                     </p>
 
                 </SubSection>
@@ -188,7 +183,7 @@ README.md`}
                     </p>
 
                     <DesignNote>
-                        There is no <Code>clean</Code> command, but deleting the <Code>target</Code> directory is
+                        There is no <Code>clean</Code> command, but deleting the <Code>build</Code> directory is
                         sufficient.
                     </DesignNote>
 
@@ -213,18 +208,20 @@ README.md`}
                     </CodeBlock>
 
                     <p>
-                        The JAR-file contains all class files from the <Code>target/</Code> directory.
+                        The JAR-file contains all class files from the <Code>build/</Code> directory.
                     </p>
 
                     <Warning>
                         The project must have been built before with the <Code>build</Code> command.
                     </Warning>
 
-                    <Warning>
+                    <DesignNote>
                         At the time of writing, the built JAR-file still depends on the <Code>flix.jar</Code> file. Thus
                         to run a Flix program you must put both the generated JAR-file and <Code>flix.jar</Code> on the
                         class path. In the future, the plan is to make the generated JAR-file fully self-contained.
-                    </Warning>
+                        For example, on Windows, the command would
+                        be: <code>{`java -jar "flix.jar;myproject.jar" Main`}</code>.
+                    </DesignNote>
 
                 </SubSection>
 
@@ -249,10 +246,6 @@ README.md`}
 
                     <p>
                         which will compile and run the main entry point.
-                    </p>
-
-                    <p>
-                        The <Code>run</Code> command can also be executed directly from within Visual Studio Code.
                     </p>
 
                 </SubSection>

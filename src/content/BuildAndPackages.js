@@ -4,8 +4,7 @@ import ReactGA from 'react-ga';
 import Section from "../components/Section";
 import SubSection from "../components/SubSection";
 import Code from "../components/Code";
-import {Card, CardBody, Table} from "reactstrap";
-import PlannedFeature from "../components/PlannedFeature";
+import Table from "reactstrap";
 import Warning from "../components/Warning";
 import CodeBlock from "../util/CodeBlock";
 

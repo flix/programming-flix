@@ -11,24 +11,34 @@ import Warning from "../components/Warning";
 class Build extends React.Component {
 
     componentDidMount() {
-        document.title = "Programming Flix | Build System";
+        document.title = "Programming Flix | Build and Package Management";
         ReactGA.pageview(window.location.href);
     }
 
     render() {
         return (
-            <Section name="Build">
+            <Section name="Build and Package Management">
+
+                <p className="text-danger">
+                    Rename to Build and Packages
+                </p>
 
                 <p>
-                    Flix has a simple build system that comes with the compiler. The build system makes it easy to
-                    create a new Flix project, to compile a Flix project, to test and benchmark it, and to ship a
-                    standalone "fat" JAR with all the required dependencies included, i.e. the Flix runtime. We plan to
-                    extend the build system as Flix matures.
+                    Flix has a nascent build system and package manager. The package manager does not yet support <i>dependency
+                    resolution</i>, but the system is sufficient to build and share packages. There is no central
+                    package repository, so versioning must be handled manually. We propose that the semantic version of
+                    a package is included as part of its name, e.g. <code>foo-1.2.1.fpkg</code>.
+                </p>
+
+                <p>
+                    The Flix build system comes with the compiler and makes it easy to create a new Flix project, to
+                    compile a Flix project, to run a project, to run all tests in a project, to package it into a Flix
+                    package to compile the project to a JAR-file.
                 </p>
 
                 <SubSection name="Overview">
 
-                    <p>
+                    <p className="text-muted">
                         Here is a brief overview of the build system commands:
                     </p>
 
@@ -67,7 +77,7 @@ class Build extends React.Component {
                         </tbody>
                     </Table>
 
-                    <p>
+                    <p className="text-muted">
                         A command is executed by running <Code>flix &lt;command&gt;</Code> inside the project directory.
                         Depending on how Flix is installed on your machine, you may need to run <Code>java -jar
                         flix.jar &lt;command&gt;</Code>.
@@ -77,7 +87,7 @@ class Build extends React.Component {
 
                 <SubSection name="Creating a New Project">
 
-                    <p>
+                    <p className="text-muted">
                         We can create a new project by creating an empty directory and running
                         the <Code>init</Code> command inside it:
                     </p>
@@ -92,7 +102,7 @@ class Build extends React.Component {
                         </CardBody>
                     </Card>
 
-                    <p>
+                    <p className="text-muted">
                         This will create a project structure with approximately the following layout:
                     </p>
 
@@ -112,7 +122,7 @@ class Build extends React.Component {
                         </CardBody>
                     </Card>
 
-                    <p>
+                    <p className="text-muted">
                         The most relevant files are <Code>src/Main.flix</Code> and <Code>test/TestMain.flix</Code>.
                     </p>
 
@@ -120,7 +130,7 @@ class Build extends React.Component {
 
                 <SubSection name="Building a Project">
 
-                    <p>
+                    <p className="text-muted">
                         We can build a project by running the <Code>build</Code> command inside the project directory:
                     </p>
 
@@ -132,11 +142,11 @@ class Build extends React.Component {
                         </CardBody>
                     </Card>
 
-                    <p>
+                    <p className="text-muted">
                         If there are compilation errors, Flix will show them.
                     </p>
 
-                    <p>
+                    <p className="text-muted">
                         Running the build command populates the <Code>build</Code> directory with class files.
                     </p>
 
@@ -144,7 +154,7 @@ class Build extends React.Component {
 
                 <SubSection name="Building a JAR-file">
 
-                    <p>
+                    <p className="text-muted">
                         We can compile a project to a single standalone "fat" JAR-file that includes all dependencies:
                     </p>
 
@@ -156,7 +166,7 @@ class Build extends React.Component {
                         </CardBody>
                     </Card>
 
-                    <p>
+                    <p className="text-muted">
                         which will produce a <Code>myproject.jar</Code> ready to run:
                     </p>
 
@@ -169,7 +179,7 @@ class Build extends React.Component {
                         </CardBody>
                     </Card>
 
-                    <p>
+                    <p className="text-muted">
                         The JAR-file contains all class files generated by the project and also the few classes that
                         constitute the Flix runtime, e.g. the implementation of channels and the fixpoint solver.
                     </p>
@@ -182,7 +192,7 @@ class Build extends React.Component {
 
                 <SubSection name="Running a Project">
 
-                    <p>
+                    <p className="text-muted">
                         We do not have to build a JAR-file to run a project, we can simply use
                         the <Code>run</Code> command:
                     </p>
@@ -216,7 +226,7 @@ class Build extends React.Component {
                         </CardBody>
                     </Card>
 
-                    <p>
+                    <p className="text-muted">
                         Flix will collect all functions marked with <Code>@test</Code>, execute them, and print a
                         summary of the results:
                     </p>
@@ -235,7 +245,7 @@ class Build extends React.Component {
 
                 <SubSection name="Benchmarking a Project">
 
-                    <p>
+                    <p className="text-muted">
                         We can use the the <Code>benchmark</Code> command to run all benchmarks in a project:
                     </p>
 
@@ -247,7 +257,7 @@ class Build extends React.Component {
                         </CardBody>
                     </Card>
 
-                    <p>
+                    <p className="text-muted">
                         Flix will collect all functions marked with <Code>@benchmark</Code>, execute them multiple times
                         while measuring their performance, and print a summary of the results.
                     </p>

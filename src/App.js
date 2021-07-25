@@ -19,6 +19,7 @@ import Effects from "./content/Effects";
 import TipsAndTricks from "./content/TipsAndTricks";
 import References from "./content/References";
 import Arrays from "./content/Arrays";
+import Build from "./content/Build";
 
 const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
@@ -145,6 +146,7 @@ class App extends React.Component {
                     <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
                     <Route path="/tipstricks/" render={() => <TipsAndTricks/>}/>
+                    <Route path="/build/" render={() => <Build/>}/>
 
                 </div>
             </div>

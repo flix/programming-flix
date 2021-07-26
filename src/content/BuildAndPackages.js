@@ -30,7 +30,7 @@ class BuildAndPackages extends React.Component {
 
                 <p>
                     The Flix build system makes it easy to create a new Flix project, to compile a project, to run
-                    a project, to run all tests in a project, to bundle a project into a Flix package, and to compile
+                    a project, to run tests in a project, to bundle a project into a Flix package, and to compile
                     a project to a JAR-file.
                 </p>
 
@@ -143,8 +143,8 @@ README.md`}
 
                     <p>
                         The <Code>lib/</Code> directory is intended to hold Flix package files (<Code>.fpkg</Code>-files).
-                        The build system and the Visual Studio Code extension will automatically load Flix package
-                        files from the <Code>lib/</Code> directory.
+                        The build system and Visual Studio Code will automatically detect Flix packages that are in
+                        the <Code>lib/</Code> directory.
                     </p>
 
                 </SubSection>
@@ -162,8 +162,8 @@ README.md`}
                     </CodeBlock>
 
                     <p>
-                        Checking a project is equivalent to building a project, except no code is generated, and
-                        consequently the process is significantly faster than a full compilation run.
+                        Checking a project is equivalent to building a project, except no code is generated and the
+                        process is significantly faster than a complete build.
                     </p>
 
                 </SubSection>
@@ -183,8 +183,8 @@ README.md`}
                     </p>
 
                     <DesignNote>
-                        There is no <Code>clean</Code> command, but deleting the <Code>build</Code> directory is
-                        sufficient.
+                        There is no <Code>clean</Code> command, but deleting everything inside
+                        the <Code>build</Code> directory serves the same purpose.
                     </DesignNote>
 
                 </SubSection>
@@ -218,9 +218,9 @@ README.md`}
                     <DesignNote>
                         At the time of writing, the built JAR-file still depends on the <Code>flix.jar</Code> file. Thus
                         to run a Flix program you must put both the generated JAR-file and <Code>flix.jar</Code> on the
-                        class path. In the future, the plan is to make the generated JAR-file fully self-contained.
-                        For example, on Windows, the command would
-                        be: <code>{`java -jar "flix.jar;myproject.jar" Main`}</code>.
+                        class path. For example, on Windows, the command would
+                        be: <code>{`java -jar "flix.jar;myproject.jar" Main`}</code>. In the future, the plan is to make
+                        the generated JAR-file fully self-contained.
                     </DesignNote>
 
                 </SubSection>
@@ -251,8 +251,8 @@ README.md`}
 
                     <DesignNote>
                         Flix does not compile to an intermediate format, but instead relies on packages to contain
-                        source code. This means that the Flix compiler does not lose any information about a package
-                        and can perform cross-package optimizations.
+                        source code. This means that Flix does not lose any information about a package and can perform
+                        cross-package optimizations.
                     </DesignNote>
 
                 </SubSection>

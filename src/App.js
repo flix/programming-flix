@@ -19,6 +19,7 @@ import Effects from "./content/Effects";
 import TipsAndTricks from "./content/TipsAndTricks";
 import References from "./content/References";
 import Arrays from "./content/Arrays";
+import BuildAndPackages from "./content/BuildAndPackages";
 
 const SocketAddress = 'wss://evaluator.flix.dev/ws';
 
@@ -124,6 +125,10 @@ class App extends React.Component {
                         </NavItem>
 
                         <NavItem className="pl-1 pr-1">
+                            <NavLink tag={Link} to="/build-and-packages/">Build &amp; Packages</NavLink>
+                        </NavItem>
+
+                        <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/tipstricks/">Tips &amp; Tricks</NavLink>
                         </NavItem>
                     </Nav>
@@ -144,6 +149,7 @@ class App extends React.Component {
                     <Route path="/effects/" render={() => <Effects flix={this.getFlix()}/>}/>
                     <Route path="/fixpoints/" render={() => <Fixpoints flix={this.getFlix()}/>}/>
                     <Route path="/interoperability/" render={() => <Interoperability flix={this.getFlix()}/>}/>
+                    <Route path="/build-and-packages/" render={() => <BuildAndPackages/>}/>
                     <Route path="/tipstricks/" render={() => <TipsAndTricks/>}/>
 
                 </div>

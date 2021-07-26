@@ -75,7 +75,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Navbar expand="lg" color="light" className="menu mb-4">
+                <Navbar expand="lg" color="light" className="menu mb-4" style={{"paddingLeft": "1.5rem"}}>
                     <Nav className="mr-lg-auto" navbar>
                         <NavItem className="pl-1 pr-1">
                             <NavLink tag={Link} to="/introduction/">Introduction</NavLink>

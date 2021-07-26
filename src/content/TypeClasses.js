@@ -45,8 +45,12 @@ class TypeClasses extends React.Component {
                     1. some example?
 
                     Higher-order classes
-                    1. functor example
                     2. kind discussion
+
+                    StdLib typeclasses
+                    1. ToString/FromString
+                    2. Add/Sub...
+                    3. Functor/Foldable
                 */
                 }
                 <p>

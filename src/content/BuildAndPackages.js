@@ -29,11 +29,8 @@ class BuildAndPackages extends React.Component {
                 </p>
 
                 <p>
-                    The Flix build system makes it easy to create a new Flix project, to compile a project, to run
-                    a project, to run tests in a project, to bundle a project into a Flix package, and to compile
-                    a project to a JAR-file.
+                    The Flix build system makes it easy to create, compile, run, and test a Flix project.
                 </p>
-
 
                 <SubSection name="Overview">
 
@@ -91,9 +88,9 @@ class BuildAndPackages extends React.Component {
                     <CodeBlock>{`$ java -jar path/to/flix.jar init`}</CodeBlock>
 
                     <p>
-                        Build commands can also be invoked from within Visual Studio Code by pressing <kbd>CTRL +
-                        P</kbd> and typing the name of the relevant command. This is the recommended way to use the
-                        build system.
+                        Build commands can also be invoked from within Visual Studio Code by pressing <kbd>CTRL + SHIFT
+                        + P</kbd> (to bring up the command palette) and typing the name of the relevant command. This is
+                        the recommended way to use the build system.
                     </p>
 
                     <p>
@@ -101,7 +98,7 @@ class BuildAndPackages extends React.Component {
                         <ol>
                             <li> create a new empty folder,</li>
                             <li>open the folder in Visual Studio Code (File -> Open Folder...), and</li>
-                            <li>press <kbd>CTRL + P</kbd> and type <code>Flix init</code>.
+                            <li>press <kbd>CTRL + SHIFT + P</kbd> and type <code>Flix init</code>.
                             </li>
                         </ol>
                     </p>
@@ -212,13 +209,13 @@ README.md`}
                     </p>
 
                     <Warning>
-                        The project must have been built before with the <Code>build</Code> command.
+                        The project must have been built beforehand with the <Code>build</Code> command.
                     </Warning>
 
                     <DesignNote>
-                        At the time of writing, the built JAR-file still depends on the <Code>flix.jar</Code> file. Thus
-                        to run a Flix program you must put both the generated JAR-file and <Code>flix.jar</Code> on the
-                        class path. For example, on Windows, the command would
+                        At the time of writing (July 2021), the built JAR-file still depends on
+                        the <Code>flix.jar</Code> file. Thus to run a Flix program you must put both the generated
+                        JAR-file and <Code>flix.jar</Code> on the class path. For example, on Windows, the command would
                         be: <code>{`java -jar "flix.jar;myproject.jar" Main`}</code>. In the future, the plan is to make
                         the generated JAR-file fully self-contained.
                     </DesignNote>
@@ -245,7 +242,7 @@ README.md`}
                     </p>
 
                     <p>
-                        Its recommended to include the semantic version in the filename of the package,
+                        It is recommended to include the semantic version in the filename of the package,
                         e.g. <Code>foo-1.2.1.fpkg</Code>.
                     </p>
 

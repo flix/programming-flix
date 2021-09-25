@@ -32,7 +32,7 @@ class Records extends React.Component {
                     <CodeBlock>{`{ x = 1, y = 2 }`}</CodeBlock>
 
                     <p>
-                        which has the record type <Code>{`{ x : Int32, y : Int32 }`}</Code>.
+                        which has the record type <Code>{`{ x :: Int32, y :: Int32 }`}</Code>.
                     </p>
 
                     <p>
@@ -43,8 +43,8 @@ class Records extends React.Component {
                     <CodeBlock>{`{ y = 2, x = 1 }`}</CodeBlock>
 
                     <p>
-                        which has the record type <Code>{`{ y : Int32, x : Int32 }`}</Code>. This type is equivalent
-                        to the record type <Code>{`{ x : Int32, y : Int32 }`}</Code>. That is, the order of fields
+                        which has the record type <Code>{`{ y :: Int32, x :: Int32 }`}</Code>. This type is equivalent
+                        to the record type <Code>{`{ x :: Int32, y :: Int32 }`}</Code>. That is, the order of fields
                         within a record type do not matter.
                     </p>
 
@@ -129,7 +129,7 @@ let p2 = { -y | p1 };`}</CodeBlock>
                         A function may specify that it requires a record with two fields:
                     </p>
 
-                    <CodeBlock>{`def f(r: {x: Int32, y: Int32}): Int32 = r.x + r.y`}</CodeBlock>
+                    <CodeBlock>{`def f(r: {x :: Int32, y :: Int32}): Int32 = r.x + r.y`}</CodeBlock>
 
                     <p>
                         We can call this function with the
@@ -144,7 +144,7 @@ let p2 = { -y | p1 };`}</CodeBlock>
                         We can lift this restriction by using row polymorphism:
                     </p>
 
-                    <CodeBlock>{`def g(r: {x: Int32, y: Int32 | s}): Int32 = r.x + r.y`}</CodeBlock>
+                    <CodeBlock>{`def g(r: {x :: Int32, y :: Int32 | s}): Int32 = r.x + r.y`}</CodeBlock>
 
                     <p>
                         We can call this function with <i>any</i> record as long as it

@@ -235,6 +235,13 @@ instance Length[List[a]] {
 
 
                 </SubSection>
+
+                <SubSection name="Type Constraints">
+                    We've seen type constraints on on function definitions,
+                    but constraints can appear on on instances and type classes themselves as well.
+
+                    
+                </SubSection>
             </Section>
         )
     }

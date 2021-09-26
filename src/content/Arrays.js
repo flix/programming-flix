@@ -113,8 +113,8 @@ a[2..4]
                     </p>
 
                     <CodeBlock>{`let a = [1, 2, 3, 4, 5];
-let a1 = [2..]; // evaluates to [3, 4, 5]
-let a2 = [..4]  // evaluates to [1, 2, 3, 4]`}</CodeBlock>
+let a1 = a[2..]; // evaluates to [3, 4, 5]
+let a2 = a[..4]  // evaluates to [1, 2, 3, 4]`}</CodeBlock>
 
                     <p>
                         If both the start and end index are omitted the entire array is copied. For example:

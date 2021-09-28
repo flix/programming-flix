@@ -443,7 +443,7 @@ Some(x + y) `}</CodeBlock>
                         For example:
                     </p>
 
-                    <CodeBlock>{`def sum(x: Int, y: Int}: Int = ???`}</CodeBlock>
+                    <CodeBlock>{`def sum(x: Int, y: Int): Int = ???`}</CodeBlock>
 
                     <p>
                         The triple question marks <Code>???</Code> represents an anonymous hole and can be used wherever
@@ -451,7 +451,7 @@ Some(x + y) `}</CodeBlock>
                         body, but it can also be used inside an expression. For example:
                     </p>
 
-                    <CodeBlock>{`def length(l: List[a]}: Int = match l {
+                    <CodeBlock>{`def length(l: List[a]): Int = match l {
   case Nil     => 0
   case x :: xs => ???
 }`}</CodeBlock>
@@ -460,7 +460,7 @@ Some(x + y) `}</CodeBlock>
                         When a program has multiple holes, it can be useful to name them. For example:
                     </p>
 
-                    <CodeBlock>{`def length(l: List[a]}: Int = match l {
+                    <CodeBlock>{`def length(l: List[a]): Int = match l {
   case Nil     => ?base
   case x :: xs => ?step
 }`}</CodeBlock>

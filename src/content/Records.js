@@ -154,6 +154,33 @@ let p2 = { -y | p1 };`}</CodeBlock>
 
                 </SubSection>
 
+                <SubSection name="Records as named parameters">
+                    <p>
+                        In general, Flix lacks named parameters.
+                        However, to improve usability of certain functions whose parameters might be confusing,
+                        singleton records can be used to clarify parameter order.
+                    </p>
+
+                    <CodeBlock>{`def translate(from: {from :: Language}, to: {to :: Language}, text: String): String = ???`}</CodeBlock>
+
+                    <p>
+                        A lightweight syntax allows for simpler construction of records when calling functions.
+                    </p>
+
+                    <CodeBlock>{`translate(from = English, to = French, "Where is the library?")`}</CodeBlock>
+
+                    <p>
+                        This is equivalent to the following, more verbose function call.
+                    </p>
+
+                    <CodeBlock>{`translate({from = English}, {to = French}, "Where is the library?")`}</CodeBlock>
+
+                    <p>
+                        Note that this does not allow for manipulation of the order of parameters.
+                    </p>
+
+                </SubSection>
+
                 <SubSection name="Illegal Record Field: length">
 
                     <p>

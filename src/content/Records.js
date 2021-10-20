@@ -154,7 +154,7 @@ let p2 = { -y | p1 };`}</CodeBlock>
 
                 </SubSection>
 
-                <SubSection name="Records as named parameters">
+                <SubSection name="Named Parameters with Records">
                     <p>
                         In general, Flix lacks named parameters.
                         However, to improve usability of certain functions whose parameters might be confusing,

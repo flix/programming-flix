@@ -156,27 +156,34 @@ let p2 = { -y | p1 };`}</CodeBlock>
 
                 <SubSection name="Named Parameters with Records">
                     <p>
-                        In general, Flix lacks named parameters.
-                        However, to improve usability of certain functions whose parameters might be confusing,
-                        singleton records can be used to clarify parameter order.
+                        When a function has multiple parameters that share the same type,
+                        it is easy to get confused about the right argument order.
+                        For example, what does <code>String.contains("Hello", "Hello World")</code> return?
+                        What does <code>String.contains("Hello World", "Hello")</code> return?
+                    </p>
+
+                    <p>
+                        A common solution to this problem is to used <emph>named parameters</emph>.
+                        Flix supports a form of named parameters building on records.
+                        For example, we can write a function translate to translate from one language to another as follows:
                     </p>
 
                     <CodeBlock>{`def translate(from: {from :: Language}, to: {to :: Language}, text: String): String = ???`}</CodeBlock>
 
                     <p>
-                        A lightweight syntax allows for simpler construction of records when calling functions.
-                    </p>
-
-                    <CodeBlock>{`translate(from = English, to = French, "Where is the library?")`}</CodeBlock>
-
-                    <p>
-                        This is equivalent to the following, more verbose function call.
+                        We can call this function as follows:
                     </p>
 
                     <CodeBlock>{`translate({from = English}, {to = French}, "Where is the library?")`}</CodeBlock>
 
                     <p>
-                        Note that this does not allow for manipulation of the order of parameters.
+                        Since such verbosity gets tedious, we can also use the syntactic sugar:
+                    </p>
+
+                    <CodeBlock>{`translate(from = English, to = French, "Where is the library?")`}</CodeBlock>
+
+                    <p>
+                        which is equivalent to the above.
                     </p>
 
                 </SubSection>

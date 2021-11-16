@@ -158,8 +158,8 @@ let p2 = { -y | p1 };`}</CodeBlock>
                     <p>
                         When a function has multiple parameters that share the same type,
                         it is easy to get confused about the right argument order.
-                        For example, what does <code>String.contains("Hello", "Hello World")</code> return?
-                        What does <code>String.contains("Hello World", "Hello")</code> return?
+                        For example, what does <Code>String.contains("Hello", "Hello World")</Code> return?
+                        What does <Code>String.contains("Hello World", "Hello")</Code> return?
                     </p>
 
                     <p>

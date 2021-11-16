@@ -163,7 +163,7 @@ let p2 = { -y | p1 };`}</CodeBlock>
                     </p>
 
                     <p>
-                        A common solution to this problem is to use <emph>named parameters</emph>.
+                        A common solution to this problem is to use <i>named parameters</i>.
                         Flix supports a form of named parameters building on records.
                         For example, we can write a function translate to translate from one language to another as follows:
                     </p>

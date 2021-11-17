@@ -154,6 +154,40 @@ let p2 = { -y | p1 };`}</CodeBlock>
 
                 </SubSection>
 
+                <SubSection name="Named Parameters with Records">
+                    <p>
+                        When a function has multiple parameters that share the same type,
+                        it is easy to get confused about the right argument order.
+                        For example, what does <Code>String.contains("Hello", "Hello World")</Code> return?
+                        What does <Code>String.contains("Hello World", "Hello")</Code> return?
+                    </p>
+
+                    <p>
+                        A common solution to this problem is to use <i>named parameters</i>.
+                        Flix supports a form of named parameters building on records.
+                        For example, we can write a function translate to translate from one language to another as follows:
+                    </p>
+
+                    <CodeBlock>{`def translate(from: {from :: Language}, to: {to :: Language}, text: String): String = ???`}</CodeBlock>
+
+                    <p>
+                        We can call this function as follows:
+                    </p>
+
+                    <CodeBlock>{`translate({from = English}, {to = French}, "Where is the library?")`}</CodeBlock>
+
+                    <p>
+                        Since such verbosity gets tedious, we can also use the syntactic sugar:
+                    </p>
+
+                    <CodeBlock>{`translate(from = English, to = French, "Where is the library?")`}</CodeBlock>
+
+                    <p>
+                        which is equivalent to the above.
+                    </p>
+
+                </SubSection>
+
                 <SubSection name="Illegal Record Field: length">
 
                     <p>

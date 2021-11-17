@@ -176,7 +176,7 @@ fst(p) := 123`}</CodeBlock>
 r.fstName := "Unlucky"`}</CodeBlock>
 
                     <p>
-                        The type of the record is <Code>{"{ fstName: Ref[String], lstName: Ref[String] }"}</Code>.
+                        The type of the record is <Code>{"{ fstName :: Ref[String], lstName :: Ref[String] }"}</Code>.
                         Again, the assignment does not change the record itself, but rather changes the value of
                         the reference cell corresponding to the <Code>fstName</Code> field.
                     </p>

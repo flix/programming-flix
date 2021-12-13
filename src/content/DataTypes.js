@@ -160,7 +160,7 @@ let y = snd(t)  // y = 2`}</CodeBlock>
                     </p>
 
                     <CodeBlock>{`let l = (1, 1) :: (2, 2) :: Nil; // has type List[(Int32, Int32)]
-List.map(fst, l1)                // has type List[Int32]`}</CodeBlock>
+List.map(fst, l)                // has type List[Int32]`}</CodeBlock>
 
                     <p>
                         which evaluates to a list that contains all the first components of the list <Code>l</Code>.

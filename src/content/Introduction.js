@@ -69,7 +69,7 @@ def main(_args: Array[String]): Int32 & Impure =
                     {`/// Returns the area of the polymorphic record \`r\`.
 /// Note that the use of the type variable \`a\` permits the record \`r\`
 /// to have labels other than \`x\` and \`y\`.
-def polyArea[a : Record](r: {x: Int, y: Int | a}): Int = r.x * r.y
+def polyArea[a : RecordRow](r: {x:: Int, y:: Int | a}): Int = r.x * r.y
 
 /// Computes the area of various rectangle records.
 /// Note that some records have additional fields.

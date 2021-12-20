@@ -91,7 +91,7 @@ class TypeClasses extends React.Component {
                         In this case, there is only one function: <Code>Length.length</Code>,
                         which takes the member type as an argument and returns an integer.
                         The law <Code>nonnegative</Code> is also defined as part of the class.
-                        Laws will be further explored in section TK.
+                        Laws will be further explored below.
                     </p>
 
                     <CodeBlock>
@@ -158,9 +158,9 @@ instance Length[List[a]] {
                     <p>
                         We have added the <Code>isSingleton</Code> function to the <Code>Length</Code> type class,
                         with a default implementation that works in general.
-                        (We also added a new law <Code>singletonMeansOne</Code>; see section TK.)
-                        We have added an efficient <Code>override</Code> implementation of <Code>isSingleton</Code>
-                        to the <Code>Length</Code> instance for <Code>List[a]</Code>.
+                        (We also added a new law <Code>singletonMeansOne</Code>; see section <b>Laws</b>.)
+                        We have added an efficient <Code>override</Code> implementation of <Code>isSingleton</Code> to
+                        the <Code>Length</Code> instance for <Code>List[a]</Code>.
                         The advantage of the default implementation is that if there's no special
                         behavior needed for a type, the default is assumed.
                         The function does not have to be implemented.
@@ -219,11 +219,12 @@ instance Length[List[a]] {
                 </SubSection>
 
                 <SubSection name="Type Constraints">
-                    We've seen type constraints on on function definitions,
-                    but constraints can appear on on instances and type classes themselves as well.
-
-                    
+                    <p>
+                        We've seen type constraints on on function definitions,
+                        but constraints can appear on on instances and type classes themselves as well.
+                    </p>
                 </SubSection>
+
             </Section>
         )
     }

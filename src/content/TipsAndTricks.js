@@ -385,11 +385,11 @@ let g = match (x, y, z) -> x + y + z + 42i32`}
                     <SubSubSection name="Map Literals">
 
                         <p>
-                            A map literal is written using the notion <Code>{`Map#{k1 -> v1, k2 -> v2, ...}`}</Code>.
+                            A map literal is written using the notion <Code>{`Map#{k1 => v1, k2 => v2, ...}`}</Code>.
                             For example:
                         </p>
 
-                        <CodeBlock>{`Map#{1 -> "Hello", 2 -> "World"}`}</CodeBlock>
+                        <CodeBlock>{`Map#{1 => "Hello", 2 => "World"}`}</CodeBlock>
 
                         <p>
                             which is syntactic sugar for:

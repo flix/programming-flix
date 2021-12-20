@@ -202,24 +202,6 @@ instance Length[List[a]] {
                         For now, however, they only serve as a form of documentation.
                     </PlannedFeature>
 
-                    <p>
-                        In general, instances must follow all the laws in their corresponding type classes.
-                        Occasionally, however, an <Code>unlawful</Code> instance may be desired,
-                        which does not fulfill the requirements set out by the laws.
-                    </p>
-
-                    <CodeBlock>
-                        {`unlawful instance Length[AntiList[a]] {
-    pub def length(x: a): Int = match x {
-        case AntiList(list) => -List.Length(list)
-    }
-}`}
-                    </CodeBlock>
-
-                    <p>
-                        An <Code>AntiList</Code> may have negative length,
-                        so it breaks the <Code>nonnegative</Code> law.
-                    </p>
 
                     <p>
                         It might also be that laws don't make sense for a particular type class.

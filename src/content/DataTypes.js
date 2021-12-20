@@ -385,7 +385,7 @@ def sum(x: USD, y: USD): USD =
 ///
 type alias M[k, v] = Map[k, Result[v, String]]
 
-def foo(): M[Bool, Int] = Map#{true -> Ok(123)}
+def foo(): M[Bool, Int] = Map#{true => Ok(123)}
 `}
                     </CodeBlock>
 

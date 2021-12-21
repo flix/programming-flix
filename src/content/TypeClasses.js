@@ -51,6 +51,8 @@ class TypeClasses extends React.Component {
                     1. ToString/FromString
                     2. Add/Sub...
                     3. Functor/Foldable
+
+                    Derivations
                 */
                 }
                 <p>

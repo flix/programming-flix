@@ -212,7 +212,7 @@ instance Length[List[a]] {
                     </p>
 
                     <CodeBlock>
-                        {`lawless class DoNothing[a] {
+                        {`pub lawless class DoNothing[a] {
     pub def doNothing(x: a): Unit = ()
 }`}
                     </CodeBlock>
@@ -225,6 +225,27 @@ instance Length[List[a]] {
                         We've seen type constraints on on function definitions,
                         but constraints can appear on on instances and type classes themselves as well.
                     </p>
+
+                    <CodeBlock>
+                        {`pub class TreeSize[a] {
+    /// Returns the number of nodes in the object graph of this object
+    pub def size(x: a): Int32
+
+    law positive: forall(x: a) . size(x) > 0
+}
+
+instance TreeSize[Int32] {
+    pub def size(x: Int32): Int32 = 1
+}
+
+instance TreeSize[List[a]] with TreeSize[a] {
+    pub def size(x: List[a]): Int32 = {
+        // one node for each cons cell, one for the nil, and nodes for each node's value
+        List.Length(x) + 1 + List.foldLeft((acc, y) -> acc + TreeSize.size(y), 0, x)
+    }
+}
+
+`}</CodeBlock>
                 </SubSection>
 
             </Section>

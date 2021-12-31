@@ -89,7 +89,7 @@ class Functions extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`def inc(x: Int32): Int32 = x
+                        {`def inc(x: Int32): Int32 = x + 1
 
 def twice(f: Int32 -> Int32, x: Int32): Int32 = f(f(x))
 

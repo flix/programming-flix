@@ -243,9 +243,29 @@ instance TreeSize[List[a]] with TreeSize[a] {
         // one node for each cons cell, one for the nil, and nodes for each node's value
         List.Length(x) + 1 + List.foldLeft((acc, y) -> acc + TreeSize.size(y), 0, x)
     }
-}
+}`}
+                    </CodeBlock>
+                </SubSection>
 
-`}</CodeBlock>
+                <SubSection name="Sealed Classes">
+                    <p>
+                        In general, a user can add an instance of a class for any type they define.
+                        In some cases, however, it is useful to restrict membership in a class
+                        to a finite list of types,
+                        defined by the author of the class.
+                        This is the purpose of a <Code>sealed</Code> class,
+                        for which instances outside the class's namespace are not permitted.
+                    </p>
+
+                    <CodeBlock>
+                        {`sealed class Primitive[a]
+
+instance Primitive[Bool]
+instance Primitive[Int32]
+instance Primitive[Float64]
+// ... and so on
+`}
+                    </CodeBlock>
                 </SubSection>
 
             </Section>

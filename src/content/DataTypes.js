@@ -151,7 +151,7 @@ lstName`}</CodeBlock>
                         The Flix prelude defines the <Code>fst</Code> and <Code>snd</Code> functions:
                     </p>
 
-                    <CodeBlock>{`let p = (1, 2);
+                    <CodeBlock>{`let t = (1, 2);
 let x = fst(t); // x = 1
 let y = snd(t)  // y = 2`}</CodeBlock>
 
@@ -238,7 +238,7 @@ def isTall(a: Animal): Bool = match a {
                     </p>
 
                     <p>
-                        For example, we can define a a binary tree of integers as follows:
+                        For example, we can define a binary tree of integers as follows:
                     </p>
 
                     <CodeBlock>

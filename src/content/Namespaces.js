@@ -212,7 +212,7 @@ def redColor(): Color = Color.Red
 
 namespace A/B {
     pub enum Color {
-        case Red, Blu
+        case Red, Blue
     }
 }`}
                     </CodeBlock>
@@ -225,11 +225,11 @@ namespace A/B {
                         {`use A/B.Color;
 use A/B.Hue;
 
-def bluColor(): Hue = Color.Blu
+def blueColor(): Hue = Color.Blue
 
 namespace A/B {
     pub enum Color {
-        case Red, Blu
+        case Red, Blue
     }
     type alias Hue = Color
 }`}
@@ -244,13 +244,13 @@ namespace A/B {
                     </p>
 
                     <CodeBlock>
-                        {`def bluIsRed(): Bool = 
-  use A/B.Color.{Blu, Red};
+                        {`def blueIsRed(): Bool = 
+  use A/B.Color.{Blue, Red};
   Blue != Red
 
 namespace A/B {
     pub enum Color {
-        case Red, Blu
+        case Red, Blue
     }
 }`}
                     </CodeBlock>

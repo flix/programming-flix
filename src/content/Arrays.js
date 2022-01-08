@@ -42,7 +42,7 @@ class Arrays extends React.Component {
 
                 <p>
                     Arrays should only be used for low-level code. The <Code>MutList</Code> data structure, available
-                    in the standard library, provides a mutable, dynamically-expanding data structure similar to
+                    in the standard library, provides a mutable, dynamically-expanding data structure similar to 
                     <Code>java.util.ArrayList</Code>. Its implementation is backed by an array that is dynamically
                     resized and it provides amortized O(1) push operations.
                 </p>

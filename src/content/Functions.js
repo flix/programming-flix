@@ -105,9 +105,10 @@ twice(inc, 42)`}
                     </p>
 
                     <CodeBlock>
-                        Unit -> Int32    // For nullary functions
+                        {`Unit -> Int32    // For nullary functions
                         Int32 -> Int32   // For unary functions
                         (Int32, Int32, ...) -> Int32 // For the rest
+                        `}
                      </CodeBlock>
                 </SubSection>
 

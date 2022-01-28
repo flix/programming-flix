@@ -98,6 +98,19 @@ twice(inc, 42)`}
 
                 </SubSection>
 
+                <SubSection name="Function Type Syntax">
+                    <p>
+                        Depending on the number of arguments to a function, the syntax for 
+                        the function type differs:
+                    </p>
+
+                    <CodeBlock>
+                        Unit -> Int32    // For nullary functions
+                        Int32 -> Int32   // For unary functions
+                        (Int32, Int32, ...) -> Int32 // For the rest
+                     </CodeBlock>
+                </SubSection>
+
                 <SubSection name="Function Composition">
 
                     <p>

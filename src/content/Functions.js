@@ -242,7 +242,7 @@ def main(_args: Array[String]): Int32 & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`def map(f: a -> b & e, l: List[a]): List[b] & e = ...`}
+                        {`def map(f: a -> b & ef, l: List[a]): List[b] & ef = ...`}
                     </CodeBlock>
 
                     <p>

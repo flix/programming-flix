@@ -110,8 +110,7 @@ class DataTypes extends React.Component {
                     </Table>
 
                     <p>
-                        <Code>Float</Code> is shorthand for <Code>Float64</Code> and <Code>Int</Code> is
-                        shorthand for <Code>Int32</Code>. <Code>Float64</Code> and <Code>Int32</Code> values can be
+                        <Code>Float64</Code> and <Code>Int32</Code> values can be
                         written without suffix, i.e. <Code>123.0f64</Code> can simply be written
                         as <Code>123.0</Code> and <Code>123i32</Code> can be written as <Code>123</Code>.
                     </p>

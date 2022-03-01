@@ -247,8 +247,8 @@ def main(_args: Array[String]): Int32 & Impure =
 
                     <p>
                         here the signature of <Code>map</Code> captures that if the function argument <Code>f</Code> has
-                        type <Code>a -&gt; b</Code> with effect <Code>e</Code> then the effect
-                        of <Code>map</Code> itself is <Code>e</Code>. This means that if <Code>map</Code> is called
+                        type <Code>a -&gt; b</Code> with effect <Code>ef</Code> then the effect
+                        of <Code>map</Code> itself is <Code>ef</Code>. This means that if <Code>map</Code> is called
                         with a pure (resp. impure) function argument then the overall expression is pure (resp. impure).
                         For example:
                     </p>

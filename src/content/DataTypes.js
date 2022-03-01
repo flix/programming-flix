@@ -259,7 +259,7 @@ def isTall(a: Animal): Bool = match a {
                     </p>
 
                     <CodeBlock>
-                        {`def sum(t: Tree): Int = match t {
+                        {`def sum(t: Tree): Int32 = match t {
     case Leaf(x)    => x
     case Node(l, r) => sum(l) + sum(r)
 }`}
@@ -384,7 +384,7 @@ def sum(x: USD, y: USD): USD =
 ///
 type alias M[k, v] = Map[k, Result[v, String]]
 
-def foo(): M[Bool, Int] = Map#{true => Ok(123)}
+def foo(): M[Bool, Int32] = Map#{true => Ok(123)}
 `}
                     </CodeBlock>
 

@@ -134,7 +134,7 @@ let h = f >> g;     // equivalent to x -> g(f(x))`}
 
                     <CodeBlock>
                         {`List.range(1, 100) |>
-List.filter(x -> x % 2 == 0) |>
+List.filter(x -> x mod 2 == 0) |>
 List.map(x -> x * x) |>
 println;`}
                     </CodeBlock>

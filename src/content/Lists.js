@@ -20,7 +20,7 @@ class Lists extends React.Component {
                     The bread and butter of functional programming is list processing. A list is either the empty list,
                     written as <Code>Nil</Code>, or a cons cell, written as <Code>x :: xs</Code> where <Code>x</Code> is
                     the head element and <Code>xs</Code> is the tail of the list. The <Code>List</Code> type is
-                    polymorphic so you can have a list of integers, written as <Code>List[Int]</Code>, or a list of
+                    polymorphic so you can have a list of integers, written as <Code>List[Int32]</Code>, or a list of
                     strings written as <Code>List[String]</Code>. The <Code>List</Code> type and list operations are
                     part
                     of the Flix standard library.
@@ -124,7 +124,7 @@ List.intercalate(l1, l2)`}
 /// Returns the result of applying \`f\` to every element in \`xs\`.
 /// That is, the result is of the form: \`f(x1) :: f(x2) :: ...\`.
 ///
-pub def map(f: a -> b & e, xs: List[a]): List[b] & e = match xs {
+pub def map(f: a -> b & ef, xs: List[a]): List[b] & ef = match xs {
     case Nil     => Nil
     case x :: rs => f(x) :: map(f, rs)
 }`}

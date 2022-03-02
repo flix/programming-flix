@@ -231,7 +231,7 @@ namespace A/B {
     pub enum Color {
         case Red, Blue
     }
-    type alias Hue = Color
+    pub type alias Hue = Color
 }`}
                     </CodeBlock>
 

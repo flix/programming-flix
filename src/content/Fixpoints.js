@@ -236,7 +236,7 @@ def main(_args: Array[String]): Int32 & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`def edgesWithNumbers(): #{ LabelledEdge(String, Int, String) | r } = #{
+                        {`def edgesWithNumbers(): #{ LabelledEdge(String, Int32 , String) | r } = #{
     LabelledEdge("a", 1, "b").
     LabelledEdge("b", 1, "c").
     LabelledEdge("c", 2, "d").

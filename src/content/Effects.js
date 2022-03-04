@@ -157,7 +157,7 @@ def foreach(f: a ~> Unit, l: List[a]): Unit & Impure`}
                 </p>
 
                 <p>
-                    If in this example <Code>h</Code> is called with a function argument <Code>f</Code> 
+                    If in this example <Code>h</Code> is called with a function argument <Code>f </Code>
                     which is impure, then the variable <Code>ef1</Code> must be false and thus the
                     second argument must be pure (because <Code>not ef1 or ef2</Code> will always be
                     true, no matter how we choose <Code>ef2</Code>). Conversely, if <Code>f</Code> is

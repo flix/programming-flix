@@ -152,7 +152,7 @@ def foreach(f: a ~> Unit, l: List[a]): Unit & Impure`}
                     (whether it can be pure or impure) are specified by the boolean expression <Code>not
                     ef1 or ef2</Code>. For a specific combination of pure and impure arguments to be
                     accepted, there must be an assignment of the boolean variables <Code>ef1</Code> and  
-                    <Code>ef2</Code> to true and false such that the boolean expressions for pure
+                    <Code> ef2</Code> to true and false such that the boolean expressions for pure
                     arguments evaluate to true and those for impure arguments evaluate to false.
                 </p>
 

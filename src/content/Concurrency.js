@@ -158,8 +158,8 @@ select {
 
                     <CodeBlock>
                         {`def slow(c: Channel[String]): Unit & Impure =
-    import java.lang.Thread:sleep(Int64);
-    sleep(Duration.oneMinute() / 1000000i64);
+    import static java.lang.Thread.sleep(Int64): Unit & Impure;
+    sleep(Time/Duration.oneMinute() / 1000000i64);
     c <- "I am very slow";
     ()
 
@@ -168,7 +168,7 @@ def main(_args: Array[String]): Int32 & Impure =
     spawn slow(c);
     select {
         case m <- c                    => m
-        case t <- Timer.seconds(5i64)  => "timeout"
+        case t <- Concurrent/Channel/Timer.seconds(5i64)  => "timeout"
     } |> println;
     0
 `}

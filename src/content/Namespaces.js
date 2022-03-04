@@ -249,7 +249,7 @@ namespace A/B {
   Blue != Red
 
 namespace A/B {
-    pub enum Color {
+    pub enum Color with Eq {
         case Red, Blue
     }
 }`}

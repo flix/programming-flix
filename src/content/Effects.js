@@ -145,8 +145,8 @@ def foreach(f: a ~> Unit, l: List[a]): Unit & Impure`}
 
                 <p>
                     Note that here <Code>ef1</Code> and <Code>ef2</Code> are arbitrary boolean variables
-                    which are not directly associated with the effect of <Code>f</Code> or  
-                    <Code>g</Code> (like it was the case in the simpler example above). In general, the
+                    which are not directly associated with the effect of <Code>f</Code> or <Code>g</Code>
+                    (like it was the case in the simpler example above). In general, the
                     possible effects for argument functions and the to-be-defined function are described
                     by arbitrary boolean expressions. Here the possible effects of <Code>g</Code>  
                     (whether it can be pure or impure) are specified by the boolean expression <Code>not

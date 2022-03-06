@@ -101,8 +101,8 @@ println(l)`}
                         The <Code>print</Code> and <Code>println</Code> functions are rightfully <Code>Impure</Code>.
                         Consequently they cannot be called from a pure context. This can sometimes hinder debugging of a
                         pure function where you want to log some intermediate computation.
-                        But the <Code>print</Code> and <Code>println</Code> functions can be cast as <Code>Pure</Code>.
-                        Here is an example:
+                        A solution is to cast the <Code>print</Code> and <Code>println</Code> functions as
+                        <Code>Pure</Code>. Here is an example:
                     </p>
 
                     <CodeBlock>

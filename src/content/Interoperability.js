@@ -117,7 +117,7 @@ exists(f)`}
                     <CodeBlock>
                         {`def startsWith(prefix: {prefix :: String}, s: String): Bool =
     import java.lang.String.startsWith(String): Bool & Pure;
-    (s `startsWith` prefix.prefix)`}
+    startsWith(s, prefix.prefix)`}
                     </CodeBlock>
 
                     <p>

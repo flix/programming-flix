@@ -100,22 +100,21 @@ println(l)`}
                     <p>
                         The <Code>print</Code> and <Code>println</Code> functions are rightfully <Code>Impure</Code>.
                         Consequently they cannot be called from a pure context. This can sometimes hinder debugging of a
-                        pure function where you want to log some intermediate computation. For this purpose Flix
-                        provides
-                        two unsafe variants named <Code>Unsafe.print</Code> and <Code>Unsafe.println</Code> which are
-                        considered pure by the type system. Here is an example:
+                        pure function where you want to log some intermediate computation.
+                        But the <Code>print</Code> and <Code>println</Code> functions can be cast as <Code>Pure</Code>.
+                        Here is an example:
                     </p>
 
                     <CodeBlock>
                         {`def sum(x: Int32, y: Int32): Int32 = 
-    let _ = Unsafe.println(x);
-    let _ = Unsafe.println(y);
+    let _ = println(x) as & Pure;
+    let _ = println(y) as & Pure;
     x + y`}
                     </CodeBlock>
 
                     <p>
                         Note that <Code>sum</Code> remains a pure function despite the two calls
-                        to <Code>Unsafe.println</Code>. Moreover, since the call <Code>Unsafe.println(x)</Code> is pure
+                        to <Code>println</Code>. Moreover, since the call <Code>println(x)</Code> is pure
                         we must introduce a let-binding with an unused variable to prevent Flix from rejecting the
                         program due to a redundant pure computation.
                     </p>

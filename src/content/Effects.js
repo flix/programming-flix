@@ -145,19 +145,19 @@ def foreach(f: a ~> Unit, l: List[a]): Unit & Impure`}
 
                 <p>
                     Note that here <Code>ef1</Code> and <Code>ef2</Code> are arbitrary boolean variables
-                    which are not directly associated with the effect of <Code>f</Code> or  
-                    <Code>g</Code> (like it was the case in the simpler example above). In general, the
+                    which are not directly associated with the effect of <Code>f</Code> or <Code>g</Code>
+                    (like it was the case in the simpler example above). In general, the
                     possible effects for argument functions and the to-be-defined function are described
                     by arbitrary boolean expressions. Here the possible effects of <Code>g</Code>  
                     (whether it can be pure or impure) are specified by the boolean expression <Code>not
                     ef1 or ef2</Code>. For a specific combination of pure and impure arguments to be
                     accepted, there must be an assignment of the boolean variables <Code>ef1</Code> and  
-                    <Code>ef2</Code> to true and false such that the boolean expressions for pure
+                    <Code> ef2</Code> to true and false such that the boolean expressions for pure
                     arguments evaluate to true and those for impure arguments evaluate to false.
                 </p>
 
                 <p>
-                    If in this example <Code>h</Code> is called with a function argument <Code>f</Code> 
+                    If in this example <Code>h</Code> is called with a function argument <Code>f </Code>
                     which is impure, then the variable <Code>ef1</Code> must be false and thus the
                     second argument must be pure (because <Code>not ef1 or ef2</Code> will always be
                     true, no matter how we choose <Code>ef2</Code>). Conversely, if <Code>f</Code> is

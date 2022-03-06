@@ -42,7 +42,7 @@ class Interoperability extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`import new java.io.File(String) as newFile;
+                        {`import new java.io.File(String): ##java.io.File & Impure as newFile;
 newFile("HelloWorld.txt")`}
                     </CodeBlock>
 
@@ -64,7 +64,7 @@ newFile("HelloWorld.txt")`}
                         {`type alias File = ##java.io.File
 
 def openFile(s: String): File & Impure = 
-    import new java.io.File(String) as newFile;
+    import new java.io.File(String): ##java.io.File & Impure as newFile;
     newFile(s)`}
                     </CodeBlock>
 
@@ -74,7 +74,7 @@ def openFile(s: String): File & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`import new java.io.File(String, String) as newFile;
+                        {`import new java.io.File(String, String): ##java.io.File & Impure as newFile;
 newFile("foo", "HelloWorld.txt")`}
                     </CodeBlock>
 
@@ -94,8 +94,8 @@ newFile("foo", "HelloWorld.txt")`}
                     </p>
 
                     <CodeBlock>
-                        {`import new java.io.File(String) as newFile;
-import java.io.File.exists();
+                        {`import new java.io.File(String): ##java.io.File & Impure as newFile;
+import java.io.File.exists(): Bool & Impure;
 let f = newFile("HelloWorld.txt");
 exists(f)`}
                     </CodeBlock>
@@ -115,9 +115,9 @@ exists(f)`}
                     </p>
 
                     <CodeBlock>
-                        {`def startsWith(s1: String, s2: String): Bool =
-    import java.lang.String.startsWith(String);
-    s1.startsWith(s2) as & Pure`}
+                        {`def startsWith(prefix: {prefix :: String}, s: String): Bool =
+    import java.lang.String.startsWith(String): Bool & Pure;
+    startsWith(s, prefix.prefix)`}
                     </CodeBlock>
 
                     <p>
@@ -126,8 +126,8 @@ exists(f)`}
 
                     <CodeBlock>
                         {`def charAt(i: Int32, s: String): Char =
-    import java.lang.String.charAt(Int32);
-    s.charAt(i) as & Pure`}
+    import java.lang.String.charAt(Int32): Char & Pure;
+    charAt(s, i)`}
                     </CodeBlock>
 
                     <p>
@@ -146,10 +146,10 @@ exists(f)`}
                     </p>
 
                     <CodeBlock>
-                        {`import new flix.test.TestClass() as newObject;
-import get flix.test.TestClass.boolField as getField;
-let o = newObject();
-getField(o)`}
+                        {`import new flix.test.TestClass(): ##flix.test.TestClass & Impure as newObject;
+    import get flix.test.TestClass.boolField: Bool & Impure as getField;
+    let o = newObject();
+    getField(o)`}
                     </CodeBlock>
 
                     <p>
@@ -167,12 +167,12 @@ getField(o)`}
                     </p>
 
                     <CodeBlock>
-                        {`import new flix.test.TestClass() as newObject;
-import get flix.test.TestClass.boolField as getField;
-import set flix.test.TestClass.boolField as setField;
-let o = newObject();
-setField(o, false);
-getField(o)`}
+                        {`import new flix.test.TestClass(): ##flix.test.TestClass & Impure as newObject;
+    import get flix.test.TestClass.boolField: Bool & Impure as getField;
+    import set flix.test.TestClass.boolField: Unit & Impure as setField;
+    let o = newObject();
+    setField(o, false);
+    getField(o)`}
                     </CodeBlock>
 
                 </SubSection>
@@ -186,8 +186,8 @@ getField(o)`}
                     </p>
 
                     <CodeBlock>
-                        {`import java.lang.String:valueOf(Bool);
-valueOf(true)`}
+                        {`import static java.lang.String.valueOf(Bool): String & Impure;
+    valueOf(true)`}
                     </CodeBlock>
 
                     <p>
@@ -205,8 +205,8 @@ valueOf(true)`}
                     </p>
 
                     <CodeBlock>
-                        {`import get java.lang.Integer:MIN_VALUE as getMinValue;
-getMinValue()`}
+                        {`import static get java.lang.Integer.MIN_VALUE: Int32 & Impure as getMinValue;
+    getMinValue()`}
                     </CodeBlock>
 
                     <p>
@@ -240,7 +240,7 @@ getMinValue()`}
                         </tr>
                         <tr>
                             <td>Static Method</td>
-                            <td><Code>import Foo.Bar:baz(...) [as name]</Code></td>
+                            <td><Code>import static Foo.Bar.baz(...) [as name]</Code></td>
                         </tr>
                         <tr>
                             <td>Get Object Field</td>

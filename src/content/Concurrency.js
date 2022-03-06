@@ -40,7 +40,7 @@ class Concurrency extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`def sum(x: Int, y: Int): Int = x + y
+                        {`def sum(x: Int32, y: Int32): Int32 = x + y
 
 def main(_args: Array[String]): Int32 & Impure = spawn sum(1, 2); 0`}
                     </CodeBlock>
@@ -69,10 +69,10 @@ def main(_args: Array[String]): Int32 & Impure = spawn sum(1, 2); 0`}
                     </p>
 
                     <CodeBlock>
-                        {`def send(c: Channel[Int]): Unit & Impure = c <- 42; ()
+                        {`def send(c: Channel[Int32]): Unit & Impure = c <- 42; ()
 
 def main(_args: Array[String]): Int32 & Impure =
-    let c = chan Int 0;
+    let c = chan Int32 0;
     spawn send(c);
     <- c`}
                     </CodeBlock>
@@ -158,8 +158,8 @@ select {
 
                     <CodeBlock>
                         {`def slow(c: Channel[String]): Unit & Impure =
-    import java.lang.Thread:sleep(Int64);
-    sleep(Duration.oneMinute() / 1000000i64);
+    import static java.lang.Thread.sleep(Int64): Unit & Impure;
+    sleep(Time/Duration.oneMinute() / 1000000i64);
     c <- "I am very slow";
     ()
 
@@ -168,7 +168,7 @@ def main(_args: Array[String]): Int32 & Impure =
     spawn slow(c);
     select {
         case m <- c                    => m
-        case t <- Timer.seconds(5i64)  => "timeout"
+        case t <- Concurrent/Channel/Timer.seconds(5i64)  => "timeout"
     } |> println;
     0
 `}

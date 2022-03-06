@@ -231,7 +231,7 @@ namespace A/B {
     pub enum Color {
         case Red, Blue
     }
-    type alias Hue = Color
+    pub type alias Hue = Color
 }`}
                     </CodeBlock>
 
@@ -249,7 +249,7 @@ namespace A/B {
   Blue != Red
 
 namespace A/B {
-    pub enum Color {
+    pub enum Color with Eq {
         case Red, Blue
     }
 }`}

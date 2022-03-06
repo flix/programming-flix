@@ -74,7 +74,7 @@ class TipsAndTricks extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`let name = "Lucky Luke"
+                        {`let name = "Lucky Luke";
 print("Hello");
 print(" ");
 println(name)`}
@@ -92,7 +92,7 @@ println(name)`}
 
                     <CodeBlock>
                         {`let o = Some(123);
-let l = 1 :: 2 :: 3;
+let l = 1 :: 2 :: 3 :: Nil;
 println(o);
 println(l)`}
                     </CodeBlock>
@@ -132,7 +132,7 @@ println(l)`}
                     <CodeBlock>
                         {`let fstName = "Lucky";
 let lstName = "Luke";
-"Hello Mr. \${lstName}. Do you feel \${lstName}, punk?"`}
+"Hello Mr. ${lstName}. Do you feel ${fstName}, punk?"`}
                     </CodeBlock>
 
                     <p>
@@ -206,7 +206,7 @@ let y = "World";
 l |> 
 List.map(x -> x * 2) |>
 List.filter(x -> x < 4) |>  
-List.count`}</CodeBlock>
+List.count(x -> x > 1)`}</CodeBlock>
 
                     <p>
                         Here is another example:
@@ -442,7 +442,7 @@ Some(x + y) `}</CodeBlock>
                         For example:
                     </p>
 
-                    <CodeBlock>{`def sum(x: Int, y: Int): Int = ???`}</CodeBlock>
+                    <CodeBlock>{`def sum(x: Int32, y: Int32): Int32 = ???`}</CodeBlock>
 
                     <p>
                         The triple question marks <Code>???</Code> represents an anonymous hole and can be used wherever
@@ -450,7 +450,7 @@ Some(x + y) `}</CodeBlock>
                         body, but it can also be used inside an expression. For example:
                     </p>
 
-                    <CodeBlock>{`def length(l: List[a]): Int = match l {
+                    <CodeBlock>{`def length(l: List[a]): Int32 = match l {
   case Nil     => 0
   case x :: xs => ???
 }`}</CodeBlock>
@@ -459,7 +459,7 @@ Some(x + y) `}</CodeBlock>
                         When a program has multiple holes, it can be useful to name them. For example:
                     </p>
 
-                    <CodeBlock>{`def length(l: List[a]): Int = match l {
+                    <CodeBlock>{`def length(l: List[a]): Int32 = match l {
   case Nil     => ?base
   case x :: xs => ?step
 }`}</CodeBlock>
@@ -490,7 +490,7 @@ Some(x + y) `}</CodeBlock>
                         As another example:
                     </p>
 
-                    <CodeBlock>{`match n {
+                    <CodeBlock>{`match k {
   case n if n == 0 => ...
   case n if n >= 0 => ...
   case n if n <= 0 => ...
@@ -549,13 +549,13 @@ Some(x + y) `}</CodeBlock>
                         For example, we can cast an impure expression to a pure expression:
                     </p>
 
-                    <CodeBlock>{`Console.println("Hello World") as Unit & Pure`}</CodeBlock>
+                    <CodeBlock>{`Console.printLine("Hello World") as Unit & Pure`}</CodeBlock>
 
                     <p>
                         As a short-hand, we can simply write:
                     </p>
 
-                    <CodeBlock>{`Console.println("Hello World") as & Pure`}</CodeBlock>
+                    <CodeBlock>{`Console.printLine("Hello World") as & Pure`}</CodeBlock>
 
                     <p>
                         Casting an impure expression to a pure expression is safe if the expression respects

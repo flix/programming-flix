@@ -204,11 +204,6 @@ Possible fixes:
                         <td><Code>a -> b</Code></td>
                     </tr>
                     <tr>
-                        <td>The type of an <i>impure</i> function from <Code>a</Code> to <Code>b</Code>.</td>
-                        <td><Code>a -> b & Impure</Code></td>
-                        <td>n/a</td>
-                    </tr>
-                    <tr>
                         <td>The type of an <i>effect polymorphic</i> function from <Code>a</Code> to <Code>b</Code> with
                             effect <Code>ef</Code>.
                         </td>

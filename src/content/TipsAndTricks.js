@@ -549,13 +549,13 @@ Some(x + y) `}</CodeBlock>
                         For example, we can cast an impure expression to a pure expression:
                     </p>
 
-                    <CodeBlock>{`Console.printLine("Hello World") as Unit & Pure`}</CodeBlock>
+                    <CodeBlock>{`println("Hello World") as Unit & Pure`}</CodeBlock>
 
                     <p>
                         As a short-hand, we can simply write:
                     </p>
 
-                    <CodeBlock>{`Console.printLine("Hello World") as & Pure`}</CodeBlock>
+                    <CodeBlock>{`println("Hello World") as & Pure`}</CodeBlock>
 
                     <p>
                         Casting an impure expression to a pure expression is safe if the expression respects

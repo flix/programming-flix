@@ -40,7 +40,7 @@ class Introduction extends React.Component {
 
                 <CodeBlock>
                     {`/// An algebraic data type for shapes.
-enum Shape {
+enum Shape {a
     case Circle(Int),        // circle radius
     case Square(Int),        // side length
     case Rectangle(Int, Int) // height and width

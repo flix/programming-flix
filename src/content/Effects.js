@@ -59,6 +59,26 @@ def exists(f: a -> Bool, s: Set[a]): Bool = ...`}
                 </p>
 
                 <p>
+                    A higher-order function can also require that a function is impure.
+                </p>
+
+                <p>
+                    For example, the definition of <Code>List.foreach</Code> requires that its function
+                    argument <Code>f</Code> is impure:
+                </p>
+
+                <CodeBlock>
+                    {`// The syntax a ~> Unit is short-hand for a -> Unit & Impure
+def foreach(f: a ~> Unit, l: List[a]): Unit & Impure`}
+                </CodeBlock>
+
+                <p>
+                    The requirement that <Code>f</Code> must be impure ensures that the code makes sense: It would be
+                    meaningless to call <Code>List.foreach</Code> with a pure function since it always
+                    returns <Code>Unit</Code>.
+                </p>
+
+                <p>
                     The type and effect system is sound, but not complete. That is, if a function is pure then it cannot cause
                     an effect, whereas if a function is impure then it may, but does not necessarily, cause an effect. For
                     example, the following expression is impure even though it cannot produce an effect at run-time:
@@ -202,6 +222,11 @@ Possible fixes:
                         <td>The type of a <i>pure</i> function from <Code>a</Code> to <Code>b</Code>.</td>
                         <td><Code>a -> b & Pure</Code></td>
                         <td><Code>a -> b</Code></td>
+                    </tr>
+                    <tr>
+                        <td>The type of an <i>impure</i> function from <Code>a</Code> to <Code>b</Code>.</td>
+                        <td><Code>a -> b & Impure</Code></td>
+                        <td><Code>a ~> b</Code></td>
                     </tr>
                     <tr>
                         <td>The type of an <i>effect polymorphic</i> function from <Code>a</Code> to <Code>b</Code> with

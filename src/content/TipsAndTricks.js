@@ -132,7 +132,7 @@ println(l)`}
                     <CodeBlock>
                         {`let fstName = "Lucky";
 let lstName = "Luke";
-"Hello Mr. ${lstName}. Do you feel ${fstName}, punk?"`}
+"Hello Mr. \${lstName}. Do you feel \${fstName}, punk?"`}
                     </CodeBlock>
 
                     <p>

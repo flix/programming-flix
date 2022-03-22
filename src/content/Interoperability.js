@@ -180,20 +180,13 @@ exists(f)`}
                 <SubSection name="Invoking Static Methods">
 
                     <p>
-                        We can invoke a <i>static</i> method using syntax almost identical to the syntax for object
-                        method invocation. We simply use a colon <Code>:</Code> (instead of a period) to separate the
-                        class name from the static method name:
+                        We can invoke a <i>static</i> method by writing the <code>static</code> keyword after import:
                     </p>
 
                     <CodeBlock>
                         {`import static java.lang.String.valueOf(Bool): String & Impure;
     valueOf(true)`}
                     </CodeBlock>
-
-                    <p>
-                        Note that the fully-qualified name <Code>java.lang.String:valueOf</Code> includes a
-                        colon <Code>:</Code> to indicate that the reference is to a <i>static</i> method.
-                    </p>
 
                 </SubSection>
 
@@ -210,7 +203,7 @@ exists(f)`}
                     </CodeBlock>
 
                     <p>
-                        As above, the only difference is to use a colon <Code>:</Code> to indicate that the
+                        As above, the only difference is to write the <code>static</code> keyword to indicate that the
                         reference is to a static field.
                     </p>
 

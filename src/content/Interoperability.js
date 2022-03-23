@@ -56,17 +56,26 @@ newFile("HelloWorld.txt")`}
 
                     <p>
                         The type of the File object is written as <Code>##java.io.File</Code> where the two
-                        hashes <Code>##</Code> designate that it is a Java type. A common trick is to use a type alias
-                        to make it easier to work with Java types. For example:
+                        hashes <Code>##</Code> designate that it is a Java type. Notice that this is how the return
+                        type is specified.
+                    </p>
+
+                    <p>
+                        A common trick is to use a type alias to make it easier to work with Java types. For example:
                     </p>
 
                     <CodeBlock>
                         {`type alias File = ##java.io.File
 
 def openFile(s: String): File & Impure = 
-    import new java.io.File(String): ##java.io.File & Impure as newFile;
+    import new java.io.File(String): File & Impure as newFile;
     newFile(s)`}
                     </CodeBlock>
+
+                    <p>
+                        The type alias can then be used to specify the return type of both <Code>openFile</Code> and
+                        <Code>new java.io.File(String)</Code>.
+                    </p>
 
                     <p>
                         The <Code>java.io.File</Code> class has another constructor that takes two arguments: one for
@@ -81,8 +90,7 @@ newFile("foo", "HelloWorld.txt")`}
                     <p>
                         The import describes the signature of the constructor. We can use this to import any
                         constructor (or method), even if the constructor (or method) is overloaded, as in the above
-                        example. The return type is never part of the constructor (or method) signature since it is
-                        uniquely determined by the argument types.
+                        example. The return type is always part of the constructor (or method) signature.
                     </p>
 
                 </SubSection>
@@ -119,6 +127,11 @@ exists(f)`}
     import java.lang.String.startsWith(String): Bool & Pure;
     startsWith(s, prefix.prefix)`}
                     </CodeBlock>
+
+                    <p>
+                        The return type of <Code>startsWith</Code> is <Code>##java.</Code>
+                         <Code>Bool</Code>, since the
+                    </p>
 
                     <p>
                         We can pass arguments to methods as the following example shows:

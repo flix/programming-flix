@@ -155,9 +155,9 @@ exists(f)`}
 
                     <CodeBlock>
                         {`import new flix.test.TestClass(): ##flix.test.TestClass & Impure as newObject;
-    import get flix.test.TestClass.boolField: Bool & Impure as getField;
-    let o = newObject();
-    getField(o)`}
+import get flix.test.TestClass.boolField: Bool & Impure as getField;
+let o = newObject();
+getField(o)`}
                     </CodeBlock>
 
                     <p>
@@ -176,11 +176,11 @@ exists(f)`}
 
                     <CodeBlock>
                         {`import new flix.test.TestClass(): ##flix.test.TestClass & Impure as newObject;
-    import get flix.test.TestClass.boolField: Bool & Impure as getField;
-    import set flix.test.TestClass.boolField: Unit & Impure as setField;
-    let o = newObject();
-    setField(o, false);
-    getField(o)`}
+import get flix.test.TestClass.boolField: Bool & Impure as getField;
+import set flix.test.TestClass.boolField: Unit & Impure as setField;
+let o = newObject();
+setField(o, false);
+getField(o)`}
                     </CodeBlock>
 
                 </SubSection>
@@ -214,7 +214,7 @@ exists(f)`}
 
                     <CodeBlock>
                         {`import static get java.lang.Integer.MIN_VALUE: Int32 & Impure as getMinValue;
-    getMinValue()`}
+getMinValue()`}
                     </CodeBlock>
 
                     <p>

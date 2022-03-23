@@ -129,11 +129,6 @@ exists(f)`}
                     </CodeBlock>
 
                     <p>
-                        The return type of <Code>startsWith</Code> is <Code>##java.</Code>
-                         <Code>Bool</Code>, since the
-                    </p>
-
-                    <p>
                         We can pass arguments to methods as the following example shows:
                     </p>
 
@@ -147,7 +142,7 @@ exists(f)`}
                         Type signatures should use Flix type names and not Java type names for primitive types.
                         For example, if a Java method takes a <Code>Double</Code> its signature should use the Flix
                         type <Code>Float64</Code>. Similarly, if a Java method takes a <Code>Boolean</Code> its
-                        signature should use the Flix type <Code>Bool</Code>.
+                        signature should use the Flix type <Code>Bool</Code>. This goes for return types, too.
                     </p>
 
                 </SubSection>

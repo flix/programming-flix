@@ -227,7 +227,11 @@ getMinValue()`}
                 <SubSection name="Summary">
 
                     <p>
-                        The table below gives an overview of the syntax:
+                        The table below gives an overview of the syntax.
+                    </p>
+
+                    <p>
+                        Note: the return types and effects must always be specifed but are omitted for a simpler overview.
                     </p>
 
                     <Table>
@@ -260,11 +264,11 @@ getMinValue()`}
                         </tr>
                         <tr>
                             <td>Get Static Field</td>
-                            <td><Code>import get Foo.Bar:baz as getValue</Code></td>
+                            <td><Code>import static get Foo.Bar.baz as getValue</Code></td>
                         </tr>
                         <tr>
                             <td>Set Static Field</td>
-                            <td><Code>import set Foo.Bar:baz as setValue</Code></td>
+                            <td><Code>import static set Foo.Bar.baz as setValue</Code></td>
                         </tr>
                         </tbody>
                     </Table>

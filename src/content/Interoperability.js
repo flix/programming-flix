@@ -56,17 +56,26 @@ newFile("HelloWorld.txt")`}
 
                     <p>
                         The type of the File object is written as <Code>##java.io.File</Code> where the two
-                        hashes <Code>##</Code> designate that it is a Java type. A common trick is to use a type alias
-                        to make it easier to work with Java types. For example:
+                        hashes <Code>##</Code> designate that it is a Java type. Notice that this is how the return
+                        type is specified.
+                    </p>
+
+                    <p>
+                        A common trick is to use a type alias to make it easier to work with Java types. For example:
                     </p>
 
                     <CodeBlock>
                         {`type alias File = ##java.io.File
 
 def openFile(s: String): File & Impure = 
-    import new java.io.File(String): ##java.io.File & Impure as newFile;
+    import new java.io.File(String): File & Impure as newFile;
     newFile(s)`}
                     </CodeBlock>
+
+                    <p>
+                        The type alias can then be used to specify the return type of both <Code>openFile</Code> and
+                        <Code>new java.io.File(String)</Code>.
+                    </p>
 
                     <p>
                         The <Code>java.io.File</Code> class has another constructor that takes two arguments: one for
@@ -81,8 +90,7 @@ newFile("foo", "HelloWorld.txt")`}
                     <p>
                         The import describes the signature of the constructor. We can use this to import any
                         constructor (or method), even if the constructor (or method) is overloaded, as in the above
-                        example. The return type is never part of the constructor (or method) signature since it is
-                        uniquely determined by the argument types.
+                        example. The return type is always part of the constructor (or method) signature.
                     </p>
 
                 </SubSection>
@@ -134,7 +142,7 @@ exists(f)`}
                         Type signatures should use Flix type names and not Java type names for primitive types.
                         For example, if a Java method takes a <Code>Double</Code> its signature should use the Flix
                         type <Code>Float64</Code>. Similarly, if a Java method takes a <Code>Boolean</Code> its
-                        signature should use the Flix type <Code>Bool</Code>.
+                        signature should use the Flix type <Code>Bool</Code>. This goes for return types, too.
                     </p>
 
                 </SubSection>
@@ -147,9 +155,9 @@ exists(f)`}
 
                     <CodeBlock>
                         {`import new flix.test.TestClass(): ##flix.test.TestClass & Impure as newObject;
-    import get flix.test.TestClass.boolField: Bool & Impure as getField;
-    let o = newObject();
-    getField(o)`}
+import get flix.test.TestClass.boolField: Bool & Impure as getField;
+let o = newObject();
+getField(o)`}
                     </CodeBlock>
 
                     <p>
@@ -168,11 +176,11 @@ exists(f)`}
 
                     <CodeBlock>
                         {`import new flix.test.TestClass(): ##flix.test.TestClass & Impure as newObject;
-    import get flix.test.TestClass.boolField: Bool & Impure as getField;
-    import set flix.test.TestClass.boolField: Unit & Impure as setField;
-    let o = newObject();
-    setField(o, false);
-    getField(o)`}
+import get flix.test.TestClass.boolField: Bool & Impure as getField;
+import set flix.test.TestClass.boolField: Unit & Impure as setField;
+let o = newObject();
+setField(o, false);
+getField(o)`}
                     </CodeBlock>
 
                 </SubSection>
@@ -199,7 +207,7 @@ exists(f)`}
 
                     <CodeBlock>
                         {`import static get java.lang.Integer.MIN_VALUE: Int32 & Impure as getMinValue;
-    getMinValue()`}
+getMinValue()`}
                     </CodeBlock>
 
                     <p>
@@ -212,7 +220,11 @@ exists(f)`}
                 <SubSection name="Summary">
 
                     <p>
-                        The table below gives an overview of the syntax:
+                        The table below gives an overview of the syntax.
+                    </p>
+
+                    <p>
+                        Note: the return types and effects must always be specifed but are omitted for a simpler overview.
                     </p>
 
                     <Table>
@@ -245,11 +257,11 @@ exists(f)`}
                         </tr>
                         <tr>
                             <td>Get Static Field</td>
-                            <td><Code>import get Foo.Bar:baz as getValue</Code></td>
+                            <td><Code>import static get Foo.Bar.baz as getValue</Code></td>
                         </tr>
                         <tr>
                             <td>Set Static Field</td>
-                            <td><Code>import set Foo.Bar:baz as setValue</Code></td>
+                            <td><Code>import static set Foo.Bar.baz as setValue</Code></td>
                         </tr>
                         </tbody>
                     </Table>

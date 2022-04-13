@@ -50,7 +50,7 @@ class Fixpoints extends React.Component {
     let paths = query edges, rules select true from Path(src, dst);
     not (paths |> Array.isEmpty)
 
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let s = Set#{(1, 2), (2, 3), (3, 4), (4, 5)};
     let src = 1;
     let dst = 5;
@@ -58,8 +58,7 @@ def main(_args: Array[String]): Int32 & Impure =
         println("Found a path between \${src} and \${dst}!")
     } else {
         println("Did not find a path between \${src} and \${dst}!")
-    };
-    0`}
+    }`}
                     </CodeBlock>
 
                     <p>
@@ -101,7 +100,7 @@ def main(_args: Array[String]): Int32 & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`def main(_args: Array[String]): Int32 & Impure = 
+                        {`def main(): Unit & Impure =
     let movies = #{
         Movie("The Hateful Eight").
         Movie("Interstellar").
@@ -124,8 +123,7 @@ def main(_args: Array[String]): Int32 & Impure =
             not StarringIn(title, name).
     };
     query movies, actors, directors, rule 
-        select title from MovieWithoutDirector(title) |> println;
-    0
+        select title from MovieWithoutDirector(title) |> println
 `}
                     </CodeBlock>
 
@@ -181,7 +179,7 @@ def withAdoptions(): #{ AdoptedBy(String, String),
     AncestorOf(x, y) :- AdoptedBy(x, y).
 }
 
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let c = false;
     if (c) {
         query getParents(), getAdoptions(), withAncestors() 
@@ -189,8 +187,7 @@ def main(_args: Array[String]): Int32 & Impure =
     } else {
         query getParents(), getAdoptions(), withAncestors(), withAdoptions()
             select (x, y) from AncestorOf(x, y) |> println
-    };
-    0
+    }
 `}
                     </CodeBlock>
 

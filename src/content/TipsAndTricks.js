@@ -44,7 +44,7 @@ class TipsAndTricks extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`def main(_args: Array[String]): Int32 & Impure = ...`}
+                        {`def main(): Unit & Impure = ...`}
                     </CodeBlock>
 
                     <p>

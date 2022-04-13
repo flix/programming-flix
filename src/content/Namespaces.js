@@ -78,7 +78,7 @@ class Namespaces extends React.Component {
     pub def sum(x: Int32, y: Int32): Int32 = x + y
 }
 
-def main(_args: Array[String]): Int32 & Impure = Core/Math.sum(21, 42) |> println; 0`}
+def main(): Unit & Impure = Core/Math.sum(21, 42) |> println`}
                     </CodeBlock>
 
                     <p>
@@ -99,10 +99,9 @@ def main(_args: Array[String]): Int32 & Impure = Core/Math.sum(21, 42) |> printl
     pub def sum(x: Int32, y: Int32): Int32 = x + y
 }
 
-def main(_args: Array[String]): Int32 & Impure = 
+def main(): Unit & Impure =
     use Core/Math.sum;
-    sum(21, 42) |> println; 
-    0`}
+    sum(21, 42) |> println`}
                     </CodeBlock>
 
                     <p>
@@ -113,9 +112,8 @@ def main(_args: Array[String]): Int32 & Impure =
                     <CodeBlock>
                         {`use Core/Math.sum;
 
-def main(_args: Array[String]): Int32 & Impure = 
-    sum(21, 42) |> println; 
-    0
+def main(): Unit & Impure =
+    sum(21, 42) |> println
     
 namespace Core/Math {
     pub def sum(x: Int32, y: Int32): Int32 = x + y
@@ -135,9 +133,8 @@ namespace Core/Math {
                         {`use Core/Math.sum;
 use Core/Math.mul;
 
-def main(_args: Array[String]): Int32 & Impure = 
-    sum(21, mul(42, 84)) |> println;
-    0
+def main(): Unit & Impure =
+    sum(21, mul(42, 84)) |> println
 
 namespace Core/Math {
     pub def sum(x: Int32, y: Int32): Int32 = x + y
@@ -152,9 +149,8 @@ namespace Core/Math {
                     <CodeBlock>
                         {`use Core/Math.{sum, mul};
 
-def main(_args: Array[String]): Int32 & Impure = 
-    sum(21, mul(42, 84)) |> println;
-    0
+def main(): Unit & Impure =
+    sum(21, mul(42, 84)) |> println
 
 namespace Core/Math {
     pub def sum(x: Int32, y: Int32): Int32 = x + y
@@ -179,9 +175,8 @@ namespace Core/Math {
                         {`use A.{concat => stringConcat};
 use B.{concat => listConcat};
 
-def main(_args: Array[String]): Int32 & Impure = 
-    stringConcat("Hello", " World!") |> println;
-    0
+def main(): Unit & Impure =
+    stringConcat("Hello", " World!") |> println
 
 namespace A {
     pub def concat(x: String, y: String): String = x + y

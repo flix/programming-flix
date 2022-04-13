@@ -44,8 +44,8 @@ class TipsAndTricks extends React.Component {
 
                     <CodeBlock>
                         {`def main(): Unit & Impure=
-                            let args = Environment.getArgs();
-                            ...`}
+    let args = Environment.getArgs();
+    ...`}
                     </CodeBlock>
 
                     <p>

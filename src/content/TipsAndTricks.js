@@ -39,7 +39,7 @@ class TipsAndTricks extends React.Component {
                     </p>
 
                     <p>
-                        If <Code>main</Code> is run with arguments, they can be used by writing:
+                        If <Code>main</Code> is run with arguments, they can be accessed by writing:
                     </p>
 
                     <CodeBlock>

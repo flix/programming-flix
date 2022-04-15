@@ -34,12 +34,13 @@ class TipsAndTricks extends React.Component {
                     </CodeBlock>
 
                     <p>
-                        That is, the main function (i) must return <Code>Unit</Code>, (ii) must be <Code>Impure</Code>,
-                        and (iii) must be private.
+                        That is, the main function (i) must return <Code>Unit</Code>, and (ii) must
+                        be <Code>Impure</Code>.
                     </p>
 
                     <p>
-                        If <Code>main</Code> is run with arguments, they can be accessed by writing:
+                        The signature of <Code>main</Code> does not specify any arguments, but the command line
+                        arguments passed to the program can be accessed by calling <Code>Environment.getArgs()</Code>.
                     </p>
 
                     <CodeBlock>

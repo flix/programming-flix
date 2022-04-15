@@ -30,21 +30,23 @@ class TipsAndTricks extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`def main(args: Array[String]): Int32 & Impure = ...`}
+                        {`def main(): Unit & Impure = ...`}
                     </CodeBlock>
 
                     <p>
-                        That is, the main function (i) takes an array of string arguments, (ii) must return
-                        an <Code>Int32</Code> which represents the exit code, and (iii) must be <Code>Impure</Code>.
+                        That is, the main function (i) must return <Code>Unit</Code>, and (ii) must
+                        be <Code>Impure</Code>.
                     </p>
 
                     <p>
-                        Flix does not allow unused function arguments. Thus, if the arguments are not needed the
-                        parameter name must be prefixed with an underscore:
+                        The signature of <Code>main</Code> does not specify any arguments, but the command line
+                        arguments passed to the program can be accessed by calling <Code>Environment.getArgs()</Code>.
                     </p>
 
                     <CodeBlock>
-                        {`def main(_args: Array[String]): Int32 & Impure = ...`}
+                        {`def main(): Unit & Impure=
+    let args = Environment.getArgs();
+    ...`}
                     </CodeBlock>
 
                     <p>

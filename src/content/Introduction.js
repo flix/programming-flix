@@ -55,9 +55,8 @@ def area(s: Shape): Int32 = match s {
 }
 
 // Computes the area of a 2 by 4.
-def main(_args: Array[String]): Int32 & Impure =
-    area(Rectangle(2, 4)) |> println;
-    0
+def main(): Unit & Impure =
+    area(Rectangle(2, 4)) |> println
 `}
                 </CodeBlock>
 
@@ -77,9 +76,8 @@ def polyAreas(): List[Int32] =
     polyArea({x = 1, y = 2}) ::
     polyArea({x = 2, y = 3, z = 4}) :: Nil
 
-def main(_args: Array[String]): Int32 & Impure = 
-    polyAreas() |> println;
-    0
+def main(): Unit & Impure =
+    polyAreas() |> println
 `}
                 </CodeBlock>
 
@@ -109,14 +107,13 @@ def wait(i: Channel[Int32], n: Int32, d: Channel[List[Int32]]): Unit & Impure =
     ()
 
 /// Spawn a process for send and wait, and print the result.
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let l = 1 :: 2 :: 3 :: Nil;
     let c = chan Int32 100;
     let d = chan List[Int32] 100;
     spawn send(c, l);
     spawn wait(c, List.length(l), d);
-    println(<- d);
-    0
+    println(<- d)
 `}
                 </CodeBlock>
 

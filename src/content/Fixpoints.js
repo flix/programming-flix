@@ -50,7 +50,7 @@ class Fixpoints extends React.Component {
     let paths = query edges, rules select true from Path(src, dst);
     not (paths |> Array.isEmpty)
 
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let s = Set#{(1, 2), (2, 3), (3, 4), (4, 5)};
     let src = 1;
     let dst = 5;
@@ -58,8 +58,7 @@ def main(_args: Array[String]): Int32 & Impure =
         println("Found a path between \${src} and \${dst}!")
     } else {
         println("Did not find a path between \${src} and \${dst}!")
-    };
-    0`}
+    }`}
                     </CodeBlock>
 
                     <p>
@@ -101,7 +100,7 @@ def main(_args: Array[String]): Int32 & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`def main(_args: Array[String]): Int32 & Impure = 
+                        {`def main(): Unit & Impure =
     let movies = #{
         Movie("The Hateful Eight").
         Movie("Interstellar").
@@ -124,8 +123,7 @@ def main(_args: Array[String]): Int32 & Impure =
             not StarringIn(title, name).
     };
     query movies, actors, directors, rule 
-        select title from MovieWithoutDirector(title) |> println;
-    0
+        select title from MovieWithoutDirector(title) |> println
 `}
                     </CodeBlock>
 
@@ -181,7 +179,7 @@ def withAdoptions(): #{ AdoptedBy(String, String),
     AncestorOf(x, y) :- AdoptedBy(x, y).
 }
 
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let c = false;
     if (c) {
         query getParents(), getAdoptions(), withAncestors() 
@@ -189,8 +187,7 @@ def main(_args: Array[String]): Int32 & Impure =
     } else {
         query getParents(), getAdoptions(), withAncestors(), withAdoptions()
             select (x, y) from AncestorOf(x, y) |> println
-    };
-    0
+    }
 `}
                     </CodeBlock>
 
@@ -254,12 +251,11 @@ def closure(): #{ LabelledEdge(String, l, String),
     LabelledPath(x, l, z) :- LabelledPath(x, l, y), LabelledPath(y, l, z).
 }
 
-def main(_: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     query edgesWithNumbers(), closure() 
         select (x, l, z) from LabelledPath(x, l, z) |> println;
     query edgesWithColor(), closure() 
-        select (x, l, z) from LabelledPath(x, l, z) |> println;
-    0
+        select (x, l, z) from LabelledPath(x, l, z) |> println
 `}
                     </CodeBlock>
 
@@ -335,7 +331,7 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
                     </p>
 
                     <CodeBlock>
-                        {`def main(_: Array[String]): Int32 & Impure =
+                        {`def main(): Unit & Impure =
     let f1 = #{
         ColorEdge(1, "blue", 2).
         ColorEdge(2, "blue", 3).
@@ -349,8 +345,7 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
         ColorlessPath(x, y) :- ColorPath(x, _, y).
     };
     let m = solve f1, r1 project ColorPath;
-    query m, r2 select (x, y) from ColorlessPath(x, y) |> println;
-    0
+    query m, r2 select (x, y) from ColorlessPath(x, y) |> println
 `}
                     </CodeBlock>
 
@@ -516,7 +511,7 @@ instance MeetLattice[Sign] {
                     </p>
 
                     <CodeBlock>
-                        {`pub def main(_: Array[String]): Int32 & Impure = 
+                        {`pub def main(): Unit & Impure =
     let p = #{
         LocalVar("x"; Pos).
         LocalVar("y"; Zer).
@@ -526,8 +521,7 @@ instance MeetLattice[Sign] {
         LocalVar(r; sum(v1, v2)) :- 
             AddStm(r, x, y), LocalVar(x; v1), LocalVar(y; v2).
     };
-    query p select (r; v) from LocalVar(r; v) |> println;
-    0
+    query p select (r; v) from LocalVar(r; v) |> println
 `}
                     </CodeBlock>
 

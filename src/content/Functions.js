@@ -156,10 +156,9 @@ println;`}
                     <CodeBlock>
                         {`def sum(x: Int32, y: Int32): Int32 = x + y
 
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let inc = sum(1);
-    inc(42) |> println;
-    0
+    inc(42) |> println
 `}
                     </CodeBlock>
 
@@ -180,11 +179,10 @@ def main(_args: Array[String]): Int32 & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`def main(_args: Array[String]): Int32 & Impure =
+                        {`def main(): Unit & Impure =
     List.range(1, 100) |> 
     List.map(x -> x + 1) |> 
-    println;
-    0`}
+    println`}
                     </CodeBlock>
 
                     <p>

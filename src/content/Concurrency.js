@@ -42,7 +42,7 @@ class Concurrency extends React.Component {
                     <CodeBlock>
                         {`def sum(x: Int32, y: Int32): Int32 = x + y
 
-def main(_args: Array[String]): Int32 & Impure = spawn sum(1, 2); 0`}
+def main(): Unit & Impure = spawn sum(1, 2)`}
                     </CodeBlock>
 
                 </SubSection>
@@ -71,10 +71,11 @@ def main(_args: Array[String]): Int32 & Impure = spawn sum(1, 2); 0`}
                     <CodeBlock>
                         {`def send(c: Channel[Int32]): Unit & Impure = c <- 42; ()
 
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let c = chan Int32 0;
     spawn send(c);
-    <- c`}
+    <- c;
+    ()`}
                     </CodeBlock>
 
                     <p>
@@ -97,7 +98,7 @@ def main(_args: Array[String]): Int32 & Impure =
                         
 def woof(c: Channel[String]): Unit & Impure = c <- "Woof!"; ()
 
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let c1 = chan String 1;
     let c2 = chan String 1;
     spawn meow(c1);
@@ -105,8 +106,7 @@ def main(_args: Array[String]): Int32 & Impure =
     select {
         case m <- c1 => m
         case m <- c2 => m
-    } |> println;
-    0`}
+    } |> println`}
                     </CodeBlock>
 
                     <p>
@@ -163,14 +163,13 @@ select {
     c <- "I am very slow";
     ()
 
-def main(_args: Array[String]): Int32 & Impure =
+def main(): Unit & Impure =
     let c = chan String 1;
     spawn slow(c);
     select {
         case m <- c                    => m
         case t <- Concurrent/Channel/Timer.seconds(5i64)  => "timeout"
-    } |> println;
-    0
+    } |> println
 `}
                     </CodeBlock>
 

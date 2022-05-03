@@ -102,7 +102,7 @@ def main(): Unit & Impure =
     let c1 = chan String 1;
     let c2 = chan String 1;
     spawn meow(c1);
-    spawn woof(c1);
+    spawn woof(c2);
     select {
         case m <- c1 => m
         case m <- c2 => m
@@ -168,7 +168,7 @@ def main(): Unit & Impure =
     spawn slow(c);
     select {
         case m <- c                    => m
-        case t <- Concurrent/Channel/Timer.seconds(5i64)  => "timeout"
+        case _ <- Concurrent/Channel/Timer.seconds(5i64)  => "timeout"
     } |> println
 `}
                     </CodeBlock>

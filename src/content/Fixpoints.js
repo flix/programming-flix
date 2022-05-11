@@ -394,7 +394,9 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
                     </p>
 
                     <CodeBlock>
-                        {`instance Eq[Sign] {
+                        {`instance Boxable[Sign]
+
+instance Eq[Sign] {
     pub def eq(x: Sign, y: Sign): Bool = match (x, y) {
         case (Bot, Bot) => true
         case (Neg, Neg) => true
@@ -443,7 +445,7 @@ instance ToString[Sign] {
 }
 
 instance PartialOrder[Sign] {
-    pub def partialCompare(x: Sign, y: Sign): Bool = 
+    pub def lessEqual(x: Sign, y: Sign): Bool =
         match (x, y) {
             case (Bot, _)   => true
             case (Neg, Neg) => true
@@ -521,7 +523,7 @@ instance MeetLattice[Sign] {
         LocalVar(r; sum(v1, v2)) :- 
             AddStm(r, x, y), LocalVar(x; v1), LocalVar(y; v2).
     };
-    query p select (r; v) from LocalVar(r; v) |> println
+    query p select (r, v) from LocalVar(r; v) |> println
 `}
                     </CodeBlock>
 

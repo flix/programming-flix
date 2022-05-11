@@ -74,11 +74,11 @@ def main(): Unit & Impure =
                         that the predicate symbols, <Code>Edge</Code> and <Code>Path</Code> do not have to be
                         explicitly introduced; they are simply used. The local variable <Code>edges</Code> holds a
                         collection of edge facts that are obtained by taking all the tuples in the set <Code>s</Code>
-                        and turning them into <Code>Edge</Code> facts. Next, the local variable <Code>paths</Code>
-                        holds the result of computing the fixpoint of the facts and rules
-                        (<Code>edges</Code> and <Code>rules</Code>) and selecting the Boolean <Code>true</Code>
-                        <i>if</i> there is a <Code>Path(src, dst)</Code> fact. Note that here <Code>src</Code>
-                        and <Code>dst</Code> are the lexically-bound function parameters. Thus, <Code>paths</Code>
+                        &nbsp;and turning them into <Code>Edge</Code> facts. Next, the local variable <Code>paths</Code>
+                        &nbsp;holds the result of computing the fixpoint of the facts and rules
+                        (<Code>edges</Code> and <Code>rules</Code>) and selecting the Boolean <Code>true</Code>&nbsp;
+                        <i>if</i> there is a <Code>Path(src, dst)</Code> fact. Note that here <Code>src</Code>&nbsp;
+                        and <Code>dst</Code> are the lexically-bound function parameters. Thus, <Code>paths</Code>&nbsp;
                         is either an empty array (no paths were found) or a one-element array (a path was found),
                         and we simply return this fact.
                     </p>
@@ -130,7 +130,7 @@ def main(): Unit & Impure =
                     <p>
                         The program defines three local variables that contain information about movies, actors, and
                         directors. The local variable <Code>rule</Code> contains a rule that captures all movies where
-                        the director does not start in the movie. Note the use negation in this rule. The query returns
+                        the director does not star in the movie. Note the use negation in this rule. The query returns
                         an array with the string <Code>"Interstellar"</Code> because Christopher Nolan did not
                         star in that movie.
                     </p>
@@ -196,7 +196,7 @@ def main(): Unit & Impure =
                         and <Code>AdoptedBy</Code>. The <Code>getParents</Code> function returns a collection of facts
                         that represent biological parents, whereas the <Code>getAdoptions</Code> function returns
                         a collection of facts that represent adoptions. The <Code>withAncestors</Code> function
-                        returns two constraints that populate the <Code>AncestorOf</Code> relation using the
+                        returns two constraints that populate the <Code>AncestorOf</Code> relation using the&nbsp;
                         <Code>ParentOf</Code> relation. The <Code>withAdoptions</Code> function returns a constraint
                         that populates the <Code>ParentOf</Code> relation using the <Code>AdoptedBy</Code> relation.
                     </p>
@@ -394,7 +394,9 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
                     </p>
 
                     <CodeBlock>
-                        {`instance Eq[Sign] {
+                        {`instance Boxable[Sign]
+
+instance Eq[Sign] {
     pub def eq(x: Sign, y: Sign): Bool = match (x, y) {
         case (Bot, Bot) => true
         case (Neg, Neg) => true
@@ -443,7 +445,7 @@ instance ToString[Sign] {
 }
 
 instance PartialOrder[Sign] {
-    pub def partialCompare(x: Sign, y: Sign): Bool = 
+    pub def lessEqual(x: Sign, y: Sign): Bool =
         match (x, y) {
             case (Bot, _)   => true
             case (Neg, Neg) => true
@@ -521,7 +523,7 @@ instance MeetLattice[Sign] {
         LocalVar(r; sum(v1, v2)) :- 
             AddStm(r, x, y), LocalVar(x; v1), LocalVar(y; v2).
     };
-    query p select (r; v) from LocalVar(r; v) |> println
+    query p select (r, v) from LocalVar(r; v) |> println
 `}
                     </CodeBlock>
 

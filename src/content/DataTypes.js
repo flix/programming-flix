@@ -335,8 +335,8 @@ def foo(): M[Bool, Int32] = Map#{true => Ok(123)}
                     </CodeBlock>
 
                     <p>
-                        A <i>type alias</i>, unlike an <i>opaque type</i>, does not define a new distinct type. Rather a
-                        type alias is simply a syntactic short-hand for a (usually complex) type.
+                        A <i>type alias</i> does not define a new distinct type. Rather a type alias is simply a
+                        syntactic short-hand for a (usually complex) type.
                     </p>
 
                     <p>

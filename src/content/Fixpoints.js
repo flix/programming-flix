@@ -46,7 +46,7 @@ class Fixpoints extends React.Component {
         Path(x, y) :- Edge(x, y).
         Path(x, z) :- Path(x, y), Edge(y, z).
     };
-    let edges = project s into Edge;
+    let edges = inject s into Edge;
     let paths = query edges, rules select true from Path(src, dst);
     not (paths |> Array.isEmpty)
 

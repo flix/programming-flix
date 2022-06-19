@@ -213,7 +213,7 @@ namespace A/B {
                     </CodeBlock>
 
                     <p>
-                        We can also use <i>type aliases</i> in the same way:
+                        We can also use <i>opaque types</i> and <i>type aliases</i> in the same way:
                     </p>
 
                     <CodeBlock>

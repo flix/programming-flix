@@ -519,8 +519,7 @@ instance MeetLattice[Sign] {
         LocalVar("y"; Zer).
         LocalVar("z"; Neg).
         AddStm("r1", "x", "y").
-        AddStm("r2", "x", "y").
-        AddStm("r2", "y", "z").
+        AddStm("r2", "x", "z").
         LocalVar(r; sum(v1, v2)) :- 
             AddStm(r, x, y), LocalVar(x; v1), LocalVar(y; v2).
     };

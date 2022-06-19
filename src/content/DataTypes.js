@@ -30,7 +30,7 @@ class DataTypes extends React.Component {
                 </p>
 
                 <p>
-                    Flix also supports type aliases (new types).
+                    Flix also supports type aliases and opaque types (new types).
                 </p>
 
 
@@ -317,6 +317,60 @@ def isEmpty[a](b: Bottle[a]): Bool = match b {
 
                 </SubSection>
 
+                <SubSection name="Opaque Types">
+
+                    <p>
+                        Opaque types introduce a new name for an underlying type. For example:
+                    </p>
+
+                    <CodeBlock>
+                        {`///
+/// An opaque type for US dollars.
+///
+opaque type USD = Int32
+
+///
+/// An opaque type for Canadian dollars.
+///
+opaque type CAD = Int32
+
+///
+/// A function that adds two US dollar amounts.
+///
+/// Cannot accidentally be called with Canadian dollars.
+///
+def sum(x: USD, y: USD): USD = 
+  let USD(u) = x;
+  let USD(v) = y;
+  USD(u + v)
+`}
+                    </CodeBlock>
+
+                    <p>
+                        Opaque types are functionally equivalent to enums with a single constructor. That is, the
+                        declaration:
+                    </p>
+
+                    <CodeBlock>
+                        {`opaque type USD = Int32`}
+                    </CodeBlock>
+
+                    <p>
+                        is equivalent to:
+                    </p>
+
+                    <CodeBlock>
+                        {`enum USD {
+    case USD(Int32)
+}`}
+                    </CodeBlock>
+
+                    <p>
+                        Opaque types are similar to the <i>newtype</i> mechanism in Haskell.
+                    </p>
+
+                </SubSection>
+
                 <SubSection name="Type Aliases">
 
                     <p>
@@ -335,8 +389,8 @@ def foo(): M[Bool, Int32] = Map#{true => Ok(123)}
                     </CodeBlock>
 
                     <p>
-                        A <i>type alias</i> does not define a new distinct type. Rather a type alias is simply a
-                        syntactic short-hand for a (usually complex) type.
+                        A <i>type alias</i>, unlike an <i>opaque type</i>, does not define a new distinct type. Rather a
+                        type alias is simply a syntactic short-hand for a (usually complex) type.
                     </p>
 
                     <p>

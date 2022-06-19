@@ -46,7 +46,7 @@ class Fixpoints extends React.Component {
         Path(x, y) :- Edge(x, y).
         Path(x, z) :- Path(x, y), Edge(y, z).
     };
-    let edges = project s into Edge;
+    let edges = inject s into Edge;
     let paths = query edges, rules select true from Path(src, dst);
     not (paths |> Array.isEmpty)
 
@@ -281,7 +281,7 @@ def main(): Unit & Impure =
 
                 </SubSection>
 
-                <SubSection name="Projecting Facts into Datalog">
+                <SubSection name="Injecting Facts into Datalog">
 
                     <p>
                         Flix provides a flexible mechanism that allows functional data structures (such as lists, sets,
@@ -293,28 +293,28 @@ def main(): Unit & Impure =
                     </p>
 
                     <CodeBlock>{`let l = (1, 2) :: (2, 3) :: Nil;
-let p = project l into Edge`}</CodeBlock>
+let p = inject l into Edge`}</CodeBlock>
 
                     <p>
                         where <Code>l</Code> has type <Code>List[(Int32, Int32)]</Code>.
-                        The <Code>project</Code> expression converts <Code>l</Code> into a Datalog constraint
+                        The <Code>inject</Code> expression converts <Code>l</Code> into a Datalog constraint
                         set <Code>p</Code> of type <Code>{"#{ Edge(Int32, Int32) | ...}"}</Code>.
                     </p>
 
                     <p>
-                        The <Code>project</Code> expression works with any type that implements
+                        The <Code>inject</Code> expression works with any type that implements
                         the <Code>Foldable</Code> type class. Consequently, it can be used with lists, sets, maps, and
                         so forth.
                     </p>
 
                     <p>
-                        The <Code>project</Code> expression can operate on multiple collections simultaneously. For
+                        The <Code>inject</Code> expression can operate on multiple collections simultaneously. For
                         example:
                     </p>
 
                     <CodeBlock>{`let names = "Lucky Luke" :: "Luke Skywalker" :: Nil;
 let jedis = "Luke Skywalker" :: Nil;
-let p = project names, jedis into Name, Jedi`}</CodeBlock>
+let p = inject names, jedis into Name, Jedi`}</CodeBlock>
 
                     <p>
                         where <Code>p</Code> has type <Code>{"#{ Name(String), Jedi(String) | ...}"}</Code>.
@@ -344,7 +344,7 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
     let r2 = #{
         ColorlessPath(x, y) :- ColorPath(x, _, y).
     };
-    let m = solve f1, r1 project ColorPath;
+    let m = solve f1, r1 inject ColorPath;
     query m, r2 select (x, y) from ColorlessPath(x, y) |> println
 `}
                     </CodeBlock>
@@ -356,7 +356,7 @@ let p = project names, jedis into Name, Jedi`}</CodeBlock>
                     </p>
 
                     <p>
-                        The program first computes the fixpoint of <Code>f1</Code> and <Code>r1</Code> and projects out
+                        The program first computes the fixpoint of <Code>f1</Code> and <Code>r1</Code> and injects out
                         the <Code>ColorPath</Code> fact. The result is stored in <Code>m</Code>. Next, the program
                         queries <Code>m</Code> and <Code>r2</Code>, and selects all <Code>ColorlessPath</Code> facts.
                     </p>

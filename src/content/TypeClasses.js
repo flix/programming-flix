@@ -17,44 +17,6 @@ class TypeClasses extends React.Component {
     render() {
         return (
             <Section name="Type Classes">
-
-                {/*
-                    TODO:
-
-                    Basics: 
-                    1. function isSingleton, works on lists
-                    2. add type constraint to generify
-                    3. Length typeclass
-                    4. without a tconstr, isSingleton(someList) fails
-                    5. Length[List[a]] instance
-                    6. isSingleton inefficient: add sig to Length and override to List instance
-                        -- overrides must have same semantics
-                    7. Length[String] uses default impl
-
-                    Laws:
-                    1. nonnegative from Length class
-                        -- planned feature: quickcheck
-                    2. unlawful instances
-                    3. lawless classes
-
-                    Type constraints
-                    1. on type classes 
-                    2. on instances (DeepLength)
-
-                    Sealed:
-                    1. some example?
-
-                    Higher-order classes
-                    2. kind discussion
-
-                    StdLib typeclasses
-                    1. ToString/FromString
-                    2. Add/Sub...
-                    3. Functor/Foldable
-
-                    Derivations
-                */
-                }
                 <p>
                     Type classes are one of the ways to support
                     a high level of genericity in functional programming.
@@ -203,21 +165,6 @@ instance Length[List[a]] {
                         We plan to implement a quickcheck framework to verify that these laws hold.
                         For now, however, they only serve as a form of documentation.
                     </PlannedFeature>
-
-
-                    <p>
-                        It might also be that laws don't make sense for a particular type class.
-                        In this case, the type class may be defined as <Code>lawless</Code>,
-                        removing the requirement that each definition be featured in a law.
-                    </p>
-
-                    <CodeBlock>
-                        {`pub lawless class DoNothing[a] {
-    pub def doNothing(x: a): Unit = ()
-}`}
-                    </CodeBlock>
-
-
                 </SubSection>
 
                 <SubSection name="Type Constraints">

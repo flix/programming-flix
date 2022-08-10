@@ -78,7 +78,7 @@ class Namespaces extends React.Component {
     pub def sum(x: Int32, y: Int32): Int32 = x + y
 }
 
-def main(): Unit & Impure = Core/Math.sum(21, 42) |> println`}
+def main(): Unit \ IO = Core/Math.sum(21, 42) |> println`}
                     </CodeBlock>
 
                     <p>
@@ -99,7 +99,7 @@ def main(): Unit & Impure = Core/Math.sum(21, 42) |> println`}
     pub def sum(x: Int32, y: Int32): Int32 = x + y
 }
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     use Core/Math.sum;
     sum(21, 42) |> println`}
                     </CodeBlock>
@@ -112,7 +112,7 @@ def main(): Unit & Impure =
                     <CodeBlock>
                         {`use Core/Math.sum;
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     sum(21, 42) |> println
     
 namespace Core/Math {
@@ -133,7 +133,7 @@ namespace Core/Math {
                         {`use Core/Math.sum;
 use Core/Math.mul;
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     sum(21, mul(42, 84)) |> println
 
 namespace Core/Math {
@@ -149,7 +149,7 @@ namespace Core/Math {
                     <CodeBlock>
                         {`use Core/Math.{sum, mul};
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     sum(21, mul(42, 84)) |> println
 
 namespace Core/Math {
@@ -175,7 +175,7 @@ namespace Core/Math {
                         {`use A.{concat => stringConcat};
 use B.{concat => listConcat};
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     stringConcat("Hello", " World!") |> println
 
 namespace A {

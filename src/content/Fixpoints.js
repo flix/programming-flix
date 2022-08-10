@@ -50,7 +50,7 @@ class Fixpoints extends React.Component {
     let paths = query edges, rules select true from Path(src, dst);
     not (paths |> Array.isEmpty)
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     let s = Set#{(1, 2), (2, 3), (3, 4), (4, 5)};
     let src = 1;
     let dst = 5;
@@ -100,7 +100,7 @@ def main(): Unit & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`def main(): Unit & Impure =
+                        {`def main(): Unit \ IO =
     let movies = #{
         Movie("The Hateful Eight").
         Movie("Interstellar").
@@ -179,7 +179,7 @@ def withAdoptions(): #{ AdoptedBy(String, String),
     AncestorOf(x, y) :- AdoptedBy(x, y).
 }
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     let c = false;
     if (c) {
         query getParents(), getAdoptions(), withAncestors() 
@@ -251,7 +251,7 @@ def closure(): #{ LabelledEdge(String, l, String),
     LabelledPath(x, l, z) :- LabelledPath(x, l, y), LabelledPath(y, l, z).
 }
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     query edgesWithNumbers(), closure() 
         select (x, l, z) from LabelledPath(x, l, z) |> println;
     query edgesWithColor(), closure() 
@@ -331,7 +331,7 @@ let p = inject names, jedis into Name, Jedi`}</CodeBlock>
                     </p>
 
                     <CodeBlock>
-                        {`def main(): Unit & Impure =
+                        {`def main(): Unit \ IO =
     let f1 = #{
         ColorEdge(1, "blue", 2).
         ColorEdge(2, "blue", 3).
@@ -513,7 +513,7 @@ instance MeetLattice[Sign] {
                     </p>
 
                     <CodeBlock>
-                        {`pub def main(): Unit & Impure =
+                        {`pub def main(): Unit \ IO =
     let p = #{
         LocalVar("x"; Pos).
         LocalVar("y"; Zer).

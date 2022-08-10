@@ -55,7 +55,7 @@ def area(s: Shape): Int32 = match s {
 }
 
 // Computes the area of a 2 by 4.
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     area(Rectangle(2, 4)) |> println
 `}
                 </CodeBlock>
@@ -76,7 +76,7 @@ def polyAreas(): List[Int32] =
     polyArea({x = 1, y = 2}) ::
     polyArea({x = 2, y = 3, z = 4}) :: Nil
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     polyAreas() |> println
 `}
                 </CodeBlock>
@@ -87,7 +87,7 @@ def main(): Unit & Impure =
 
                 <CodeBlock>
                     {`/// A function that sends every element of a list
-def send(o: Channel[Int32], l: List[Int32]): Unit & Impure =
+def send(o: Channel[Int32], l: List[Int32]): Unit \ IO =
     match l {
         case Nil     => ()
         case x :: xs => o <- x; send(o, xs)
@@ -95,19 +95,19 @@ def send(o: Channel[Int32], l: List[Int32]): Unit & Impure =
 
 /// A function that receives n elements
 /// and collects them into a list.
-def recv(i: Channel[Int32], n: Int32): List[Int32] & Impure =
+def recv(i: Channel[Int32], n: Int32): List[Int32] \ IO =
     match n {
         case 0 => Nil
         case _ => (<- i) :: recv(i, n - 1)
     }
 
 /// A function that calls receive and sends the result on d.
-def wait(i: Channel[Int32], n: Int32, d: Channel[List[Int32]]): Unit & Impure =
+def wait(i: Channel[Int32], n: Int32, d: Channel[List[Int32]]): Unit \ IO =
     d <- recv(i, n);
     ()
 
 /// Spawn a process for send and wait, and print the result.
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     let l = 1 :: 2 :: 3 :: Nil;
     let c = chan Int32 100;
     let d = chan List[Int32] 100;

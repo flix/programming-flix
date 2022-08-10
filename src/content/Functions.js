@@ -156,7 +156,7 @@ println;`}
                     <CodeBlock>
                         {`def sum(x: Int32, y: Int32): Int32 = x + y
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     let inc = sum(1);
     inc(42) |> println
 `}
@@ -179,7 +179,7 @@ def main(): Unit & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`def main(): Unit & Impure =
+                        {`def main(): Unit \ IO =
     List.range(1, 100) |> 
     List.map(x -> x + 1) |> 
     println`}
@@ -222,7 +222,7 @@ def main(): Unit & Impure =
                         A function that prints to the console is <Code>Impure</Code> and must be marked as such:
                     </p>
 
-                    <CodeBlock>{`def addAndPrint(x: Int32, y: Int32): Int32 & Impure = 
+                    <CodeBlock>{`def addAndPrint(x: Int32, y: Int32): Int32 \ IO =
     let r = x + y;
     println(r);
     r`}</CodeBlock>

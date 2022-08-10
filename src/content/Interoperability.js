@@ -42,7 +42,7 @@ class Interoperability extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`import new java.io.File(String): ##java.io.File & Impure as newFile;
+                        {`import new java.io.File(String): ##java.io.File \ IO as newFile;
 newFile("HelloWorld.txt")`}
                     </CodeBlock>
 
@@ -67,8 +67,8 @@ newFile("HelloWorld.txt")`}
                     <CodeBlock>
                         {`type alias File = ##java.io.File
 
-def openFile(s: String): File & Impure = 
-    import new java.io.File(String): File & Impure as newFile;
+def openFile(s: String): File \ IO =
+    import new java.io.File(String): File \ IO as newFile;
     newFile(s)`}
                     </CodeBlock>
 
@@ -83,7 +83,7 @@ def openFile(s: String): File & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`import new java.io.File(String, String): ##java.io.File & Impure as newFile;
+                        {`import new java.io.File(String, String): ##java.io.File \ IO as newFile;
 newFile("foo", "HelloWorld.txt")`}
                     </CodeBlock>
 
@@ -102,8 +102,8 @@ newFile("foo", "HelloWorld.txt")`}
                     </p>
 
                     <CodeBlock>
-                        {`import new java.io.File(String): ##java.io.File & Impure as newFile;
-import java.io.File.exists(): Bool & Impure;
+                        {`import new java.io.File(String): ##java.io.File \ IO as newFile;
+import java.io.File.exists(): Bool \ IO;
 let f = newFile("HelloWorld.txt");
 exists(f)`}
                     </CodeBlock>
@@ -154,8 +154,8 @@ exists(f)`}
                     </p>
 
                     <CodeBlock>
-                        {`import new flix.test.TestClass(): ##flix.test.TestClass & Impure as newObject;
-import get flix.test.TestClass.boolField: Bool & Impure as getField;
+                        {`import new flix.test.TestClass(): ##flix.test.TestClass \ IO as newObject;
+import get flix.test.TestClass.boolField: Bool \ IO as getField;
 let o = newObject();
 getField(o)`}
                     </CodeBlock>
@@ -175,9 +175,9 @@ getField(o)`}
                     </p>
 
                     <CodeBlock>
-                        {`import new flix.test.TestClass(): ##flix.test.TestClass & Impure as newObject;
-import get flix.test.TestClass.boolField: Bool & Impure as getField;
-import set flix.test.TestClass.boolField: Unit & Impure as setField;
+                        {`import new flix.test.TestClass(): ##flix.test.TestClass \ IO as newObject;
+import get flix.test.TestClass.boolField: Bool \ IO as getField;
+import set flix.test.TestClass.boolField: Unit \ IO as setField;
 let o = newObject();
 setField(o, false);
 getField(o)`}
@@ -192,7 +192,7 @@ getField(o)`}
                     </p>
 
                     <CodeBlock>
-                        {`import static java.lang.String.valueOf(Bool): String & Impure;
+                        {`import static java.lang.String.valueOf(Bool): String \ IO;
     valueOf(true)`}
                     </CodeBlock>
 
@@ -206,7 +206,7 @@ getField(o)`}
                     </p>
 
                     <CodeBlock>
-                        {`import static get java.lang.Integer.MIN_VALUE: Int32 & Impure as getMinValue;
+                        {`import static get java.lang.Integer.MIN_VALUE: Int32 \ IO as getMinValue;
 getMinValue()`}
                     </CodeBlock>
 

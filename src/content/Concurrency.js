@@ -42,7 +42,7 @@ class Concurrency extends React.Component {
                     <CodeBlock>
                         {`def sum(x: Int32, y: Int32): Int32 = x + y
 
-def main(): Unit & Impure = spawn sum(1, 2)`}
+def main(): Unit \ IO = spawn sum(1, 2)`}
                     </CodeBlock>
 
                 </SubSection>
@@ -69,9 +69,9 @@ def main(): Unit & Impure = spawn sum(1, 2)`}
                     </p>
 
                     <CodeBlock>
-                        {`def send(c: Channel[Int32]): Unit & Impure = c <- 42; ()
+                        {`def send(c: Channel[Int32]): Unit \ IO = c <- 42; ()
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     let c = chan Int32 0;
     spawn send(c);
     <- c;
@@ -94,11 +94,11 @@ def main(): Unit & Impure =
                     </p>
 
                     <CodeBlock>
-                        {`def meow(c: Channel[String]): Unit & Impure = c <- "Meow!"; ()
+                        {`def meow(c: Channel[String]): Unit \ IO = c <- "Meow!"; ()
                         
-def woof(c: Channel[String]): Unit & Impure = c <- "Woof!"; ()
+def woof(c: Channel[String]): Unit \ IO = c <- "Woof!"; ()
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     let c1 = chan String 1;
     let c2 = chan String 1;
     spawn meow(c1);
@@ -157,13 +157,13 @@ select {
                     </p>
 
                     <CodeBlock>
-                        {`def slow(c: Channel[String]): Unit & Impure =
-    import static java.lang.Thread.sleep(Int64): Unit & Impure;
+                        {`def slow(c: Channel[String]): Unit \ IO =
+    import static java.lang.Thread.sleep(Int64): Unit \ IO;
     sleep(Time/Duration.oneMinute() / 1000000i64);
     c <- "I am very slow";
     ()
 
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     let c = chan String 1;
     spawn slow(c);
     select {

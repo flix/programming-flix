@@ -33,7 +33,7 @@ class Effects extends React.Component {
                 </p>
 
                 <CodeBlock>
-                    {`println("Hello World") : Unit & Impure`}
+                    {`println("Hello World") : Unit \ IO`}
                 </CodeBlock>
 
                 <p>

@@ -30,7 +30,7 @@ class TipsAndTricks extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`def main(): Unit & Impure = ...`}
+                        {`def main(): Unit \ IO = ...`}
                     </CodeBlock>
 
                     <p>
@@ -44,7 +44,7 @@ class TipsAndTricks extends React.Component {
                     </p>
 
                     <CodeBlock>
-                        {`def main(): Unit & Impure=
+                        {`def main(): Unit \ IO=
     let args = Environment.getArgs();
     ...`}
                     </CodeBlock>
